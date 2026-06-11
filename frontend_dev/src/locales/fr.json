@@ -1,0 +1,813 @@
+  {
+    "app": {
+      "calendar": {
+        "description": "Planifiez vos sorties à venir et consultez votre historique de trajets passés.",
+        "stats": {
+          "title": "Statistiques du mois"
+        },
+        "title": "Calendrier"
+      },
+      "equipment": {
+        "accessories": {
+          "addAccessory": "Ajouter un accessoire",
+          "addAccessoryCTA": "Appuyez ici pour créer un accessoire",
+          "description": "Gérez vos accessoires de cyclisme, suivez leur usure et recevez des rappels pour l'entretien.",
+          "emptyAccessoriesDescription": "Commencez par ajouter votre premier accessoire pour suivre son usure et recevoir des rappels d'entretien à l'avenir.",
+          "emptyTitle": "Aucun accessoire enregistré",
+          "title": "Accessoires"
+        },
+        "bikes": {
+          "addBike": "Ajouter un vélo",
+          "description": "Gérez vos vélos, suivez leur usure et recevez des rappels pour l'entretien.",
+          "editBike": "Modifier le vélo",
+          "emptyDescription": "Commencez par ajouter votre premier vélo pour suivre son usure et recevoir des rappels d'entretien à l'avenir.",
+          "emptyTitle": "Aucun vélo enregistré",
+          "saveBike": "Enregistrer les modifications",
+          "title": "Mes vélos",
+          "title_one": "Mon vélo",
+          "title_zero": "Mon futur vélo"
+        },
+        "description": "Gérez votre équipement de cyclisme, suivez l'usure et recevez des rappels pour l'entretien.",
+        "maintenances": {
+          "description": "Planifiez et suivez les maintenances de votre équipement pour assurer des performances optimales.",
+          "emptyTitle": "Aucune maintenance prévue",
+          "helpText": "Gérez les tâches d'entretien et suivez l'historique des services pour assurer des performances optimales.",
+          "title": "Maintenance à prévoir"
+        },
+        "stats": {
+          "title": "Statistiques de l'équipement"
+        },
+        "title": "Équipement"
+      },
+      "home": {
+        "calendar": {
+          "description": "Planifiez vos sorties à venir et consultez votre historique de trajets passés.",
+          "stats": {
+            "title": "Statistiques du mois"
+          },
+          "title": "Calendrier"
+        },
+        "challenges": {
+          "modal": {
+            "create_title": "Créer un nouveau challenge",
+            "edit_title": "Modifier le challenge : {{title}}",
+            "field": {
+              "challenge_value_label": "Valeur du challenge",
+              "challenge_value_placeholder": "Entrez la valeur cible pour votre challenge",
+              "description_label": "Description du challenge",
+              "description_placeholder": "Décrivez votre challenge pour vous motiver !",
+              "distance_description": "Définissez une distance cible pour votre challenge, comme 100 km, pour vous motiver à rouler davantage.",
+              "duration_label": "Durée du challenge (en jours)",
+              "name_label": "Nom du challenge",
+              "name_placeholder": "Entrez un nom pour votre challenge",
+              "speed_description": "Définissez une vitesse cible pour votre challenge, comme 25 km/h, pour vous motiver à améliorer votre performance.",
+              "time_description": "Définissez une durée cible pour votre challenge, comme 10 heures, pour vous motiver à passer plus de temps à rouler.",
+              "total_duration_description": "Définissez une durée totale pour votre challenge, comme 30 jours, pour vous motiver à maintenir une routine de cyclisme régulière.",
+              "total_duration_label": "Durée totale du challenge",
+              "total_duration_placeholder": "Entrez la durée totale du challenge",
+              "type_label": "Type de challenge",
+              "type_placeholder": "Sélectionnez le type de challenge"
+            },
+            "update_progress_confirmation": "Êtes-vous sûr de vouloir mettre à jour la progression de ce challenge ? toute progression précédente sera écrasée.",
+            "update_progress_title": "Mettre à jour la progression"
+          },
+          "title": "Challenges en cours"
+        },
+        "description": "Bienvenue sur votre tableau de bord personnel. Ici, vous pouvez suivre vos activités récentes, planifier vos prochaines sorties et gérer votre équipement de cyclisme.",
+        "equipment": {
+          "description": "Gérez votre équipement de cyclisme, suivez l'usure et recevez des rappels pour l'entretien.",
+          "stats": {
+            "title": "Statistiques de l'équipement"
+          },
+          "title": "Équipement"
+        },
+        "recentRides": {
+          "title": "Sorties récentes",
+          "title_one": "Sortie récente",
+          "title_other": "Sorties récentes"
+        },
+        "rideNow": "Démarrer une sortie",
+        "rides": {
+          "description": "Suivez vos sorties, analysez vos performances et partagez vos aventures à vélo avec la communauté.",
+          "title": "Sorties"
+        },
+        "stats": {
+          "title": "Statistiques de la semaine"
+        },
+        "title": "Accueil"
+      },
+      "index": {
+        "by_bikeapp": "Par BikeApp",
+        "login_with_email": "Connexion",
+        "welcome": "Bienvenue sur"
+      },
+      "profil": {
+        "contact": {
+          "about": {
+            "title": "À propos",
+            "description": "Découvrez l'histoire de BikeApp, notre mission et comment nous nous engageons à offrir la meilleure expérience possible aux cyclistes du monde entier."
+          },
+          "contactUs": {
+            "description": "Obtenez de l'aide ou envoyez des commentaires",
+            "title": "Contactez-nous"
+          },
+          "description": "Nous sommes là pour vous aider. Contactez notre support pour toute question ou assistance.",
+          "rate": {
+            "description": "Faites-nous savoir ce que vous pensez de BikeApp en laissant une évaluation sur votre plateforme d'applications préférée. Votre avis nous aide à améliorer l'application et à offrir une meilleure expérience à tous les utilisateurs.",
+            "title": "Évaluez-nous"
+          },
+          "share": {
+            "description": "Faites savoir aux autres ce que vous pensez de nous",
+            "shareMessage": "Découvrez {{appName}}, l'application ultime pour les cyclistes ! Suivez vos trajets, planifiez vos itinéraires et connectez-vous avec d'autres passionnés de vélo. Téléchargez-la dès maintenant et commencez à rouler !",
+            "title": "Partager l'app"
+          },
+          "title": "Nous contacter"
+        },
+        "fields": {
+          "about": "À propos",
+          "account": "Compte",
+          "darkMode": "Mode sombre",
+          "deleteAccount": "Supprimer le compte",
+          "emailNotifications": "Notifications par e-mail",
+          "firstConnected": "Première connexion",
+          "language": "Langue",
+          "level": "Niveau",
+          "notifications": "Notifications",
+          "offlineMode": "Mode hors ligne",
+          "privacy": "Confidentialité",
+          "pushNotifications": "Notifications push",
+          "security": "Sécurité",
+          "theme": "Thème"
+        },
+        "general": {
+          "darkMode": {
+            "description": "Activez le mode sombre pour une expérience visuelle plus confortable dans les environnements à faible luminosité.",
+            "title": "Mode sombre"
+          },
+          "deleteAccount": {
+            "description": "Supprimez définitivement votre compte et toutes vos données associées. Cette action est irréversible.",
+            "title": "Supprimer le compte"
+          },
+          "description": "Gérez vos informations personnelles et vos préférences",
+          "disconnect": {
+            "description": "Déconnectez-vous de votre compte pour protéger vos informations personnelles.",
+            "title": "Se déconnecter"
+          },
+          "language": {
+            "description": "Sélectionnez votre langue préférée pour l'interface de l'application.",
+            "title": "Langue"
+          },
+          "offlineMode": {
+            "description": "Activez le mode hors ligne pour accéder à vos données même sans connexion Internet. Vos modifications seront synchronisées dès que vous serez de nouveau en ligne.",
+            "title": "Mode hors ligne"
+          },
+          "profil": {
+            "description": "Gérez les informations de votre profil, telles que votre nom, votre e-mail et votre avatar.",
+            "title": "Profil utilisateur"
+          },
+          "title": "Profil et paramètres"
+        },
+        "notifications": {
+          "description": "Gérez vos préférences de notification",
+          "emailNotifications": {
+            "description": "Recevez des notifications importantes et des mises à jour par e-mail.",
+            "title": "Notifications par e-mail"
+          },
+          "notifications": {
+            "description": "Gérez vos préférences de notification pour rester informé des mises à jour et des alertes importantes.",
+            "title": "Notifications dans l'application"
+          },
+          "pushNotifications": {
+            "description": "Recevez des notifications instantanées sur votre appareil pour les mises à jour et les alertes importantes.",
+            "title": "Notifications push"
+          },
+          "title": "Paramètres de notification"
+        },
+        "privacy": {
+          "description": "Lisez nos conditions d'utilisation pour comprendre vos droits et responsabilités en utilisant notre application.",
+          "github": {
+            "description": "Voir notre code source sur GitHub",
+            "title": "GitHub"
+          },
+          "privacyPolicy": {
+            "description": "Lire notre politique de confidentialité",
+            "title": "Politique de confidentialité"
+          },
+          "termsOfService": {
+            "description": "Lire nos conditions d'utilisation",
+            "title": "Conditions d'utilisation"
+          },
+          "title": "Conditions d'utilisation",
+          "website": {
+            "description": "Visitez notre site Web officiel",
+            "title": "Site web"
+          }
+        },
+        "tab": {
+          "contact": "Nous contacter",
+          "general": "Général",
+          "notifications": "Notifications",
+          "privacy": "Conditions"
+        }
+      },
+      "rides": {
+        "delete_ride": "Supprimer la sortie (attention, action irréversible !",
+        "fields": "{{field}} de la sortie",
+        "title": "Sortie",
+        "tracking_disabled_message": "Veuillez activer le suivi pour commencer une sortie.",
+        "tracking_disabled_title": "Suivi désactivé",
+        "confirmEnd": {
+          "description": "Êtes-vous sûr de vouloir terminer cette sortie ?",
+          "title": "Terminer la sortie"
+        },
+        "no_bike": {
+          "message": "Veuillez sélectionner un vélo pour commencer une sortie.",
+          "title": "Aucun vélo sélectionné"
+        },
+        "no_type_ride": {
+          "message": "Veuillez créer un type de sortie 'Ride' pour commencer une sortie.",
+          "title": "Aucun type de sortie sélectionné"
+        }
+      }
+    },
+    "common": {
+      "accessories_one": "Accessoire",
+      "accessories_other": "Accessoires",
+      "accessories_zero": "Aucun accessoire",
+      "accessory": "Accessoire",
+      "actions": {
+        "add": "Ajouter",
+        "cancel": "Annuler",
+        "clear": "Effacer",
+        "close": "Fermer",
+        "confirm": "Confirmer",
+        "continue": "Continuer",
+        "create": "Créer",
+        "delete": "Supprimer",
+        "edit": "Modifier",
+        "next": "Suivant",
+        "ok": "OK",
+        "previous": "Précédent",
+        "reset": "Réinitialiser",
+        "rideNow": "Rouler maintenant",
+        "save": "Sauvegarder",
+        "share": "Partager",
+        "submit": "Soumettre",
+        "update": "Mettre à jour",
+        "view": "Voir"
+      },
+      "activity-type": {
+        "add_type": "Ajouter un type d'activité",
+        "family": {
+          "challenge": "Challenge",
+          "event": "Événement",
+          "maintenance": "Maintenance",
+          "other": "Autre",
+          "ride": "Sortie",
+          "training": "Entraînement"
+        },
+        "label": {
+          "entretien-bike": "Entretien de vélo",
+          "exercise-bike": "Exercice",
+          "other": "Autre"
+        },
+        "no_type": "Aucun type d'activité disponible."
+      },
+      "alerts": {
+        "cancelConfirmation": "Êtes-vous sûr de vouloir annuler ? Les modifications non enregistrées seront perdues.",
+        "cancelConfirmationTitle": "Confirmer l'annulation",
+        "deleteConfirmation": "Êtes-vous sûr de vouloir supprimer cet élément ? Cette action est irréversible.",
+        "deleteConfirmationTitle": "Confirmer la suppression"
+      },
+      "andMore": "et {{count}} autres {{item}}...",
+      "assignedTo_one": "Assigné à {{count}} {{field}}",
+      "assignedTo_other": "Assigné à {{count}} {{field}}",
+      "assignedTo_zero": "Assigné à aucun {{field}}",
+      "bike": "Vélo",
+      "bike_preference": "Vélo Préféré",
+      "bike_status": {
+        "excellent": "Excellent état",
+        "fair": "État moyen",
+        "good": "État correct",
+        "poor": "Mauvais état",
+        "unknown": "État inconnu"
+      },
+      "bike-types": {
+        "cargo": "Cargo",
+        "cyclocross": "Cyclocross",
+        "electric": "Électrique",
+        "folding": "Pliant",
+        "gravel": "Gravel",
+        "hybrid": "Hybride",
+        "mountain": "VTT",
+        "other": "Autre",
+        "road": "Route"
+      },
+      "bikes": "Vélos",
+      "challenge": {
+        "challenge_types": {
+          "distance": "Challenge de distance",
+          "speed": "Challenge de vitesse",
+          "time": "Challenge de durée"
+        },
+        "days_left": "{{count}} jour restant",
+        "days_left_plural": "{{count}} jours restants",
+        "progress": "Progression"
+      },
+      "colorsHex": "#FF0000",
+      "component_type": {
+        "brake": "Frein",
+        "cassette": "Cassette",
+        "chain": "Chaîne",
+        "derailleur": "Dérailleur",
+        "fork": "Fourche",
+        "frame": "Cadre",
+        "group-set": "Groupe complet",
+        "handlebar": "Guidon",
+        "other": "Autre",
+        "pedal": "Pédale",
+        "saddle": "Selle",
+        "shifter": "Manette de vitesses",
+        "tire": "Pneu",
+        "transmission": "Transmission",
+        "wheel": "Roue"
+      },
+      "date": {
+        "dateTime": "à",
+        "late_one": "{{count}} jour en retard",
+        "late_other": "{{count}} jours en retard",
+        "overdue": "En retard",
+        "soon": "Dans {{count}}",
+        "today": "Aujourd'hui",
+        "tomorrow": "Demain",
+        "upcoming": "À venir"
+      },
+      "error": "Une erreur est survenue",
+      "errors": {
+        "correctFormErrors": "Veuillez corriger les erreurs dans le formulaire avant de continuer.",
+        "dateInPast": "{{field}} ne peut pas être dans le passé",
+        "duplicateName": "Un {{field}} avec ce nom existe déjà",
+        "endDateBeforeStartDate": "La date de fin doit être après la date de début",
+        "futureDate": "La date du dernier entretien ne peut pas être dans le futur",
+        "invalid": "{{field}} est invalide",
+        "invalid_email": "E-mail invalide",
+        "invalid_email_or_password": "E-mail ou mot de passe invalide",
+        "invalidDate": "La date du dernier entretien est invalide",
+        "max_length": "{{field}} ne peut pas dépasser {{length}} caractères",
+        "min_length": "{{field}} doit comporter au moins {{length}} caractères",
+        "negativeDistance": "La distance ne peut pas être négative",
+        "negativeRides": "Le nombre de sorties ne peut pas être négatif",
+        "network_error": "Erreur réseau, veuillez réessayer",
+        "password_mismatch": "Les mots de passe ne correspondent pas",
+        "required": "{{field}} est requis",
+        "startDateAfterEndDate": "La date de début doit être avant la date de fin",
+        "unknown_error": "Une erreur inconnue est survenue",
+        "validationError": "Erreur de validation",
+        "invalid_with_date": "{{field}} est invalide. La date doit être {{date}} ou plus tard."
+      },
+      "fields": {
+        "address": "Adresse",
+        "avatarURL": "URL de l'avatar",
+        "bio": "Bio",
+        "birthday": "Date de naissance",
+        "brand": "Marque",
+        "componentType": "Type de composant",
+        "createdAt": "Date de création",
+        "date": "Date",
+        "description": "Description",
+        "distance": "Distance",
+        "dt_end": "Date et heure de fin",
+        "dt_start": "Date et heure de début",
+        "duration": "Durée",
+        "email": "E-mail",
+        "firstName": "Prénom",
+        "fullName": "Identité complète",
+        "hasEndDate": "A une date de fin",
+        "id": "ID",
+        "image": "Image",
+        "itinerary": "Itinéraire",
+        "lastName": "Nom",
+        "location": "Localisation",
+        "map": "Carte",
+        "model": "Modèle",
+        "multiBike": "Utilisable sur plusieurs vélos",
+        "multiBikeDescription": "Cet accessoire est utilisable sur plusieurs vélos.",
+        "name": "Nom",
+        "no_distance": "0 m",
+        "no_duration": "--:--",
+        "notes": "Notes",
+        "phone": "Téléphone",
+        "recurrence": "Récurrence",
+        "recurrenceFrequency": "Fréquence de récurrence",
+        "recurrenceInterval": "Intervalle de récurrence",
+        "stats": "Statistiques",
+        "status": "État",
+        "time": "Heure",
+        "timeEnd": "Heure de fin",
+        "timeStart": "Heure de début",
+        "timezone": "Fuseau horaire",
+        "title": "Titre",
+        "trainingType": "Type d'entraînement",
+        "type": "Type",
+        "updatedAt": "Date de mise à jour",
+        "username": "Nom d'utilisateur",
+        "website": "Site web",
+        "year": "Année"
+      },
+      "filter": "Filtrer",
+      "filters": {
+        "all": "Tous",
+        "completed": "Terminé",
+        "overdue": "En retard",
+        "upcoming": "À venir"
+      },
+      "generalInfos": "Informations générales",
+      "loading": "Chargement...",
+      "maintenance": "Maintenance",
+      "maintenances": "Maintenances",
+      "none_female": "Aucune {{item}}",
+      "none_male": "Aucun {{item}}",
+      "placeholders": {
+        "name": "Entrez un nom",
+        "brand": "Entrez la marque",
+        "description": "Ajouter une description pour vous souvenir des détails",
+        "distance": "Entrez la distance",
+        "duration": "Entrez la durée",
+        "model": "Entrez le modèle",
+        "notes": "Ajouter des notes pour vous souvenir des détails",
+        "recurrenceFrequency": "Sélectionner une fréquence de récurrence",
+        "recurrenceInterval": "Entrez l'intervalle de récurrence",
+        "title": "Entrez un titre",
+        "year": "Entrez l'année",
+        "type": "Sélectionnez un type d'activité",
+        "image": "Sélectionnez une image",
+        "email": "Entrez votre e-mail",
+        "password": "Entrez votre mot de passe",
+        "date": "Sélectionnez une date",
+        "componentType": "Sélectionnez un type de composant",
+        "bike": "Sélectionnez un vélo",
+        "accessory": "Sélectionnez un accessoire",
+        "trainingType": "Sélectionnez un type d'entraînement"
+      },
+      "recurrence-frequency": {
+        "daily": "Quotidien",
+        "manually": "Manuellement",
+        "monthly": "Mensuel",
+        "none": "Aucun",
+        "weekly": "Hebdomadaire",
+        "yearly": "Annuel"
+      },
+      "ride": {
+        "pause": "Pause",
+        "start": "Démarrer",
+        "stop": "Terminer",
+        "play": "En cours"
+      },
+      "select": {
+        "accessory": "Sélectionnez un accessoire",
+        "bike": "Sélectionnez un vélo",
+        "maintenance": "Sélectionnez une maintenance",
+        "select": "Sélectionnez {{item}}",
+        "trainingType": "Sélectionnez un type d'entraînement"
+      },
+      "showAll": "Voir tout",
+      "showLess": "Voir moins",
+      "showMore": "Voir plus",
+      "stats": {
+        "accessories_one": "Accessoire",
+        "accessories_other": "Accessoires",
+        "accessories_zero": "Aucun accessoire",
+        "accessory": "Accessoire",
+        "avgSpeed": "Vitesse moyenne",
+        "bikes_one": "Vélo",
+        "bikes_other": "Vélos",
+        "bikes_zero": "Aucun vélo",
+        "distance": "Distance",
+        "distance_zero": "Aucune distance",
+        "duration": "Durée",
+        "elevation": "Dénivelé",
+        "hundred_or_more": "100 ou plus",
+        "last_maintenance": "Dernier entretien",
+        "maintenances_one": "Maintenance",
+        "maintenances_other": "Maintenances",
+        "maintenances_zero": "Aucune maintenance",
+        "manual": "Manuel",
+        "maxSpeed": "Vitesse max",
+        "no_stats": "Aucune donnée",
+        "objective_one": "Objectif",
+        "objective_other": "Objectifs",
+        "objective_zero": "Aucun objectif",
+        "rides_one": "Sortie",
+        "rides_other": "Sorties",
+        "rides_zero": "Aucune sortie",
+        "speed": "Vitesse",
+        "times": "Temps",
+        "training": "Entraînement",
+        "trainings": "Entraînements",
+        "unit_distance": "{{unit}} parcourus"
+      },
+      "training-type": {
+        "endurance": "Endurance",
+        "hill": "Montagne",
+        "interval": "Intervalles",
+        "other": "Autre",
+        "recovery": "Récupération",
+        "speed": "Vitesse",
+        "tempo": "Tempo"
+      },
+      "units": {
+        "days": "j",
+        "days_long": "jour",
+        "days_long_one": "jour",
+        "days_long_other": "jours",
+        "distance": "km",
+        "duration": {
+          "hours": "h",
+          "minutes": "min",
+          "seconds": "s"
+        },
+        "elevation": "m",
+        "speed": "km/h"
+      },
+      "unknown_type": "Type inconnu",
+      "untitled": "Sans titre",
+      "urgent": "Urgent"
+    },
+    "components": {
+      "map": {
+        "waypoints": {
+          "start": "Départ",
+          "end": "Arrivée",
+          "via": "Via {{index}}",
+          "add": "Ajouter un point de passage",
+          "edit": "Modifier le point de passage",
+          "remove": "Supprimer le point de passage",
+          "closeWaypoint": "Fermer le point de passage",
+          "openWaypoint": "Ouvrir le point de passage",
+          "flattenSegment": "Aplatir le segment",
+          "keepSegment": "Garder le segment",
+          "mergePoints": "Fusionner les points",
+          "cutHere": "Couper ici",
+          "clearAll": "Effacer tous les points de passage"
+        }
+      },
+      "accessories": {
+        "addNew": "Ajouter un accessoire",
+        "details": "Détails de l'accessoire",
+        "edit": "Modifier l'accessoire",
+        "editDetails": "Modifier les détails de l'accessoire",
+        "existing": "Accessoire existant",
+        "existingDescription": "Ce composant est déjà ajouté aux accessoires du vélo.",
+        "used": "Accessoire utilisé",
+        "usedDescription": "Ce composant est déjà utilisé par un autre vélo."
+      },
+      "activities": {
+        "activityNotFound": "Activité non trouvée",
+        "addActivity": "Ajouter une activité",
+        "addItinerary": "Ajouter un itinéraire",
+        "complete": "Marquer comme terminée",
+        "completeConfirmation": "Êtes-vous sûr de vouloir marquer cette activité comme terminée ?",
+        "completeConfirmationTitle": "Terminer l'activité",
+        "completed": "Terminée",
+        "default": "Activités de {{date}}",
+        "deleteRideConfirmation": "Êtes-vous sûr de vouloir supprimer cette sortie ? Cette action est irréversible.",
+        "deleteRideConfirmationTitle": "Supprimer la sortie",
+        "editActivity": "Modifier l'activité",
+        "editItinerary": "Modifier l'itinéraire",
+        "emptyRideAction": "Planifier une sortie",
+        "field": "{{field}} de l'activité",
+        "maintenanceBikeOrComponentRequired": "Veuillez sélectionner un vélo ou un composant pour cette maintenance.",
+        "maintenanceDetails": "Détails de la maintenance",
+        "maintenanceDetailsDescription": "Sélectionnez l'équipement concerné par cette maintenance pour suivre son usure et recevoir des rappels d'entretien à l'avenir.",
+        "maintenanceScheduledFor": "Maintenance de {{equipment}} prévue pour {{date}}",
+        "maintenanceToBeScheduled": "Maintenance à prévoir",
+        "month": "Activités de ce mois",
+        "newActivity": "Nouvelle activité",
+        "noActivitiesDay": "Aucune activité pour ce jour.",
+        "noActivitiesMonth": "Aucune activité pour ce mois.",
+        "noActivityTypeMessage": "Veuillez sélectionner un type d'activité pour ajouter des détails spécifiques à votre activité et suivre vos performances de manière plus précise.",
+        "noActivityTypeTitle": "Aucun type d'activité",
+        "noActivityTypeTitleMaintenance": "Aucun type d'activité de maintenance",
+        "noDescription": "Aucune description fournie",
+        "noRideTypeMessage": "Veuillez sélectionner un type de sortie pour ajouter des détails spécifiques à votre sortie et suivre vos performances de manière plus précise.",
+        "noRideTypeTitle": "Aucun type de sortie",
+        "noTrainingTypeTitle": "Aucun type d'entraînement",
+        "noTypeDetails": "Aucun détail supplémentaire requis pour ce type d'activité.",
+        "past": "Passé",
+        "pastDate": "Vous ne pouvez pas ajouter / modifier d'activités aux dates passées",
+        "recurrenceIntervalHelperText": "L'intervalle de récurrence est basée sur la fréquence sélectionnée. Vous pouvez l'ajuster selon vos besoins pour créer des activités récurrentes qui correspondent à votre emploi du temps et à vos objectifs.",
+        "rideCompleted": "Sortie terminée",
+        "rideDetails": "Détails de la sortie",
+        "rideDetailsDescription": "Entrez les détails de votre sortie, comme la distance parcourue, la durée, la vitesse moyenne et le dénivelé pour suivre vos performances et progresser dans votre pratique du cyclisme.",
+        "rideInProgress": "Sortie en cours",
+        "rideNotFound": "Sortie non trouvée",
+        "rideRequiresBikeOrEquipment": "Cette sortie nécessite la sélection d'un vélo ou d'un équipement pour suivre vos performances et recevoir des rappels d'entretien à l'avenir.",
+        "saveRide": "Enregistrer la sortie",
+        "saveRideConfirmation": "Une fois enregistrée, cette sortie sera ajoutée à votre historique et vous pourrez suivre vos performances et progresser dans votre pratique du cyclisme.",
+        "saveRideConfirmationTitle": "Êtes-vous sûr de vouloir enregistrer cette sortie ?",
+        "scheduleMaintenance": "Planifier une maintenance",
+        "selectEquipment": "Sélectionnez l'équipement concerné",
+        "startMessage": "Voulez-vous démarrer cette sortie ?",
+        "startRide": "Commencer la sortie",
+        "startRideConfirmation": "Êtes-vous sûr de vouloir commencer cette sortie ?",
+        "startTitle": "Démarrer la sortie",
+        "stopRide": "Terminer la sortie",
+        "today": "Activités d'aujourd'hui",
+        "trainingDetails": "Détails de l'entraînement",
+        "trainingDetailsDescription": "Sélectionnez le type d'entraînement que vous avez effectué pour suivre vos progrès et adapter vos futurs entraînements en fonction de vos objectifs de cyclisme.",
+        "untitledRide": "Sortie sans titre",
+        "ExitRideConfirmation": "Êtes-vous sûr de vouloir quitter cette sortie ? Les données non enregistrées seront perdues.",
+        "ExitRideConfirmationTitle": "Quitter la sortie"
+      },
+      "bike_status": {
+        "good": "🚴 Excellent état - Prêt pour de longues sorties",
+        "helperText": "Indiquez l'état actuel de votre vélo pour suivre son usure et planifier les entretiens nécessaires.",
+        "low": "🔧 État moyen - Entretien nécessaire",
+        "medium": "⚙️ État correct - Entretien recommandé bientôt",
+        "unknown": "❓ État inconnu - Ajoutez des données pour suivre l'usure"
+      },
+      "challenge": {
+        "days_left": "{{count}} jour restant",
+        "days_left_plural": "{{count}} jours restants",
+        "empty": "Aucun challenge en cours",
+        "empty_action": "Créer un nouveau challenge",
+        "empty_description": "Relevez un défi pour rester motivé et atteindre vos objectifs de cyclisme !"
+      },
+      "common": {
+        "already_have_account": "Vous avez déjà un compte ?",
+        "cancel": "Annuler",
+        "continue": "Continuer",
+        "dont_have_account": "Vous n'avez pas de compte ?"
+      },
+      "day_progress": {
+        "daily_goal_duration_description": "Définisse une valeur de durée pour votre challenge quotidien, comme 30 minutes, pour vous motiver à faire du vélo chaque jour.",
+        "daily_goal_reset_description": "Il sera réinitialisé tous les jours à minuit pour vous permettre de relever un nouveau défi quotidiennement !",
+        "description": "Atteignez votre objectif de cyclisme quotidien pour rester en forme et motivé !",
+        "description_completed": "Félicitations pour avoir atteint votre objectif de cyclisme quotidien ! Continuez à rouler pour rester en forme et motivé !",
+        "greeting": "Félicitations ! 🎉",
+        "title": "Objectif du jour",
+        "title_completed": "Objectif ATTEINT !",
+        "title_no_goal": "Aucun objectif défini"
+      },
+      "forgot_password": {
+        "description": "Saisissez votre e-mail pour réinitialiser votre mot de passe",
+        "email": "E-mail",
+        "invalid_email": "L'e-mail que vous avez saisi est invalide. Veuillez vérifier et réessayer.",
+        "reset_action": "Réinitialiser votre mot de passe",
+        "title": "Mot de passe oublié ?",
+        "remember_password": "Vous vous souvenez de votre mot de passe ?",
+        "back_to_sign_in": "Retour à la connexion"
+      },
+      "greeting": {
+        "afternoon": "Bon après-midi",
+        "evening": "Bonsoir",
+        "morning": "Bonjour"
+      },
+      "legend": {
+        "addButton": "Ajouter un type d'activité",
+        "deleteConfirmation": "Êtes-vous sûr de vouloir supprimer ce type d'activité ? Cette action est irréversible.",
+        "deleteWithActivitiesConfirmation": "Ce type d'activité est associé à {{count}} activité(s). Êtes-vous sûr de vouloir le supprimer ? Cette action est irréversible et les activités associées seront réaffectées au type d'activité par défaut.",
+        "editTypeTitle": "Modifier un type d'activité",
+        "helperText": "Les types d'activité personnalisés vous permettent de catégoriser vos activités selon vos préférences. \nN'hésitez pas à créer des catégories qui vous ressemblent !",
+        "newTypeTitle": "Nouveau type d'activité",
+        "title": "Légende des activités",
+        "typeColor": {
+          "custom": "Couleur personnalisée",
+          "exists": "Un type d'activité avec cette couleur existe déjà.",
+          "helperText": "Choisissez une couleur pour identifier facilement ce type d'activité dans votre calendrier.",
+          "invalid": "La couleur doit être un code hexadécimal valide (ex: #FF5733).",
+          "label": "Couleur du type d'activité",
+          "labelHex": "Code hexadécimal",
+          "placeholder": "Ex: #FF5733"
+        },
+        "typeFamily": {
+          "exists": "Un type d'activité avec cette famille existe déjà.",
+          "label": "Famille du type d'activité",
+          "placeholder": "Ex: Sortie, Entretien, Événement...",
+          "required": "La famille du type d'activité est requise."
+        },
+        "typeName": {
+          "exists": "Un type d'activité avec ce nom existe déjà.",
+          "label": "Nom du type d'activité",
+          "maxLength": "Le nom du type d'activité ne peut pas dépasser 30 caractères.",
+          "minLength": "Le nom du type d'activité doit comporter au moins 3 caractères.",
+          "placeholder": "Ex: Sport, Réunion, Cours...",
+          "required": "Le nom du type d'activité est requis."
+        }
+      },
+      "preferred": {
+        "alreadySelected": "Vous avez déjà un vélo préféré ({{bike}}). Vous ne pouvez en choisir qu'un seul.",
+        "label": "Marquer comme vélo préféré",
+        "labelDescription": "Le vélo préféré sera utilisé par défaut pour les nouvelles sorties et affiché en premier dans la liste de vos vélos. Maximum un vélo préféré."
+      },
+      "reset_password": {
+        "code": "Code de vérification",
+        "description": "Entrez le code envoyé à votre e-mail et définissez un nouveau mot de passe",
+        "invalid_code": "Le code de vérification est invalide ou a expiré. Veuillez réessayer.",
+        "new_password": "Nouveau mot de passe",
+        "password_requirements": "Le mot de passe doit comporter au moins 8 caractères, inclure une majuscule, une minuscule et un chiffre.",
+        "resend_email": "Renvoyer le code de vérification",
+        "reset_action": "Réinitialiser le mot de passe",
+        "title": "Réinitialiser le mot de passe"
+      },
+      "search_accessory": {
+        "accessories_error": "Une erreur est survenue lors du chargement des accessoires. Veuillez réessayer plus tard.",
+        "clear_search": "Effacer la recherche",
+        "no_accessories_for": "Aucun accessoire trouvé pour \"{{search}}\".",
+        "no_accessories_found": "Aucun accessoire trouvé.",
+        "placeholder": "Rechercher des accessoires",
+        "results_count": "{{count}} accessoire trouvé pour \"{{search}}\"."
+      },
+      "services_methods_maintenances": {
+        "distanceInterval": {
+          "helperText": "Cette méthode utilise la distance parcourue pour planifier les prochaines tâches d'entretien.",
+          "helperTextWithDate": "Prochaines entretien dans : {{nextService}} km",
+          "label": "Utiliser la distance parcourue pour planifier les prochaines tâches d'entretien"
+        },
+        "manual": {
+          "helperText": "Aucune planification automatique n'est effectuée pour l'entretien. Veuillez gérer manuellement les tâches d'entretien.",
+          "helperTextWithDate": "",
+          "label": "Planification manuelle des tâches d'entretien",
+          "placeholderNote": "Entrez des notes ou des rappels pour la planification manuelle de l'entretien."
+        },
+        "none": {
+          "helperText": "Aucune planification automatique n'est effectuée pour l'entretien. Veuillez gérer manuellement les tâches d'entretien.",
+          "helperTextWithDate": "",
+          "label": "Aucune planification automatique des tâches d'entretien",
+          "placeholderNote": "Entrez des notes ou des rappels pour la planification manuelle de l'entretien."
+        },
+        "ridesInterval": {
+          "helperText": "Cette méthode utilise le nombre de sorties pour planifier les prochaines tâches d'entretien.",
+          "helperTextWithDate": "Prochaines entretien dans : {{nextService}} sorties",
+          "label": "Utiliser le nombre de sorties pour planifier les prochaines tâches d'entretien"
+        },
+        "timeInterval": {
+          "helperText": "Cette méthode utilise le temps écoulé pour planifier les prochaines tâches d'entretien.",
+          "helperTextWithDate": "Prochaines entretien dans : {{nextService}} jours",
+          "label": "Utiliser le temps écoulé pour planifier les prochaines tâches d'entretien"
+        },
+        "title": "Méthode de planification de l'entretien",
+        "useLastServiceDate": {
+          "helperText": "Cette méthode utilise la date du dernier entretien pour planifier les prochaines tâches d'entretien.",
+          "helperTextWithDate": "Prochaines entretien le : {{nextService}} (6 mois après le dernier entretien)",
+          "label": "Utiliser la date du dernier entretien pour planifier les prochaines tâches d'entretien"
+        }
+      },
+      "sign_in": {
+        "description": "Bon retour ! Veuillez vous connecter pour continuer",
+        "email": "E-mail",
+        "forgot_password": "Mot de passe oublié ?",
+        "password": "Mot de passe",
+        "sign_up": "S'inscrire",
+        "title": "Connectez-vous à votre application"
+      },
+      "sign_up": {
+        "description": "Bienvenue ! Remplissez les informations pour commencer.",
+        "email": "E-mail",
+        "password": "Mot de passe",
+        "sign_in": "Se connecter",
+        "title": "Créez votre compte",
+        "full_name": "Nom complet",
+        "full_name_placeholder": "Entrez votre nom complet",
+        "email_placeholder": "Entrez votre e-mail",
+        "email_description": "Nous ne partagerons jamais votre e-mail.",
+        "password_description": "Votre mot de passe doit contenir au moins 8 caractères.",
+        "confirm_password": "Confirmer le mot de passe",
+        "confirm_password_description": "Veuillez confirmer votre mot de passe.",
+        "create_account": "Créer un compte"
+      },
+      "social_connections": {
+        "continue_with": "Continuer avec {{provider}}",
+        "or": "Ou",
+        "sign_in_with_google": "Se connecter avec Google",
+        "title": "Connectez-vous avec"
+      },
+      "suggestions": {
+        "empty": "Aucune suggestion pour le moment",
+        "empty_description": "Nous n'avons aucune suggestion pour le moment, mais nous travaillons dur pour en trouver de nouvelles pour vous !",
+        "for_you": "Pour vous",
+        "title": "suggestions"
+      },
+      "upload_file": {
+        "title": "Sélectionner un fichier"
+      },
+      "verify_email": {
+        "code": "Code de vérification",
+        "description": "Entrez le code de vérification envoyé à {{email}} pour vérifier votre adresse e-mail et activer votre compte.",
+        "didnt_receive": "Vous n'avez pas reçu le code ? Renvoyer",
+        "title": "Vérifiez votre e-mail"
+      }
+    },
+    "toast": {
+      "actions": {
+        "create": "créé",
+        "delete": "supprimé",
+        "update": "mis à jour"
+      },
+      "errorMessage": "Une erreur est survenue lors de {{action}} de {{resource}} : {{error}}",
+      "errorTitle": "Erreur",
+      "successMessage": "{{resource}} a été {{action}}.",
+      "successMultipleFields": "{{count}} champs ont été {{action}}.",
+      "successTitle": "Succès"
+    }
+  }

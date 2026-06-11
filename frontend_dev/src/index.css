@@ -1,0 +1,183 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+/* @import "shadcn/tailwind.css"; */
+@import "@fontsource-variable/inter";
+
+#root {
+  width: 100vw;
+}
+
+@custom-variant dark (&:is(.dark *));
+:root {
+  --background: #F5F5F5;
+  --foreground: #1E1E1E;
+
+  --card: #ffffff;
+  --card-foreground: #1E1E1E;
+
+  --primary: #FF7B1A;
+  --primary-foreground: #ffffff;
+
+  --secondary: #E5E5E5;
+  --secondary-foreground: #1E1E1E;
+
+  --muted: #E5E5E5;
+  --muted-foreground: #7D7D7D;
+
+  --accent: #FFEBDb;
+  --accent-foreground: #B24C00;
+
+  --destructive: #EF4444;
+
+  --border: #E5E5E5;
+  --input: #C9C9C9;
+  --ring: #FF7B1A;
+
+  --success: #16A34A;
+  --warning: #F59E0B;
+  --info: #3B82F6;
+
+  --radius: 0.75rem;
+}
+
+.dark {
+  --background: #121212;
+  --foreground: #ffffff;
+
+  --card: #1E1E1E;
+  --card-foreground: #ffffff;
+
+  --primary: #FF8933;
+  --primary-foreground: #121212;
+
+  --secondary: #2E2E2E;
+  --secondary-foreground: #ffffff;
+
+  --muted: #2E2E2E;
+  --muted-foreground: #A3A3A3;
+
+  --accent: #383838;
+  --accent-foreground: #ffffff;
+
+  --border: #2E2E2E;
+  --input: #2E2E2E;
+  --ring: #FF8933;
+}
+
+@theme inline {
+    --font-sans: 'Inter Variable', sans-serif;
+    --color-sidebar-ring: var(--sidebar-ring);
+    --color-sidebar-border: var(--sidebar-border);
+    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+    --color-sidebar-accent: var(--sidebar-accent);
+    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+    --color-sidebar-primary: var(--sidebar-primary);
+    --color-sidebar-foreground: var(--sidebar-foreground);
+    --color-sidebar: var(--sidebar);
+    --color-chart-5: var(--chart-5);
+    --color-chart-4: var(--chart-4);
+    --color-chart-3: var(--chart-3);
+    --color-chart-2: var(--chart-2);
+    --color-chart-1: var(--chart-1);
+    --color-ring: var(--ring);
+    --color-input: var(--input);
+    --color-border: var(--border);
+    --color-destructive: var(--destructive);
+    --color-accent-foreground: var(--accent-foreground);
+    --color-accent: var(--accent);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-muted: var(--muted);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-secondary: var(--secondary);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-primary: var(--primary);
+    --color-popover-foreground: var(--popover-foreground);
+    --color-popover: var(--popover);
+    --color-card-foreground: var(--card-foreground);
+    --color-card: var(--card);
+    --color-foreground: var(--foreground);
+    --color-background: var(--background);
+    --radius-sm: calc(var(--radius) * 0.6);
+    --radius-md: calc(var(--radius) * 0.8);
+    --radius-lg: var(--radius);
+    --radius-xl: calc(var(--radius) * 1.4);
+    --radius-2xl: calc(var(--radius) * 1.8);
+    --radius-3xl: calc(var(--radius) * 2.2);
+    --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+    }
+  body {
+    @apply bg-background text-foreground
+    }
+  html {
+    @apply font-sans;
+    }
+}
+
+::-webkit-scrollbar {
+    height: 5px;
+    width: 5px;
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: var(--border-radius);
+    background-color: var(--main-color);
+}
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type='number'] {
+  -moz-appearance: textfield;
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fade-out {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes zoom-in {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes zoom-out {
+    from {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    to {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+}

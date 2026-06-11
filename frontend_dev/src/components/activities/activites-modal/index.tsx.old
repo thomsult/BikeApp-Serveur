@@ -1,0 +1,702 @@
+// import { type AnyFieldApi, useForm, useStore } from "@tanstack/react-form";
+// import { isPast } from "date-fns";
+// import { type ComponentType, useMemo, useState } from "react";
+// import { useTranslation } from "react-i18next";
+// import { Pressable, View } from "react-native";
+// import {
+//   alertsCancelConfirmation,
+//   alertsDeleteConfirmation,
+// } from "@/components/alerts";
+// import { ModalLayout } from "@/components/layout/modal-layout";
+// import {
+//   useCreateActivity,
+//   useDeleteActivity,
+//   useUpdateActivity,
+// } from "@/lib/api/activity";
+// import type {
+//   Activity,
+//   ActivityMaintenanceT,
+//   ActivityRideT,
+//   ActivityTrainingT,
+//   AnyActivityT,
+// } from "@/lib/api/activity/activity";
+// import { useAllTypeActivities } from "@/lib/api/type-activity";
+// import { useSelectedLanguage } from "@/lib/i18n/language-context";
+// import { Alert } from "@/lib/notification/alert-context";
+// import { Toast } from "@/lib/notification/toast-context";
+// import { useTheme } from "@/lib/theme/theme-context";
+// import { IconSymbol } from "../../ui/icon/icon-symbol";
+// import { Input } from "../../ui/input";
+// import { DisplayError, FormField } from "../../ui/input/form-field";
+// import { InputCheckbox } from "../../ui/input/input-checkbox";
+// import { InputSelect } from "../../ui/input/input-select";
+// import { InputTime } from "../../ui/input/input-time";
+// import { SelectLabel } from "../../ui/select";
+// import { Text } from "../../ui/text";
+// import { ActivityMaintenance } from "./maintenance-activity";
+// import { RecurrenceActivity } from "./recurrence-activity";
+// import { ActivityRide } from "./ride-activity";
+// import { ActivityTraining } from "./training-activity";
+
+// export type FieldType<T> = ComponentType<{
+//   name: keyof T;
+//   validators?: any;
+//   children: (field: AnyFieldApi) => React.ReactNode;
+// }>;
+
+// const ActivityByType = ({
+//   form,
+//   Field,
+//   activityType,
+//   editable = true,
+//   initialValue,
+//   handleClickNewRideItinerary,
+// }: {
+//   form: ReturnType<typeof useForm>;
+//   Field: FieldType<Activity>;
+//   activityType: { family: string };
+//   editable?: boolean;
+//   initialValue: AnyActivityT | null;
+//   handleClickNewRideItinerary: () => void;
+// }) => {
+//   const { t } = useTranslation();
+//   switch (activityType.family) {
+//     case "ride":
+//       return (
+//         <ActivityRide
+//           Field={Field as FieldType<ActivityRideT>}
+//           editable={editable}
+//           initialValue={initialValue as ActivityRideT | null}
+//           handleClickNewRideItinerary={handleClickNewRideItinerary}
+//         />
+//       );
+//     case "training":
+//       return (
+//         <ActivityTraining
+//           Field={Field as FieldType<ActivityTrainingT>}
+//           editable={editable}
+//           initialValue={initialValue as ActivityTrainingT | null}
+//         />
+//       );
+//     case "maintenance":
+//       return (
+//         <ActivityMaintenance
+//           form={form}
+//           editable={editable}
+//           initialValue={initialValue as ActivityMaintenanceT | null}
+//         />
+//       );
+//     default:
+//       return (
+//         <Text className="text-sm text-gray-500">
+//           {t("components.activities.noTypeDetails")}
+//         </Text>
+//       );
+//   }
+// };
+
+// export const ActivityModal = ({
+//   initialValue,
+//   handleClose,
+// }: {
+//   initialValue: (AnyActivityT & { refer?: string }) | null;
+//   handleClose: (refer?: string) => void;
+// }) => {
+//   const defaultValues = useMemo(
+//     () => ({
+//       id: initialValue?.id || undefined,
+//       title: initialValue?.title || "",
+//       description: initialValue?.description || "",
+//       type: initialValue?.type || "",
+//       recurrence: initialValue?.recurrence || {
+//         frequency: "yearly",
+//         interval: undefined,
+//       },
+//       notes: initialValue?.notes || "",
+//       dt_start: initialValue?.dt_start || new Date().toISOString(),
+//       dt_end: initialValue?.dt_end || undefined,
+//       distance: initialValue?.distance || undefined,
+//       duration: initialValue?.duration || undefined,
+//       equipment: initialValue?.equipment || null,
+//       bike: initialValue?.bike || null,
+//       waypoints: initialValue?.waypoints || [],
+//       ...initialValue,
+//     }),
+//     [initialValue],
+//   );
+//   const { t } = useTranslation();
+//   const { language } = useSelectedLanguage();
+//   const { data: typeActivities } = useAllTypeActivities();
+//   const [itineraryRedirect, setItineraryRedirect] = useState(false);
+//   const [refer, setRefer] = useState<string | undefined>(initialValue?.refer);
+//   const { mutateAsync: createActivity } = useCreateActivity();
+//   const { mutateAsync: updateActivity } = useUpdateActivity();
+//   const { mutateAsync: deleteActivity } = useDeleteActivity();
+//   const theme = useTheme();
+//   const isReadOnly =
+//     initialValue?.dt_start &&
+//     (isPast(new Date(initialValue.dt_start)) || initialValue.completedAt);
+//   const handleSubmitForm = async (value: AnyActivityT) => {
+//     try {
+//       if (
+//         value.type &&
+//         typeActivities?.find((type) => type.id === value.type)?.family ===
+//           "ride" &&
+//         !value.bike &&
+//         !value.equipment
+//       ) {
+//         Toast.error({
+//           title: t("common.errors.validationError", {
+//             message: "",
+//           }),
+//           message: t("components.activities.rideRequiresBikeOrEquipment"),
+//         });
+//         form.setFieldMeta("bike", (meta) => ({
+//           ...meta,
+//           isValid: false,
+//           errorMap: {
+//             ...meta.errorMap,
+//             required: t("components.activities.rideRequiresBikeOrEquipment"),
+//           },
+//         }));
+//         return;
+//       }
+//       let activity: AnyActivityT;
+//       if (value.id) {
+//         activity = await updateActivity({
+//           ...value,
+//           id: value.id,
+//           dt_end: value.dt_end || "",
+//           typeFamily:
+//             typeActivities?.find((type) => type.id === value.type)?.family ||
+//             "other",
+//           option: {
+//             toast: itineraryRedirect ? false : undefined,
+//           },
+//         });
+//       } else {
+//         // Ici, vous pouvez gérer la soumission du formulaire
+//         activity = await createActivity({
+//           ...value,
+//           dt_end: value.dt_end || "",
+//           typeFamily:
+//             typeActivities?.find((type) => type.id === value.type)?.family ||
+//             "other",
+//           option: {
+//             toast: itineraryRedirect ? false : undefined,
+//           },
+//         });
+//       }
+//       if (itineraryRedirect && activity) {
+//         setItineraryRedirect(false);
+//         handleClose(`ride?id=${activity.id}`);
+//       } else {
+//         handleClose(refer);
+//       }
+//       form.reset();
+//     } catch {
+//       console.warn("Error submitting activity form", formState);
+//     }
+//   };
+
+//   const form = useForm({
+//     defaultValues,
+//     onSubmit: ({ value }) => handleSubmitForm(value as AnyActivityT),
+//     onSubmitInvalid: (e) => {
+//       console.warn("Invalid form submission", e);
+//       Toast.error({
+//         title: t("common.errors.validationError", {
+//           message: "",
+//         }),
+//         message: t("common.errors.correctFormErrors"),
+//       });
+//     },
+//   });
+
+//   const { Field, reset, handleSubmit } = form;
+//   const isDirty = useStore(form.store, (state) => state.isDirty);
+//   const formState = useStore(form.store, (state) => state.values);
+
+//   const handleClickNewType = () => {
+//     handleClose(
+//       "calendar?activity-type-modal=new&refer=calendar%3Factivity-modal=" +
+//         (initialValue?.id || "new"),
+//     );
+//   };
+//   const handleClickNewRideItinerary = () => {
+//     setItineraryRedirect(true);
+//     setRefer("ride?id=");
+//     handleSubmit();
+//   };
+
+//   const handleCancel = () => {
+//     if (itineraryRedirect) {
+//       reset();
+//       setItineraryRedirect(false);
+//       return;
+//     }
+//     if (isDirty) {
+//       alertsCancelConfirmation({
+//         reset: () => {
+//           reset();
+//           handleClose(initialValue?.refer);
+//         },
+//       });
+//     } else {
+//       reset();
+//       handleClose(initialValue?.refer);
+//     }
+//   };
+//   const handleRemove = () => {
+//     alertsDeleteConfirmation({
+//       onConfirm: () => {
+//         deleteActivity(formState as AnyActivityT);
+//         handleClose();
+//         reset();
+//       },
+//     });
+//   };
+//   const _handleComplete = () => {
+//     Alert.alert(
+//       t("components.activities.completeConfirmationTitle"),
+//       t("components.activities.completeConfirmation"),
+//       [
+//         {
+//           text: t("common.actions.cancel"),
+//           style: "cancel",
+//         },
+//         {
+//           text: t("common.actions.confirm"),
+//           style: "default",
+//           onPress: () => {
+//             updateActivity({
+//               ...formState,
+//               completedAt: new Date().toISOString(),
+//             } as AnyActivityT);
+//             handleClose();
+//             reset();
+//           },
+//         },
+//       ],
+//     );
+//   };
+//   const _handleStartRide = () => {
+//     Alert.alert(
+//       t("components.activities.startRide"),
+//       t("components.activities.startRideConfirmation"),
+//       [
+//         {
+//           text: t("common.actions.cancel"),
+//           style: "cancel",
+//         },
+//         {
+//           text: t("common.actions.confirm"),
+//           style: "default",
+//           onPress: () => {
+//             updateActivity(formState as AnyActivityT);
+
+//             reset();
+//             handleClose(
+//               "ride?id=new&actions=start&refer=calendar?activity-modal=" +
+//                 (formState?.id || "new"),
+//             );
+//           },
+//         },
+//       ],
+//     );
+//   };
+
+//   const limitDate = useMemo(() => {
+//     const limitDate = new Date();
+//     limitDate.setDate(limitDate.getDate() - 1);
+//     return limitDate;
+//   }, []);
+//   const _isRideType = formState?.type
+//     ? typeActivities?.find((type) => type.id === formState.type)?.family ===
+//       "ride"
+//     : false;
+
+//   return (
+//     <ModalLayout
+//       initialValue={initialValue}
+//       handleCancel={handleCancel}
+//       handleRemove={formState?.id ? handleRemove : undefined}
+//       handleSubmit={isDirty ? handleSubmit : undefined}
+//       // extraButtons={
+//       //   isReadOnly && formState?.id && !initialValue.completedAt
+//       //     ? () => (
+//       //         <View className="flex-row gap-3 overflow-hidden ">
+//       //           {isRideType && (
+//       //             <Button variant="primary" onPress={handleStartRide}>
+//       //               <IconSymbol
+//       //                 style={{ marginBottom: -2, marginLeft: 2 }}
+//       //                 name="bicycle"
+//       //                 size={24}
+//       //                 color={theme.colors.text}
+//       //               />
+//       //               <Text className="me-1 text-sm">
+//       //                 {t("components.activities.startRide")}
+//       //               </Text>
+//       //             </Button>
+//       //           )}
+//       //           <Button
+//       //             variant={isRideType ? "outline" : "secondary"}
+//       //             onPress={handleComplete}
+//       //             children={t("components.activities.complete")}
+//       //           />
+//       //         </View>
+//       //       )
+//       //     : undefined
+//       // }
+//     >
+//       <View
+//         style={{
+//           backgroundColor: theme.colors.card,
+//         }}
+//       >
+//         {formState &&
+//         formState?.dt_start > limitDate.toISOString() &&
+//         formState?.completedAt === undefined ? (
+//           <Text
+//             className=" text-lg font-bold"
+//             style={{ color: theme.colors.text }}
+//           >
+//             {formState.createdAt
+//               ? t("components.activities.editActivity")
+//               : t("components.activities.newActivity")}
+//           </Text>
+//         ) : (
+//           <View className="flex-row items-center gap-2">
+//             <Text
+//               className=" flex-1 text-lg font-bold"
+//               style={{ color: theme.colors.text }}
+//             >
+//               Activité : {formState.title}
+//             </Text>
+//             <Text
+//               style={{
+//                 color: formState.completedAt
+//                   ? theme.colors.success
+//                   : theme.colors.error,
+//               }}
+//               className="text-sm  font-light"
+//             >
+//               {formState.completedAt
+//                 ? t("components.activities.completed")
+//                 : formState?.dt_start < limitDate.toISOString() &&
+//                   t("components.activities.past")}
+//             </Text>
+//           </View>
+//         )}
+//       </View>
+
+//       <FormField
+//         label={t("components.activities.field", {
+//           field: t("common.fields.title"),
+//         })}
+//       >
+//         <Field
+//           name="title"
+//           validators={{
+//             onChange: ({ value }) =>
+//               value.trim() === ""
+//                 ? t("common.errors.required", {
+//                     field: t("common.fields.title"),
+//                   })
+//                 : undefined,
+//           }}
+//         >
+//           {(field) => (
+//             <>
+//               <Input
+//                 editable={!isReadOnly}
+//                 value={field.state.value ? String(field.state.value) : ""}
+//                 placeholder={t("common.placeholders.title")}
+//                 keyboardType="default"
+//                 onChangeText={field.handleChange}
+//               />
+//               <DisplayError field={field} />
+//             </>
+//           )}
+//         </Field>
+//       </FormField>
+//       <FormField
+//         label={t("components.activities.field", {
+//           field: t("common.fields.description"),
+//         })}
+//       >
+//         <Field name="description" validators={{}}>
+//           {(field) => (
+//             <>
+//               <Input
+//                 editable={!isReadOnly}
+//                 value={field.state.value ? String(field.state.value) : ""}
+//                 placeholder={t("common.placeholders.description")}
+//                 onChangeText={field.handleChange}
+//                 multiline={true}
+//                 numberOfLines={4}
+//               />
+//               <DisplayError field={field} />
+//             </>
+//           )}
+//         </Field>
+//       </FormField>
+//       <FormField
+//         label={t("components.activities.field", {
+//           field: t("common.fields.type"),
+//         })}
+//       >
+//         <Field name="type" validators={{}}>
+//           {(field) => {
+//             const selectedType =
+//               typeActivities?.find((type) => type.id === field.state.value) ||
+//               typeActivities?.[0] ||
+//               null;
+//             return (
+//               <>
+//                 <InputSelect
+//                   disabled={!!isReadOnly || false}
+//                   options={
+//                     typeActivities?.map((type) => ({
+//                       label: type.label,
+//                       value: type.id,
+//                     })) || []
+//                   }
+//                   value={{
+//                     label: selectedType?.label || "",
+//                     value: field.state.value || "",
+//                   }}
+//                   onChange={(option) => {
+//                     const selectedType = typeActivities?.find(
+//                       (type) => type.id === option?.value,
+//                     );
+//                     option && field.handleChange(selectedType?.id || "");
+//                   }}
+//                   SelectItemText={({ label, value }) => {
+//                     const type = typeActivities?.find(
+//                       (type) => type.id === value,
+//                     );
+//                     return (
+//                       <View className="flex-row items-center gap-2 px-2 py-1">
+//                         <View
+//                           style={{
+//                             backgroundColor: type?.color || "transparent",
+//                           }}
+//                           className={`size-2 rounded-full`}
+//                         />
+//                         <Text className="flex-1 text-sm">{label}</Text>
+//                         <Text
+//                           className="text-xs"
+//                           style={{ color: theme.colors.textLight }}
+//                         >
+//                           {t(`common.activity-type.family.${type?.family}`, {
+//                             defaultValue: type?.family,
+//                           })}
+//                         </Text>
+//                       </View>
+//                     );
+//                   }}
+//                   selectChildren={
+//                     <>
+//                       {(!typeActivities || typeActivities.length === 0) && (
+//                         <SelectLabel
+//                           className="p-4 text-center text-sm"
+//                           style={{ color: theme.colors.textLight }}
+//                         >
+//                           {t("common.activity-type.no_type")}
+//                         </SelectLabel>
+//                       )}
+//                       <SelectLabel>
+//                         <Pressable
+//                           className="w-full flex-row items-center justify-center gap-2 rounded-lg border border-dashed  p-3"
+//                           style={{
+//                             borderColor: theme.colors.chart1,
+//                           }}
+//                           onPress={handleClickNewType}
+//                         >
+//                           <IconSymbol
+//                             name="plus"
+//                             size={16}
+//                             color={theme.colors.text}
+//                           />
+//                           <Text
+//                             className="text-sm"
+//                             style={{ color: theme.colors.text }}
+//                           >
+//                             {t("common.activity-type.add_type")}
+//                           </Text>
+//                         </Pressable>
+//                       </SelectLabel>
+//                     </>
+//                   }
+//                 />
+//                 {!field.state.meta.isValid && (
+//                   <Text className="mt-1 text-sm text-red-500">
+//                     {field.state.meta.errors.join(", ")}
+//                   </Text>
+//                 )}
+//               </>
+//             );
+//           }}
+//         </Field>
+//       </FormField>
+//       <FormField
+//         label={t("components.activities.field", {
+//           field: t("common.fields.dt_start"),
+//         })}
+//       >
+//         <Field
+//           name="dt_start"
+//           listeners={{
+//             onChange: ({ fieldApi }) => {
+//               // Re-trigger dt_end validation when dt_start changes
+//               fieldApi.form.validateField("dt_end", "change");
+//             },
+//           }}
+//           validators={{
+//             onChange: ({ value }) => {
+//               if (isPast(new Date(value || ""))) {
+//                 return t("common.errors.dateInPast", {
+//                   field: t("common.fields.dt_start"),
+//                 });
+//               }
+//               if (
+//                 formState.dt_end &&
+//                 new Date(value || "") >= new Date(formState.dt_end)
+//               ) {
+//                 return t("common.errors.startDateAfterEndDate");
+//               }
+//               return undefined;
+//             },
+//           }}
+//         >
+//           {(field) => (
+//             <>
+//               <InputTime
+//                 editable={!isReadOnly}
+//                 mode="datetime"
+//                 title={t("components.activities.field", {
+//                   field: t("common.fields.dt_start"),
+//                 })}
+//                 locale={language}
+//                 value={field.state.value}
+//                 onChangeText={(dateStr) => {
+//                   field.handleChange(dateStr);
+//                 }}
+//               />
+//               <DisplayError field={field} />
+//             </>
+//           )}
+//         </Field>
+//       </FormField>
+//       <FormField
+//         label={t("components.activities.field", {
+//           field: t("common.fields.dt_end"),
+//         })}
+//       >
+//         <Field
+//           name="dt_end"
+//           listeners={{
+//             onChange: ({ fieldApi }) => {
+//               // Re-trigger dt_end validation when dt_start changes
+//               fieldApi.form.validateField("dt_start", "change");
+//             },
+//           }}
+//           validators={{
+//             onChange: ({ value }) => {
+//               if (value && isPast(new Date(value))) {
+//                 return t("common.errors.dateInPast", {
+//                   field: t("common.fields.dt_end"),
+//                 });
+//               }
+//               if (value && new Date(value) <= new Date(formState.dt_start)) {
+//                 return t("common.errors.endDateBeforeStartDate");
+//               }
+//               return undefined;
+//             },
+//           }}
+//         >
+//           {(field) => {
+//             const newDate = new Date(formState.dt_start);
+//             newDate.setHours(newDate.getHours() + 1);
+//             return (
+//               <>
+//                 <InputCheckbox
+//                   editable={!isReadOnly}
+//                   value={!!field.state.value}
+//                   className="mb-2"
+//                   label={t("common.fields.hasEndDate")}
+//                   onChange={(checked) => {
+//                     if (!checked) {
+//                       field.handleChange("");
+//                     } else {
+//                       field.handleChange(newDate.toISOString());
+//                     }
+//                   }}
+//                 />
+//                 {field.state.value && (
+//                   <InputTime
+//                     editable={!isReadOnly}
+//                     title={t("components.activities.field", {
+//                       field: t("common.fields.dt_end"),
+//                     })}
+//                     locale={language}
+//                     mode="datetime"
+//                     value={field.state.value || undefined}
+//                     onChangeText={(dateStr) => {
+//                       field.handleChange(dateStr);
+//                     }}
+//                   />
+//                 )}
+//                 <DisplayError field={field} />
+//               </>
+//             );
+//           }}
+//         </Field>
+//       </FormField>
+//       <FormField
+//         label={t("components.activities.field", {
+//           field: t("common.fields.recurrence"),
+//         })}
+//       >
+//         <RecurrenceActivity Field={Field} editable={!isReadOnly} />
+//       </FormField>
+//       <FormField
+//         label={t("components.activities.field", {
+//           field: t("common.fields.notes"),
+//         })}
+//       >
+//         <Field name="notes" validators={{}}>
+//           {(field) => (
+//             <>
+//               <Input
+//                 editable={!isReadOnly}
+//                 value={field.state.value ? String(field.state.value) : ""}
+//                 placeholder={t("common.placeholders.notes")}
+//                 multiline={true}
+//                 numberOfLines={4}
+//                 onChangeText={field.handleChange}
+//               />
+//               <DisplayError field={field} />
+//             </>
+//           )}
+//         </Field>
+//       </FormField>
+
+//       {formState.type && (
+//         <ActivityByType
+//           handleClickNewRideItinerary={handleClickNewRideItinerary}
+//           initialValue={initialValue}
+//           Field={Field}
+//           form={form as ReturnType<typeof useForm>}
+//           editable={!isReadOnly}
+//           activityType={
+//             typeActivities?.find((type) => type.id === formState.type) || {
+//               family: "",
+//             }
+//           }
+//         />
+//       )}
+//     </ModalLayout>
+//   );
+// };

@@ -1,0 +1,45 @@
+version: "3.9"
+
+services:
+  bikeapp-php:
+    build:
+      context: .
+      dockerfile: .docker/php/Dockerfile
+    container_name: bikeapp
+    restart: always
+    ports:
+      - "80:80"
+    environment:
+      DOMAIN: ${DOMAIN:-localhost}
+      SERVER_NAME: ${DOMAIN:-localhost}
+    volumes:
+      - .:/app
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    mem_limit: 4g
+    cpus: 0.5
+    entrypoint: >
+      sh -c "
+      composer install --no-dev --optimize-autoloader &&
+      php artisan config:cache &&
+      php artisan route:cache &&
+      php artisan view:cache &&
+      php artisan serve --host=0.0.0.0 --port=80
+      "
+  bikeapp-frontend:
+    container_name: bikeapp-frontend
+    image: caddy:2-alpine
+    ports:
+      - "8080:80"
+    restart: always
+    volumes:
+      - ./frontend/dist:/app
+      - ./frontend/Caddyfile:/etc/caddy/Caddyfile
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    mem_limit: 2g
+    cpus: 0.5
+
+
+volumes:
+  db_data:

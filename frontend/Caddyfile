@@ -1,0 +1,13 @@
+:80 {
+    root * /app
+
+    @sw path /sw.js
+    header @sw Cache-Control "no-cache"
+    file_server @sw
+
+    @manifest path /manifest.webmanifest
+    file_server @manifest
+
+    try_files {path} /index.html
+    file_server
+}

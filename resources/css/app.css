@@ -1,0 +1,20 @@
+@import "tailwindcss";
+
+@theme {
+    --color-bg-dark: #0f0a08;
+    --color-bg-elevated: #1a1210;
+    --color-accent-orange: #ff8c42;
+    --color-accent-amber: #ffa726;
+    --color-accent-coral: #ff6b4a;
+    --color-text-muted: #b4a59a;
+
+    --font-family-serif: "DM Serif Display", serif;
+    --font-family-sans: "Manrope", sans-serif;
+}
+
+@theme {
+    --font-sans:
+        "Instrument Sans", ui-sans-serif, system-ui, sans-serif,
+        "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol",
+        "Noto Color Emoji";
+}

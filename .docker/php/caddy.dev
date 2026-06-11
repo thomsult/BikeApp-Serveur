@@ -1,0 +1,7 @@
+api.bikeapp.local {
+	root * /app/public
+	# Activer la compression (optionnel)
+	encode zstd br gzip
+	# Exécuter les fichiers PHP dans le répertoire courant et servir les assets
+	php_server
+}

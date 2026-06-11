@@ -1,0 +1,16 @@
+{
+    "name": "Bikeapp",
+    "short_name": "Bikeapp",
+    "background_color": "#6777ef",
+    "display": "fullscreen",
+    "description": "A Progressive Web Application setup for Bikeapp.",
+    "theme_color": "#6777ef",
+    "start_url": "/",
+    "icons": [
+        {
+            "src": "logo.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}
