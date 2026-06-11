@@ -21,6 +21,7 @@ type mapPoint = {
   x: number;
   y: number;
   index: number;
+  [key: string]: any;
 } | null;
 
 
@@ -592,6 +593,41 @@ export const PolylineDrawer = () => {
 
 
   // ─────────────────────────────────────────
+  // 🎯 TOOLTIP au survol d'une ligne 
+  // ─────────────────────────────────────────
+
+
+  const [hoverLineTooltip, setHoverLineTooltip] = useState<mapPoint>(null);
+
+  useEffect(() => {
+
+    if (!map) return undefined;
+
+    const leave = () => {
+      setHoverLineTooltip(null);
+    };
+    const hover = (e: mapboxgl.MapMouseEvent) => {
+      // if (moveFrame.current) return;
+
+      // if (index === undefined) return;
+      setHoverLineTooltip({
+        x: e.point.x,
+        y: e.point.y,
+        index: 0, // 🔥 à remplacer par la distance
+      });
+    };
+
+    map.on('mousemove', "polyline-main-line-hitbox", hover);
+    map.on("mouseleave", "polyline-main-line-hitbox", leave);
+
+    return () => {
+      map.off('mousemove', "polyline-main-line-hitbox", hover);
+      map.off("mouseleave", "polyline-main-line-hitbox", leave);
+    };
+  }, [map, routeCoordinates, isClosed]);
+
+
+  // ─────────────────────────────────────────
   // 🎯 TOOLTIP au survol d'un point (index + distance)
   // ─────────────────────────────────────────
 
@@ -646,6 +682,7 @@ export const PolylineDrawer = () => {
           prev ? { ...prev, x: e.point.x, y: e.point.y } : null
         );
         moveFrame.current = null;
+
       });
     };
 
@@ -690,6 +727,26 @@ export const PolylineDrawer = () => {
 
   return (
     <>
+      {hoverLineTooltip && !activeTooltip && (
+
+        <div
+          style={{
+            position: "absolute",
+            left: hoverLineTooltip.x,
+            top: hoverLineTooltip.y,
+            transform: "translate(-50%, -120%)",
+            zIndex: 1000,
+          }}
+        >
+          <div className="bg-card rounded-xl shadow-md px-3 py-2 text-sm">
+            <span>
+              Cliquez pour ajouter un nouveau point !
+            </span>
+          </div>
+          <div className="w-0 h-0 border-l-4 border-l-transparent border-r-4 border-r-transparent border-t-4 border-t-white mx-auto" />
+        </div>
+
+      )}
       {activeTooltip && (
         <div
           style={{
