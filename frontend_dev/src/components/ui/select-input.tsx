@@ -1,7 +1,7 @@
 import type { AnyFieldApi } from "@tanstack/react-form";
 import { Select, SelectContent, SelectGroup, SelectItem, SelectItemWithIndicator, SelectTrigger, SelectValue } from "./select";
 import { FieldError } from "./field";
-import React from "react";
+import type React from "react";
 import type { ID } from "@/lib/api/types";
 
 export interface optionsProps { label: string; value: string, id: ID | string | undefined };

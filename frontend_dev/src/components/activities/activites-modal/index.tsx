@@ -163,7 +163,7 @@ export const ActivitiesModal = ({
     </span>;
   }, [formState, limitDate, t]);
 
-  const isReadOnly = formState.createdAt !== undefined && !Boolean(isPast(new Date(formState.createdAt)) && !formState.completedAt);
+  const isReadOnly = formState.createdAt !== undefined && !(isPast(new Date(formState.createdAt)) && !formState.completedAt);
   const handleClickNewType = useCallback(() => { }, []);
 
   const selectOptions = useMemo(() => {

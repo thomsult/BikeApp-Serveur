@@ -146,7 +146,7 @@ src/
 Type checking :
 
 ```bash
-npm run type-check
+npx tsc -b
 ```
 
 Lint :

@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 import { ControlledSelectInput } from "@/components/ui/select-input";
 import type { FieldType } from ".";
 import { useRouter } from "@tanstack/react-router";
-import { useForm, useStore } from "@tanstack/react-form";
+import { type useForm, useStore } from "@tanstack/react-form";
 import { BikeFormField } from "@/components/form/bike-form-field";
 
 

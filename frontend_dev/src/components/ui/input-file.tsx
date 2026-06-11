@@ -3,7 +3,7 @@ import { FieldError } from "./field";
 import { Button } from "./button";
 import { X } from "lucide-react";
 import { Input } from "./input";
-import { useForm, type AnyFieldApi, } from "@tanstack/react-form";
+import type { useForm, AnyFieldApi, } from "@tanstack/react-form";
 import { getUploadedFileUrl } from "@/lib/api/common";
 
 

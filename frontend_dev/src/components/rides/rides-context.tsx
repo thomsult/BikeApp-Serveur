@@ -276,7 +276,7 @@ export const useRideDispatch = ({
 
   const handleStart = useCallback(
     async (data: Partial<ActivityRideT>) => {
-      let newData = { ...data };
+      const newData = { ...data };
 
       const canStart = await checkIfCanStartRide();
       if (!canStart) return;

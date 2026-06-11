@@ -1,4 +1,4 @@
-import { onAuthStateChanged, type UserCredential } from "firebase/auth";
+import type { onAuthStateChanged, UserCredential } from "firebase/auth";
 type User = UserCredential['user'] | null;
 
 export interface AuthState {

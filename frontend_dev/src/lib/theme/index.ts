@@ -1,4 +1,4 @@
-import { type ThemeConfig } from "tailwindcss/plugin";
+import type { ThemeConfig } from "tailwindcss/plugin";
 import { colors } from "../../components/colors";
 
 const radius = {

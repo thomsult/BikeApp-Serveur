@@ -1,4 +1,4 @@
-import { type RideState } from "@/components/rides/rides-context";
+import type { RideState } from "@/components/rides/rides-context";
 import { create } from "zustand";
 import { persist } from 'zustand/middleware'
 import type { LocationObject } from "./map";
