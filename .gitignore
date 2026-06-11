@@ -28,4 +28,5 @@ frontend/dist
 storage/app/private
 storage/framework
 storage/logs
+sync.sh
 
