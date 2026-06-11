@@ -6,6 +6,9 @@ use App\Enums\TypeActivityFamily;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @mixin IdeHelperTypeActivity
+ */
 class TypeActivity extends Model
 {
     public bool $allows_public_viewing = true;

@@ -17,6 +17,9 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Notifications\Notifiable;
 
+/**
+ * @mixin IdeHelperUser
+ */
 class User extends Model
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */

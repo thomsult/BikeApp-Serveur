@@ -6,6 +6,9 @@ use App\Models\Activity\Activity;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
+/**
+ * @mixin IdeHelperActivitySnapshot
+ */
 class ActivitySnapshot extends Model
 {
     protected $fillable = [

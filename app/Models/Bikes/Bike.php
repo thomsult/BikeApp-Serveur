@@ -7,6 +7,9 @@ use App\Models\Bikes\Components\Components;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @mixin IdeHelperBike
+ */
 class Bike extends Model
 {
     protected $table = 'bikes';

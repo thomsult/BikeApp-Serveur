@@ -6,6 +6,9 @@ use App\Models\Activity\Activity;
 use App\Models\Bikes\Bike;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @mixin IdeHelperComponents
+ */
 class Components extends Model
 {
     protected $table = 'components';

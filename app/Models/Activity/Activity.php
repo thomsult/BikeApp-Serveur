@@ -7,6 +7,9 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @mixin IdeHelperActivity
+ */
 class Activity extends Model
 {
     protected $table = 'activities';

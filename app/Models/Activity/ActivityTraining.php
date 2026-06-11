@@ -2,6 +2,9 @@
 
 namespace App\Models\Activity;
 
+/**
+ * @mixin IdeHelperActivityTraining
+ */
 class ActivityTraining extends Activity
 {
     protected $fillable = [

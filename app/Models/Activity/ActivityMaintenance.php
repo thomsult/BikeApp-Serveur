@@ -5,6 +5,9 @@ namespace App\Models\Activity;
 use App\Models\Bikes\Bike;
 use App\Models\Bikes\Components\Components;
 
+/**
+ * @mixin IdeHelperActivityMaintenance
+ */
 class ActivityMaintenance extends Activity
 {
     protected $fillable = [

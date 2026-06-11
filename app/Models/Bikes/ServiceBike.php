@@ -4,6 +4,9 @@ namespace App\Models\Bikes;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @mixin IdeHelperServiceBike
+ */
 class ServiceBike extends Model
 {
     protected $table = 'service_bikes';

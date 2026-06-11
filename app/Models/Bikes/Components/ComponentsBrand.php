@@ -4,6 +4,9 @@ namespace App\Models\Bikes\Components;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @mixin IdeHelperComponentsBrand
+ */
 class ComponentsBrand extends Model
 {
     protected $table = 'brand_components_bikes';
