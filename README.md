@@ -9,6 +9,10 @@ Backend officiel de **BikeApp**, une application dédiée aux cyclistes permetta
 - Application Web : https://app.bikeapp.dpdns.org/
 - API Serveur : https://bikeapp.dpdns.org/
 
+- GIT Repository :
+    - Serveur : [Serveur](https://github.com/thomsult/BikeApp-Serveur)
+    - Frontend : [Frontend](https://github.com/thomsult/BikeApp-Serveur/tree/main/frontend_dev)
+
 ## ✨ Fonctionnalités
 
 - API REST Laravel 12
