@@ -130,6 +130,15 @@ FIREBASE_CREDENTIALS=/path/to/firebase-credentials.json
 
 ⚠️ Ne jamais versionner les fichiers de credentials.
 
+## 🏗️ Architecture
+
+BikeApp est composé de deux repositories :
+
+- BikeApp-Serveur : API Laravel 12
+- BikeApp-Serveur/frontend_dev : Application frontend (React + VitePWA)
+
+Les deux applications communiquent via une API REST et sont déployées dans un environnement Docker.
+
 ## 🧪 Tests
 
 Exécuter les tests :
