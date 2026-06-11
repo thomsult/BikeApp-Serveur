@@ -69,8 +69,9 @@ VITE_GOOGLE_CLIENT_ID=your_google_client_id
 
 Lancer le serveur de développement :
 
+Assurez-vous d'etre a la racine du projet (BikeApp-Serveur).
+
 ```bash
-Assurez-vous d'avoir d'etre a la racine du projet (BikeApp-Serveur).
 docker compose -f docker-compose.dev.yml up --build
 ```
 
