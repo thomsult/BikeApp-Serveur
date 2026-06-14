@@ -102,7 +102,7 @@ class CreateActivityRequest extends FormRequest
             };
         }
         if ($this->has(key: 'type')) {
-            $data['type_id'] = $this->input('type');
+            $data['type_id'] = $this->input('type.id');
         }
 
         if ($this->has(key: 'recurrence')) {

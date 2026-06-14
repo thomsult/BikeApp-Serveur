@@ -114,7 +114,7 @@ const BikeModalAccessories = ({
         />
       </>
       {selectedItem && !global ? (
-        <div className="flex items-center justify-end gap-2 w-full p-2">
+        <div className="flex items-center justify-end gap-2 w-full p-2 -mt-2">
           <Button
             variant={"tertiary"}
             className="flex-1 justify-start"

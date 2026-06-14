@@ -5,6 +5,8 @@ import type { FieldType } from ".";
 import { ActivityRide } from "./ride-activity";
 import { ActivityTraining } from "./training-activity";
 import { ActivityMaintenance } from "./maintenance-activity";
+import { useEffect } from "react";
+import { useAllBikes } from "@/lib/api/equipments";
 
 
 
@@ -26,8 +28,38 @@ export const ActivityByType = ({
   handleClickNewRideItinerary: () => void;
 }) => {
   const { t } = useTranslation();
+  const { data: allBikes } = useAllBikes();
+
+  useEffect(() => {
+    // Clear bike and component fields when switching to a type that doesn't use them
+    if (activityType === "training") {
+      form.setFieldValue("bike", null);
+      form.setFieldValue("component", null);
+    }
+    if (activityType === "ride") {
+      const preferredBike = allBikes?.find(bike => bike.preferred);
+      if (preferredBike) {
+        form.setFieldValue("bike", preferredBike);
+      } else {
+        form.setFieldValue("bike", null);
+      }
+      form.setFieldValue("trainingType", undefined);
+      form.setFieldValue("duration", undefined);
+      form.setFieldValue("itinerary", null);
+      form.setFieldValue("component", null);
+    }
+
+    if (activityType === "event" || activityType === "other") {
+      form.setFieldValue("bike", null);
+      form.setFieldValue("component", null);
+      form.setFieldValue("itinerary", null);
+      form.setFieldValue("trainingType", undefined);
+      form.setFieldValue("duration", undefined);
+    }
+  }, [activityType, form]);
   switch (activityType) {
     case "ride":
+
       return (
         <ActivityRide
           Field={Field}
@@ -38,6 +70,8 @@ export const ActivityByType = ({
         />
       );
     case "training":
+      // form.setFieldValue("bike", null);
+      // form.setFieldValue('component', null);
       return (
         <ActivityTraining
           Field={Field}
@@ -58,6 +92,7 @@ export const ActivityByType = ({
       return (
         <p className="text-sm text-gray-500">
           {t("components.activities.noTypeDetails")}
+          {activityType}
         </p>
       );
   }

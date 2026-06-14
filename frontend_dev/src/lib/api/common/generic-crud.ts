@@ -96,10 +96,9 @@ export class GenericCrud<T extends { id?: UUIDString }> {
 
   // GET single item
   get useItem() {
-    return createQuery<T, { id: string }, Error>({
-      queryKey: [this.resourceName, "item"],
-      staleTime: 0,
-      fetcher: async ({ id }) => {
+    return createMutation<T, { id: string }, Error>({
+      mutationKey: [`get${this.resourceName}`],
+      mutationFn: async ({ id }) => {
         if (!id) throw new Error("ID is required");
         try {
           if (this.allowRequests) {

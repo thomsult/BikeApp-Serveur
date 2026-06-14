@@ -6,8 +6,8 @@ import type { optionsProps } from "@/components/ui/select-input";
 const bikeTypeShape = z.object({
   id: idSchema,
   label: z.string(),
-  createdAt: z.string().optional(),
-  updatedAt: z.string().optional(),
+  createdAt: z.string().optional().nullable(),
+  updatedAt: z.string().optional().nullable(),
 });
 
 const statsShape = z.object({
@@ -31,19 +31,18 @@ const statsShape = z.object({
   createdAt: z.string().optional(),
   updatedAt: z.string().optional(),
 });
-const bikeImageShape = z.file().or(z.string().url()).nullable();
+const bikeImageShape = z.object({ file: z.instanceof(File), base64: z.string() }).or(z.string()).nullable();
 
 
 export const componentShape = z.object({
   id: idSchema,
   model: z.string(),
-  status: z.number(),
-  icon: z.string().optional(),
   multiBike: z.boolean().optional(),
+  status: z.number(),
   type: sampleSchema, // Placeholder, à remplacer par la validation complète du type de composant dès que possible
   brand: sampleSchema, // Placeholder, à remplacer par la validation complète de la marque de composant dès que possible
-  updatedAt: z.string().optional(),
-  createdAt: z.string().optional(),
+  updatedAt: z.string().optional().nullable(),
+  createdAt: z.string().optional().nullable(),
 });
 export const recurrenceShape = z.object({
   frequency: z.enum([
@@ -69,8 +68,7 @@ export const bikeShape = z.object({
   stats: statsShape,
   createdAt: z.string().optional(),
   updatedAt: z.string().optional(),
-
-}); // Placeholder, à remplacer par la validation complète du vélo dès que possible
+});
 
 
 

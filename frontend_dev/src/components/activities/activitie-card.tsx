@@ -16,7 +16,7 @@ export const ActivityCard = ({
   last?: boolean;
 }) => {
   const { data: typeActivities } = useAllTypeActivities();
-  const typeActivity = typeActivities?.find((type) => type.id === activity.type);
+  const typeActivity = typeActivities?.find((type) => type.id === activity.type?.id);
   const language = getExtLocalLanguage();
 
   const month = activity.dt_start

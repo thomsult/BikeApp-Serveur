@@ -63,7 +63,23 @@ export const BikeFormField = ({
         options={options}
         placeholder={t("common.select.bike")}
         disabled={!editable}
-        defaultValue={defaultValue?.bike ? options.find((o) => o.value === String(defaultValue.bike?.id))?.value : undefined}
+        defaultValue={defaultValue?.bike ? options.find((o) => o.value === String(defaultValue.bike?.id))?.id : undefined}
+        handleChange={(value, fieldHandleChange) => {
+          if (value === "" || value === null || value === undefined) {
+            fieldHandleChange(undefined);
+            return;
+          }
+          if (typeof value === "string") {
+            const selectedBike = bikes?.find((bike) => String(bike.id) === String(value));
+            fieldHandleChange(selectedBike ? selectedBike : undefined);
+          } else {
+            const selectedBike = bikes?.find((bike) => String(bike.id) === String(value.id));
+            fieldHandleChange(selectedBike ? selectedBike : undefined);
+
+          }
+        }}
+
+
       /> : <div>
         <Button disabled variant="outline" className="w-full">
           {t("app.equipment.bikes.emptyTitle")}

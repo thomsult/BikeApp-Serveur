@@ -4,17 +4,18 @@ import { Button } from "./button";
 import { X } from "lucide-react";
 import { Input } from "./input";
 import type { useForm, AnyFieldApi, } from "@tanstack/react-form";
-import { getUploadedFileUrl } from "@/lib/api/common";
+import { fileToBase64, getUploadedFileUrl } from "@/lib/api/common";
+import type { FileUpload } from "@/lib/api/equipments/bike";
 
 
 // ─── InputFile ───────────────────────────────────────────────────────────────
 
 type InputFileProps = {
-  onChange?: (file: File) => void;
+  onChange?: (item: FileUpload) => void;
   accept?: string;
   placeholder?: string;
   invalid?: boolean;
-  value?: File | string | null;
+  value?: FileUpload | string | null;
 };
 
 export const InputFile = ({
@@ -27,11 +28,13 @@ export const InputFile = ({
   const [preview, setPreview] = useState<string | null>(null);
 
   const handleFileChange = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
+    async (e: React.ChangeEvent<HTMLInputElement>) => {
       const file = e.target.files?.[0];
       if (!file) return;
 
-      onChange?.(file);
+      // Convertir tout de suite en base64, stocker ça plutôt que le File
+      const base64 = await fileToBase64(file);
+      onChange?.({ file, base64 }); // ou juste stocker base64 + fileName
 
       const objectUrl = URL.createObjectURL(file);
       setPreview((prev) => {
@@ -43,10 +46,9 @@ export const InputFile = ({
   );
 
 
-
   useEffect(() => {
-    if (value && typeof value !== "string") {
-      const objectUrl = URL.createObjectURL(value);
+    if (value && typeof value !== "string" && "file" in value && value.file instanceof File) {
+      const objectUrl = URL.createObjectURL(value.file);
       setPreview(objectUrl);
       return () => {
         URL.revokeObjectURL(objectUrl);
@@ -84,7 +86,7 @@ export const InputFile = ({
     `
     }>
       <Input
-        ref={inputRef as any}
+        ref={inputRef}
         type="file"
         accept={accept}
         onChange={handleFileChange}

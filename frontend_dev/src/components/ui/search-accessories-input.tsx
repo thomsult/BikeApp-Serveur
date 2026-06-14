@@ -32,6 +32,7 @@ export const SearchAccessoriesInput = ({
   onReset,
   placeholder,
   components = [],
+  global = false,
 }: SearchAccessoriesInputProps) => {
   const { t } = useTranslation();
   const { data: bikes } = useAllBikes();
@@ -188,6 +189,7 @@ export const SearchAccessoriesInput = ({
               "h-11 px-3 shadow-sm transition-all duration-150",
               "focus-within:ring-2 focus-within:ring-ring/30 focus-within:border-ring",
               isOpen && "rounded-b-none border-b-transparent ring-2 ring-ring/30",
+              !global && "mb-4",
             )}
           >
             {/* Search icon */}
@@ -242,7 +244,7 @@ export const SearchAccessoriesInput = ({
         <PopoverContent
           className={cn(
             "w-[var(--radix-popover-trigger-width)]",
-            "rounded-t-none rounded-b-xl border-t-0",
+            "rounded-t-none rounded-b-xl border-t-0 px-0",
             "bg-card shadow-xl shadow-black/8",
             "overflow-hidden",
           )}
@@ -260,7 +262,7 @@ export const SearchAccessoriesInput = ({
                   key={cat}
                   type="button"
                   onMouseDown={handlePreventMouseDown}
-                  onClick={() => handleCategorySelect(cat as ComponentBikeType["id"] | "all")}
+                  onClick={() => handleCategorySelect(cat)}
                   className={cn(
                     "rounded-full px-3 py-1 text-xs font-medium transition-all duration-100",
                     "border",

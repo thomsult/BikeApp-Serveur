@@ -4,6 +4,7 @@ namespace App\Http\Resources\Activity;
 
 use App\Http\Resources\Bikes\BikeResource;
 use App\Http\Resources\Bikes\Components\ComponentsResource;
+use App\Http\Resources\TypeActivityResource;
 use App\Models\Activity\ActivityEvent;
 use App\Models\Activity\ActivityMaintenance;
 use App\Models\Activity\ActivityOther;
@@ -24,6 +25,7 @@ class ActivityResource extends JsonResource
     public function toArray(Request $request): array
     {
         $class = $this->resource->getMorphClass();
+
         $specific = match ($class) {
             ActivityRide::class => ActivityRideResource::make($this->resource)->toArray($request),
             ActivityTraining::class => ActivityTrainingResource::make($this->resource)->toArray($request),
@@ -37,7 +39,7 @@ class ActivityResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'description' => $this->description,
-            'type' => $this->type_id,
+            'type' => $this->typeActivity ? TypeActivityResource::make($this->typeActivity)->toArray($request) : null,
             'typeFamily' => match ($class) {
                 ActivityRide::class => 'ride',
                 ActivityTraining::class => 'training',

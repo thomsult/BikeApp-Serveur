@@ -18,7 +18,6 @@ export interface ComponentBike {
   id: ID;
   type: ComponentBikeType;
   brand: ComponentBikeBrand;
-  icon?: string;
   status: number; // percentage for wear level
   model: string;
   multiBike?: boolean; // indicates if the component can be used on multiple bikes
@@ -26,13 +25,19 @@ export interface ComponentBike {
   updatedAt?: DateTimeString;
 }
 
+export type FileUpload = {
+  file?: File;
+  base64?: string;
+};
+type url = string;
+
 export interface Bike {
   id: ID;
   name: string;
   preferred: boolean;
   type: BikeType;
   status: number; // percentage for wear level or string for condition
-  image: File | string | null; // URL of the bike image, can be null if no image is set
+  image: FileUpload | url | null; // URL of the bike image, can be null if no image is set
   components: ComponentBike[];
   stats: BikeStats;
   createdAt?: DateTimeString;

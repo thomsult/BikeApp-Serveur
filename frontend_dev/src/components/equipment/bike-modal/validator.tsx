@@ -4,22 +4,57 @@ import z from "zod";
 export const useBikeValidator = () => {
   const { t } = useTranslation();
 
-  const fileSchema = z
-    .instanceof(File)
-    .nullable()
-    .optional()
-    .refine((file) => {
-      if (!file) return true; // autorise null/undefined
-      return ["image/png", "image/jpeg"].includes(file.type);
-    }, {
-      message: "Format invalide (PNG ou JPEG uniquement)",
+  const getBase64Info = (base64: string) => {
+    let mimeType = "octet/stream";
+
+    if (base64.startsWith("/9j/")) mimeType = "image/jpeg";
+    else if (base64.startsWith("iVBORw0KGgo")) mimeType = "image/png";
+    else if (base64.startsWith("UklGR")) mimeType = "image/webp";
+    else if (base64.startsWith("R0lGODdh") || base64.startsWith("R0lGODlh")) mimeType = "image/gif";
+
+    const padding = (base64.match(/=+$/) || [""])[0].length;
+    const sizeInBytes = (base64.length * 3) / 4 - padding;
+
+    return { mimeType, sizeInBytes };
+  };
+
+  const ACCEPTED_TYPES = ["image/jpeg", "image/png", "image/gif", "image/webp"];
+
+  const fileSchema = z.object({
+    file: z.instanceof(File).optional(),
+    base64: z.string().optional(),
+  }).refine((data) => {
+    if (!data.file && !data.base64) return true;
+
+    const fileType = data.file
+      ? data.file.type
+      : data.base64
+        ? getBase64Info(data.base64).mimeType
+        : "octet/stream";
+
+    return ACCEPTED_TYPES.includes(fileType);
+  }, {
+    message: t('common.errors.invalidFormat', {
+      field: t('common.fields.image'),
+      formats: "PNG, JPEG, GIF ou WEBP uniquement"
     })
-    .refine((file) => {
-      if (!file) return true;
-      return file.size <= 2 * 1024 * 1024; // 2MB
-    }, {
-      message: "Fichier trop lourd (max 2MB)",
-    });
+  }).refine((data) => {
+    if (!data.file && !data.base64) return true;
+
+    const fileSize = data.file
+      ? data.file.size
+      : data.base64
+        ? getBase64Info(data.base64).sizeInBytes
+        : 0;
+
+    return fileSize <= 2 * 1024 * 1024; // 2MB
+  }, {
+    message: t('common.errors.fileTooLarge', {
+      field: t('common.fields.image'),
+      size: "2MB"
+    })
+  });
+
 
   return z.object({
     name: z.string().min(1, {
@@ -37,7 +72,7 @@ export const useBikeValidator = () => {
     }),
     preferred: z.boolean(),
     status: z.number().int().min(0).max(100),
-    image: fileSchema.or(z.string()), // Accepte soit un fichier, soit une URL (string)
+    image: fileSchema.or(z.string()).nullable(), // Accepte soit un fichier, soit une URL (string)
     components: z.array(z.any()).optional(), // Validation basique pour les composants, à adapter selon la structure réelle
     stats: z.object({
       distance: z.number().min(0, {

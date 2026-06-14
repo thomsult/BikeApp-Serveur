@@ -12,6 +12,7 @@ export default defineConfig({
     ],
     server: {
         allowedHosts: ['vite.bikeapp.local', 'api.bikeapp.local'],
+        port: 5172,
         cors: true,
         origin: 'https://vite.bikeapp.local',
         hmr: {

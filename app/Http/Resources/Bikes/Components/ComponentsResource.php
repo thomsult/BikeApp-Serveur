@@ -21,7 +21,7 @@ class ComponentsResource extends JsonResource
         return [
             'id' => $this->id,
             'model' => $this->model,
-            'status' => $this->status,
+            'status' => intval($this->status),
             'multiBike' => $this->multi_bike,
             'type' => $this->whenLoaded('type') ? $this->typeComponents($this->type) : null,
             'brand' => $this->whenLoaded('brand') ? $this->brandComponents($this->brand) : null,

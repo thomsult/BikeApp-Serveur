@@ -40,8 +40,8 @@ export interface ActivityRideT extends Activity {
   waypoints: LocationObject[];
   startedAt?: DateTimeString; // when the ride started
   stoppedAt?: DateTimeString; // when the ride stopped
-  bike?: Bike; // associated bike for the ride
-  component?: ComponentBike;
+  bike?: Bike | null; // associated bike for the ride
+  component?: ComponentBike | null;
 }
 
 export type TrainingType = "interval" | "endurance" | "tempo" | "recovery";
@@ -51,8 +51,8 @@ export interface ActivityTrainingT extends Activity {
 }
 
 export interface ActivityMaintenanceT extends Activity {
-  bike?: Bike; // associated bike for the ride
-  component?: ComponentBike;
+  bike?: Bike | null; // associated bike for the ride
+  component?: ComponentBike | null;
 }
 export type ActivityEventT = Activity;
 export type ActivityOtherT = Activity;

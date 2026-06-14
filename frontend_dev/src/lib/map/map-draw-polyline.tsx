@@ -727,7 +727,7 @@ export const PolylineDrawer = () => {
 
   return (
     <>
-      {hoverLineTooltip && !activeTooltip && (
+      {hoverLineTooltip && !activeTooltip && isEditMode && (
 
         <div
           style={{

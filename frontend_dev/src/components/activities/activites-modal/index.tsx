@@ -18,7 +18,6 @@ import type { TypeActivity, TypeActivityFamily } from "@/lib/api/type-activity/t
 import { useValidationSchema } from "./activity-validator";
 import { useCreateActivity, useDeleteActivity, useUpdateActivity } from "@/lib/api/activity";
 import type { Bike, ComponentBike } from "@/lib/api/equipments/bike";
-import { useHandleNewActivity } from "../use-handle-new-activity";
 import { useHandleNewRides } from "../use-handle-new-rides";
 import type { ID } from "@/lib/api/types";
 
@@ -124,8 +123,8 @@ export const ActivitiesModal = ({
     defaultValues: initialValues,
     onSubmit: ({ value }) => handleSubmitForm(value as AnyActivityT),
     onSubmitInvalid: (e) => {
-      console.warn("Form submission failed with values:", formState);
-      console.warn("Invalid form submission", form.getAllErrors());
+      console.warn(activitiesModalValidator.parse(e.value));
+
       Toast.error({
         title: t("common.errors.validationError", {
           message: "",
@@ -179,6 +178,10 @@ export const ActivitiesModal = ({
     return type ? t("common.activity-type.family." + (type ? type.family : "")) : "";
   }, [typeActivities, t]);
 
+  const ActivityType = useMemo(() => {
+    return typeActivities?.find((type) => String(type.id) === String(formState.type?.id))?.family || "";
+  }, [formState.type, typeActivities]);
+
   const selectExtraChildren = useCallback(() => {
     return (
       <button
@@ -208,7 +211,7 @@ export const ActivitiesModal = ({
     }
   };
   const { handleCancel, handleClose, handleDelete } = useModalLayout();
-
+  console.log("Form state:", formState);
   return (
     <ModalLayout
       title={title}
@@ -266,8 +269,22 @@ export const ActivitiesModal = ({
             options={selectOptions}
             suffix={selectSuffix}
             extraChildren={selectExtraChildren}
+            handleChange={(value, fieldHandleChange) => {
+              if (value === "" || value === null || value === undefined) {
+                fieldHandleChange(undefined);
+                return;
+              }
+              if (typeof value === "string") {
+                const selectedType = typeActivities?.find((type) => String(type.id) === String(value));
+                fieldHandleChange(selectedType);
+              } else {
+                const selectedType = typeActivities?.find((type) => String(type.id) === String(value.id));
+                fieldHandleChange(selectedType);
+              }
+            }}
 
           />
+
         </FormField>
         <FormField
           label={t("components.activities.field", {
@@ -318,16 +335,15 @@ export const ActivitiesModal = ({
             numberOfLines={4}
           />
         </FormField>
-        {formState.type && (
+
+        {ActivityType && (
           <ActivityByType
             handleClickNewRideItinerary={handleClickNewRideItinerary}
             initialValue={formState as AnyActivityT}
             Field={Field as any}
             form={form as any}
             editable={!isReadOnly}
-            activityType={
-              typeActivities?.find((type: TypeActivity) => String(type.id) === String(formState.type))?.family || ""
-            }
+            activityType={ActivityType}
           />)
         }
       </div>

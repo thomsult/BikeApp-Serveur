@@ -1,5 +1,5 @@
 import { ActivityView } from '@/components/activities';
-import { useHandleNewActivity } from '@/components/activities/use-handle-new-activity';
+import { useHandleActivity } from '@/components/activities/use-handle-activity';
 import Calendar from '@/components/calendar/calendar';
 import type { CellDate } from '@/components/calendar/calendar.dt';
 import { Legend } from '@/components/calendar/legend';
@@ -25,10 +25,8 @@ function RouteComponent() {
   const [selectedDate, setSelectedDate] = useState<CellDate>({} as CellDate);
   const [selectedMonth, setSelectedMonth] = useState<Date>(new Date());
   const { data: typeActivities } = useAllTypeActivities();
-  const { data: activities, refetch: refetchActivities } = useAllActivities();
-  const { refetch: refetchTypeActivities } = useAllTypeActivities();
-  const router = useRouter();
-  const { handleNewActivity } = useHandleNewActivity();
+  const { data: activities } = useAllActivities();
+  const { handleNewActivity } = useHandleActivity();
 
   return <div className='flex  flex-col gap-4 max-w-2xl mx-auto  pb-20' >
     <p className="text-sm text-gray-500 mb-4">{t("app.calendar.description")}</p>
@@ -52,13 +50,13 @@ function RouteComponent() {
           )
           .map((activity) => {
             const info = typeActivities?.find(
-              (type) => type.id === activity.type,
+              (type) => type.id === activity.type?.id,
             );
 
             if (!info) return null;
             return (
               <div
-                key={activity.id}
+                key={info.id}
                 style={{ backgroundColor: info.color }}
                 className={`absolute bottom-2 size-2 rounded-full`}
               />

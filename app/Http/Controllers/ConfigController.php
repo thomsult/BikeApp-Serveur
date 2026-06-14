@@ -34,7 +34,7 @@ class ConfigController extends Controller
     {
         $imagesConfig = $this->allImages();
 
-        return response()->json($imagesConfig, );
+        return response()->json($imagesConfig);
     }
 
     public function image($filename)

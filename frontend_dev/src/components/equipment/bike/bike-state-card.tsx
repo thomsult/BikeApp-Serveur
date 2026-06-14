@@ -83,29 +83,23 @@ export const StateCard = ({
           className="w-full h-full object-cover"
         />
 
-        {/* Gradient overlay */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(to bottom, rgba(0,0,0,0.05) 0%, rgba(0,0,0,0.65) 100%)",
-          }}
-        />
 
-        {/* Top row: bike type + favorite */}
+
         <div className="absolute top-3 left-3 right-3 flex items-center justify-between">
+
           {bikeTypeName && (
             <LabelBadge
               size="small"
               text={bikeTypeName}
               type="outlined"
+
             />
           )}
 
           {bike.preferred && (
             <div className="flex items-center gap-1 ml-auto">
               <StarFilledIcon className="text-yellow-400 w-3 h-3" />
-              <span className="text-xs font-medium text-white">
+              <span className="text-xs font-medium text-white  mix-blend-difference">
                 {t("common.bike_preference")}
               </span>
             </div>

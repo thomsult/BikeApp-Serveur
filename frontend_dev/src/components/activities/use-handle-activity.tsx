@@ -5,16 +5,19 @@ import { addHours, format, isFuture, isPast, setHours, setMinutes, setSeconds } 
 import { useTranslation } from "react-i18next";
 import { alertsConfirmation } from "../alerts";
 import type { TypeActivity, TypeActivityFamily } from "@/lib/api/type-activity/type-activity";
+import type { AnyActivityT } from "@/lib/api/activity/activity";
+import { useActivity } from "@/lib/api/activity";
 
-export const useHandleNewActivity = () => {
+export const useHandleActivity = () => {
   const { t } = useTranslation();
   const router = useRouter();
 
   const { data: bikes } = useAllBikes();
   const { data: typeActivities } = useAllTypeActivities();
+  const activities = useActivity();
 
 
-  const handleNewActivity = async (selectedDate: Date, typeActivity: TypeActivityFamily) => {
+  const handleNewActivity = async (selectedDate: Date = new Date(), typeActivity: TypeActivityFamily = "other") => {
     if (typeActivities?.length === 0) {
       const confirm = await alertsConfirmation({
         title: t("components.activities.noActivityTypeTitle"),
@@ -64,8 +67,33 @@ export const useHandleNewActivity = () => {
       },
     });
   }
+
+  const handleActivity = async (activityQuery: AnyActivityT) => {
+    const activity = await activities.mutateAsync({ id: activityQuery.id });
+    if (!activity) {
+      window.alert(t("components.activities.activityNotFound"));
+      return;
+    }
+    if (activity.typeFamily === "ride") {
+      router.navigate({
+        to: "/ride",
+        search: { id: activity.id, refer: "calendar" }
+      });
+      return;
+    }
+    router.navigate({
+      to: '/calendar',
+      search: {
+        "activity-modal": activity.id,
+        refer: "home"
+      },
+    });
+  }
+
+
   return {
-    handleNewActivity
+    handleNewActivity,
+    handleActivity
   }
 
 

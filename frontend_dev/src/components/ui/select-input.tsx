@@ -59,7 +59,7 @@ export const SelectInput = ({ options, placeholder, defaultValue, handleChange, 
   );
 };
 
-export const ControlledSelectInput = ({ id, Field, options, placeholder, ...props }: {
+export const ControlledSelectInput = ({ id, Field, options, placeholder, handleChange, ...props }: {
   id: string;
   type: "string" | "object";
   options: optionsProps[];
@@ -67,6 +67,7 @@ export const ControlledSelectInput = ({ id, Field, options, placeholder, ...prop
     name: string;
     children: (field: AnyFieldApi) => React.ReactNode;
   }>;
+  handleChange?: (value: string | optionsProps | undefined, fieldHandleChange: (value: any) => void) => void;
 } & Omit<SelectInputProps, "handleChange">) => {
 
   return (
@@ -82,10 +83,19 @@ export const ControlledSelectInput = ({ id, Field, options, placeholder, ...prop
             handleChange={(value) => {
               if (props.type === "object") {
                 const selectedOption = options.find(opt => opt.value === value);
-                field.handleChange(selectedOption);
+                if (handleChange)
+                  handleChange?.(selectedOption, field.handleChange);
+                else {
+                  field.handleChange(selectedOption);
+                }
               } else {
-                field.handleChange(value);
+                if (handleChange)
+                  handleChange?.(value, field.handleChange);
+                else {
+                  field.handleChange(value);
+                }
               }
+
             }}
             {...props}
           />

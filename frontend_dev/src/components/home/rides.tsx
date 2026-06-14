@@ -1,16 +1,14 @@
-import { addDays } from "date-fns";
 import type React from "react";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useAllActivitiesRides } from "@/lib/api/activity";
 import type { ActivityRideT } from "@/lib/api/activity/activity";
-import { useAllTypeActivities } from "@/lib/api/type-activity";
 import RideCard from "../rides/ride-card";
 import { PlusIcon } from "lucide-react";
 import TitlesSection from "../ui/titles-section";
 import { useRouter } from "@tanstack/react-router";
 import { Card } from "../ui/card";
-import { useHandleNewActivity } from "../activities/use-handle-new-activity";
+import { useHandleActivity } from "../activities/use-handle-activity";
 
 const MAX_RIDES = 3;
 
@@ -80,13 +78,11 @@ const UpcomingRides: React.FC = () => {
     (ride) => new Date(ride.dt_start) >= new Date(),
   );
 
-
-
   const displayedRides = showAll
     ? ridesFiltered
     : ridesFiltered.slice(0, MAX_RIDES);
 
-  const { handleNewActivity } = useHandleNewActivity();
+  const { handleNewActivity } = useHandleActivity();
 
 
   return (

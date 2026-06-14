@@ -72,10 +72,9 @@ export const BikeModal = ({
     },
     onSubmit: async ({ value }) => {
       try {
-        if (value.image && value.image instanceof File) {
-          const base64File = await fileToBase64(value.image);
+        if (value.image && typeof value.image === "object") {
           const response = await client.uploadFile(
-            { assets: value.image ? [{ base64: base64File, fileName: `bike_${value.name}.jpg` }] : [] },
+            { assets: value.image ? [{ base64: value.image.base64, fileName: `bike_${value.name}.jpg` }] : [] },
             "bike")
           if (response?.fileUrl) {
             value.image = response.fileUrl;
@@ -227,7 +226,7 @@ export const BikeModal = ({
           <ControlledInputFile
             id="image"
             Field={Field}
-            accept="image/*"
+            accept="image/jpeg,image/png,image/gif,image/webp"
             placeholder={t("common.placeholders.image")}
           />
         </FormField>

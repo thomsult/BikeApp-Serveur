@@ -14,6 +14,28 @@ services:
     networks:
       - backend
     
+  bikeapp-php:
+    image: bikeapp-php:latest
+    build:
+      context: .
+      dockerfile: .docker/php/Dockerfile
+    restart: always
+    volumes:
+      - .:/app
+      - ./.docker/php/caddy.dev:/etc/caddy/Caddyfile
+    labels:
+    - dev.orbstack.domains=api.bikeapp.local
+    networks:
+      - backend
+    command: ["sh", "-c", "frankenphp run --config /app/.docker/php/caddy.dev --adapter caddyfile --watch /app"]
+  bikeapp-mailpit:
+    image: axllent/mailpit:latest
+    restart: always
+    ports:
+      - "1025:1025" # SMTP
+      - "8025:8025" # Web UI
+    networks:
+      - backend
   vite:
     image: node:latest
     platform: linux/amd64
@@ -25,48 +47,9 @@ services:
       - backend
     labels:
      - dev.orbstack.domains=vite.bikeapp.local
-  bikeapp-php:
-    image: bikeapp-php:latest
-    build:
-      context: .
-      dockerfile: .docker/php/Dockerfile
-    restart: always
-    volumes:
-      - .:/app
-    labels:
-    - dev.orbstack.domains=api.bikeapp.local
-    networks:
-      - backend
-  bikeapp-mailpit:
-    image: axllent/mailpit:latest
-    restart: always
-    ports:
-      - "1025:1025" # SMTP
-      - "8025:8025" # Web UI
-    
-    networks:
-      - backend
-
-  bikeapp-frontend:
-    platform: linux/amd64
-    image: node:20
-    working_dir: /app
-    volumes:
-      - ./frontend_dev:/app
-    command: >
-      sh -c "npm install && npm run dev -- --host"
-    ports:
-      - "5173:5173"
-    env_file:
-      - ./frontend_dev/.env.local
-    
-    restart: always
    
 
-# Volumes nécessaires pour les certificats et la configuration de Caddy
 volumes:
-  caddy_data:
-  caddy_config:
   db_data:
 
 networks:

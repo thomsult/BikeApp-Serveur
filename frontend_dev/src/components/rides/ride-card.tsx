@@ -7,6 +7,7 @@ import { getExtLocalLanguage } from "@/lib/i18n/utils";
 
 import { ChevronRightIcon } from "lucide-react";
 import { useRouter } from "@tanstack/react-router";
+import { useHandleActivity } from "../activities/use-handle-activity";
 
 const Stat = <T,>({
   value,
@@ -26,17 +27,14 @@ const Stat = <T,>({
 );
 
 const RideCard = ({ ride }: { ride: ActivityRideT }) => {
-  const router = useRouter();
   const { t } = useTranslation();
   const langue = getExtLocalLanguage();
   const locale = langue === "fr" ? fr : enGB;
+  const { handleActivity } = useHandleActivity();
 
   return (
     <button
-      onClick={useCallback(() => {
-        if (!ride.id) return;
-        router.navigate({ to: `/ride?id=${ride.id}` });
-      }, [ride.id, router])}
+      onClick={() => handleActivity(ride)}
       className="group relative flex w-full overflow-hidden rounded-2xl bg-card text-left transition-shadow hover:shadow-md"
     >
       {/* Image */}

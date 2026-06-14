@@ -1,3 +1,6 @@
+{
+	debug
+}
 api.bikeapp.local {
 	root * /app/public
 	# Activer la compression (optionnel)

@@ -25,12 +25,14 @@ export const ActivityMaintenance = ({
   const { t } = useTranslation();
 
   const OptionBike = bikes.map((bike) => ({
-    label: `${bike.name} (${t("common.bike")} - ${bike.type.label})`, // ✅ vrai nom du vélo
+    id: bike.id,
+    label: `${bike.name} (${t("common.bike")} - ${bike?.type?.label})`, // ✅ vrai nom du vélo
     value: "bike:" + bike.id, // ✅ on préfixe pour différencier des composants
   }));
 
   const OptionComponent = components.map((comp) => ({
-    label: `${comp.model} (${comp.type.label} - ${comp.brand.label})`, // ✅ vrai nom du composant
+    id: comp.id,
+    label: `${comp.model} (${comp.type?.label} - ${comp.brand?.label})`, // ✅ vrai nom du composant
     value: "component:" + comp.id, // ✅ on préfixe pour différencier des vélos
   }));
 
@@ -72,10 +74,13 @@ export const ActivityMaintenance = ({
             placeholder={`${t("app.equipment.bikes.title")} / ${t("app.equipment.accessories.title")}`}
             disabled={!editable}
             defaultValue={"bike:" + initialValue?.bike?.id || "component:" + initialValue?.component?.id || undefined}
-            handleChange={(option: string) => {
-              console.log("Selected option:", option);
-              const val = allOptions.find((o) => o.value === option);
-              console.log("Matched option:", val?.value.replace("bike:", "").replace("component:", ""));
+            handleChange={(value, fieldHandleChange) => {
+              if (!value || typeof value === "string") {
+                form.setFieldValue("bike", null);
+                form.setFieldValue("component", null);
+                return;
+              }
+              const val = allOptions.find((o) => o.value === value.value);
               if (!val) {
                 form.setFieldValue("bike", null);
                 form.setFieldValue("component", null);
@@ -83,10 +88,22 @@ export const ActivityMaintenance = ({
               }
 
               if (val.value.startsWith("bike")) {
-                form.setFieldValue("bike", { id: Number(val.value.replace("bike:", "")) });
+                const bike = bikes.find((b) => b.id === Number(val.value.replace("bike:", "")));
+                if (!bike) {
+                  form.setFieldValue("bike", null);
+                  form.setFieldValue("component", null);
+                  return;
+                }
+                form.setFieldValue("bike", bike);
                 form.setFieldValue("component", null);
               } else {
-                form.setFieldValue("component", { id: Number(val.value.replace("component:", "")) });
+                const component = components.find((c) => c.id === Number(val.value.replace("component:", "")));
+                if (!component) {
+                  form.setFieldValue("component", null);
+                  form.setFieldValue("bike", null);
+                  return;
+                }
+                form.setFieldValue("component", component);
                 form.setFieldValue("bike", null);
               }
             }}

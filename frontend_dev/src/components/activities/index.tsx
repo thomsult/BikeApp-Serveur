@@ -16,7 +16,7 @@ import { FilterByStatus } from "../ui/filter-by-status";
 import ActivitiesModal from "./activites-modal";
 import { useAllBikes } from "@/lib/api/equipments";
 import { alertsConfirmation } from "../alerts";
-import { useHandleNewActivity } from "./use-handle-new-activity";
+import { useHandleActivity } from "./use-handle-activity";
 
 export const ActivityView = ({
   selectedDate,
@@ -41,7 +41,8 @@ export const ActivityView = ({
   const { navigate, resetNavigate } = useHandleDeepLink<Activity>({
     originalPath: "/calendar",
     path: "activity-modal",
-    show: (newActivity) => {
+    show: async (newActivity) => {
+
       if (newActivity["activity-modal"] === "new") {
         delete newActivity["activity-modal"];
         setModalVisible(newActivity);
@@ -54,13 +55,7 @@ export const ActivityView = ({
           return;
         }
         if (activity.typeFamily === "ride") {
-          requestAnimationFrame(() => {
-            router.navigate({
-              to: "/ride",
-              search: { id: activity.id, refer: "calendar" }
-            });
-          });
-          return;
+          return handleActivity(activity);
         }
         setModalVisible({
           ...activity,
@@ -95,7 +90,7 @@ export const ActivityView = ({
     return isPast(selectedDate.date ?? selectedMonth);
   };
 
-  const { handleNewActivity } = useHandleNewActivity();
+  const { handleNewActivity, handleActivity } = useHandleActivity();
 
   const sortedActivities = useMemo(() => {
     return getActivitiesToDisplay
@@ -167,7 +162,7 @@ export const ActivityView = ({
                   <ActivityCard
                     key={`${activity.id}-${index}`}
                     activity={activity}
-                    onPress={() => navigate(activity)}
+                    onPress={() => handleActivity(activity)}
                     last={index === displayedActivities.length - 1}
                   />
                 ))}

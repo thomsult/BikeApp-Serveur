@@ -33,8 +33,13 @@ class ActivityController extends Controller
     {
         $activities = $request->user()
             ->activities()
-            ->select(['id', 'rideable_id', 'rideable_type']) // important
-            ->with('rideable:id,name') // important
+            ->with([
+                'typeActivity',
+                'rideable' => fn ($morphTo) => $morphTo->morphWith([
+                    Bike::class => [],
+                    Components::class => [],
+                ]),
+            ])
             ->withFamily()
             ->get();
 
