@@ -25,8 +25,8 @@ class ComponentsResource extends JsonResource
             'multiBike' => $this->multi_bike,
             'type' => $this->whenLoaded('type') ? $this->typeComponents($this->type) : null,
             'brand' => $this->whenLoaded('brand') ? $this->brandComponents($this->brand) : null,
-            'createdAt' => $this->created_at,
-            'updatedAt' => $this->updated_at,
+            'createdAt' => $this->created_at ?? null,
+            'updatedAt' => $this->updated_at ?? null,
         ];
     }
 

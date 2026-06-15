@@ -9,7 +9,8 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "generate-pwa-assets": "pwa-assets-generator"
+    "generate-pwa-assets": "pwa-assets-generator",
+    "openapi-ts": "NODE_TLS_REJECT_UNAUTHORIZED=0 openapi-ts"
   },
   "dependencies": {
     "@fontsource-variable/inter": "^5.2.8",
@@ -49,6 +50,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "2.4.8",
+    "@hey-api/openapi-ts": "0.98.2",
     "@tanstack/react-router-devtools": "^1.166.19",
     "@tanstack/router-plugin": "^1.166.14",
     "@types/node": "^24.6.2",

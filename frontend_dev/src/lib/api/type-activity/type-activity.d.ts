@@ -1,3 +1,4 @@
+import type { TypeActivityResource } from "@/client";
 import { type DateTimeString, type UUIDString } from "../types";
 
 export type TypeActivityFamily =
@@ -8,7 +9,7 @@ export type TypeActivityFamily =
   | "training"
   | "other";
 
-export interface TypeActivity {
+export interface TypeActivity extends TypeActivityResource {
   id: UUIDString;
   label: string;
   family: TypeActivityFamily;

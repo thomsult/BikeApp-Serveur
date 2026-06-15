@@ -29,8 +29,8 @@ class BikeResource extends JsonResource
             'type' => $this->whenLoaded('type') ? $this->typeBikes($this->type) : null,
             'stats' => $this->whenLoaded('stats') ? $this->statsBikes($this->stats) : null,
             'components' => $this->whenLoaded('components') ? ComponentsResource::collection($this->components) : null,
-            'createdAt' => $this->created_at,
-            'updatedAt' => $this->updated_at,
+            'createdAt' => $this->created_at ?? null,
+            'updatedAt' => $this->updated_at ?? null,
         ];
     }
 

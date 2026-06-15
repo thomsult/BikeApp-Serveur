@@ -25,9 +25,9 @@ class ChallengeResource extends JsonResource
             'durationChallenge' => $this->duration_challenge,
             'isDailyGoal' => $this->is_daily_goal,
             'isSuggestion' => $this->is_suggestion,
-            'completedAt' => $this->completed_at ?? '',
-            'createdAt' => $this->created_at ?? '',
-            'updatedAt' => $this->updated_at ?? '',
+            'completedAt' => $this->completed_at ?? null,
+            'createdAt' => $this->created_at ?? null,
+            'updatedAt' => $this->updated_at ?? null,
         ];
     }
 }

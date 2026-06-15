@@ -3,6 +3,7 @@ import axios, { type AxiosInstance } from "axios";
 import { getStorageToken, setStorageToken } from "@/lib/auth/utils";
 import { auth } from "@/lib/firebase/config";
 import { logout } from "@/lib/auth/use-auth";
+import type { ClientOptions, Config, CreateClientConfig } from "@/client/client";
 
 const client = axios.create({
   baseURL: `${import.meta.env.VITE_PUBLIC_BASE_URL}/api/`,
@@ -11,6 +12,17 @@ const client = axios.create({
     withCredentials: true,
   },
 }) as AxiosClientWithUpload;
+
+export const createClientConfig: CreateClientConfig = (override) => {
+  const baseConfig: Config<ClientOptions> = {
+    baseURL: `${import.meta.env.VITE_PUBLIC_BASE_URL}/api/`,
+    headers: {
+      "Content-Type": "application/json",
+      withCredentials: true,
+    },
+  };
+  return { ...baseConfig, ...override };
+};
 
 // --- Interceptor de requêtes : injecte toujours le token si présent ---
 client.interceptors.request.use(

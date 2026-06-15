@@ -10,9 +10,16 @@ class TypeActivityResource extends JsonResource
     public static $wrap = null;
 
     /**
-     * Transform the resource into an array.
-     *
-     * @return array<string, mixed>
+     * @return array{
+     *   id: int,
+     *   label: string,
+     *   family: string,
+     *   color: string,
+     *   userId: int,
+     *   isDefault: bool,
+     *   createdAt: string|null,
+     *   updatedAt: string|null
+     * }
      */
     public function toArray(Request $request): array
     {
@@ -22,9 +29,9 @@ class TypeActivityResource extends JsonResource
             'family' => $this->family,
             'color' => $this->color,
             'userId' => $this->user_id,
-            'isDefault' => $this->is_default,
-            'createdAt' => $this->created_at ?? '',
-            'updatedAt' => $this->updated_at ?? '',
+            'isDefault' => boolval($this->is_default),
+            'createdAt' => $this->created_at ?? null,
+            'updatedAt' => $this->updated_at ?? null,
         ];
     }
 }

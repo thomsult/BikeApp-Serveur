@@ -39,7 +39,9 @@ class ActivityResource extends JsonResource
             'id' => $this->id,
             'title' => $this->title,
             'description' => $this->description,
-            'type' => $this->typeActivity ? TypeActivityResource::make($this->typeActivity)->toArray($request) : null,
+            'type' => $this->typeActivity
+    ? TypeActivityResource::make($this->typeActivity)
+    : null,
             'typeFamily' => match ($class) {
                 ActivityRide::class => 'ride',
                 ActivityTraining::class => 'training',
@@ -53,9 +55,9 @@ class ActivityResource extends JsonResource
             'dt_end' => $this->dt_end,
             // 'location' => $this->location,
             'notes' => $this->notes,
-            'completedAt' => $this->completed_at ?? '',
-            'createdAt' => $this->created_at ?? '',
-            'updatedAt' => $this->updated_at ?? '',
+            'completedAt' => $this->completed_at ?? null,
+            'createdAt' => $this->created_at ?? null,
+            'updatedAt' => $this->updated_at ?? null,
             'recurrence' => [
                 'frequency' => $this->recurrence_frequency,
                 'interval' => $this->recurrence_interval,

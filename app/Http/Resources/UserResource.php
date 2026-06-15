@@ -32,7 +32,28 @@ class UserResource extends JsonResource
     /**
      * Transform the resource into an array.
      *
-     * @return array<string, mixed>
+     * @return
+     * array{
+     *   id: int,
+     *   username: string,
+     *   birthday: string|null,
+     *   firstConnected: string|null,
+     *   name: string,
+     *   email: string,
+     *   firstName: string,
+     *   lastName: string,
+     *   phone: string,
+     *   avatarURL: string,
+     *   bio: string,
+     *   website: string,
+     *   language: string,
+     *   offlineMode: string,
+     *   stats: array,
+     *   createdAt: string|null,
+     *   updatedAt: string|null,
+     *   notifications: bool,
+     *   emailNotifications: bool,
+     *   pushNotifications: bool
      */
     public function toArray(Request $request): array
     {
@@ -43,7 +64,7 @@ class UserResource extends JsonResource
             // "address" => $this->address ?? "",
             // "location" => $this->location ?? "",
             'birthday' => $this->birthday ? $this->birthday->toDateString() : null,
-            'firstConnected' => $this->first_connected ?? '',
+            'firstConnected' => $this->first_connected ?? null,
             'name' => $this->name ?? '',
             'email' => $this->email ?? '',
             'firstName' => $this->first_name ?? 'first name',
@@ -55,8 +76,8 @@ class UserResource extends JsonResource
             'language' => $this->language ?? App::getLocale(),
             'offlineMode' => $this->offline_mode ?? '',
             'stats' => $this->stats,
-            'createdAt' => $this->created_at ?? '',
-            'updatedAt' => $this->updated_at ?? '',
+            'createdAt' => $this->created_at ?? null,
+            'updatedAt' => $this->updated_at ?? null,
             ...$this->notificationPreference(),
         ];
     }
