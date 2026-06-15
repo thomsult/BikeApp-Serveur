@@ -1,9 +1,9 @@
 <?php
 
 return [
-    'title' => 'Politique de Confidentialité',
-    'intro' => 'Chez BikeApp, nous nous engageons à protéger votre vie privée. Cette politique de confidentialité explique comment nous collectons, utilisons et protégeons vos informations personnelles lorsque vous utilisez notre application.',
-    'user_conduct' => 'Conduite de l\'Utilisateur',
+    'title' => 'Conditions d\'utilisation',
+    'intro' => 'Bienvenue sur notre application de suivi de sorties vélo. En utilisant notre application, vous acceptez les conditions d\'utilisation suivantes. Veuillez les lire attentivement avant d\'utiliser l\'application.',
+    'user_conduct' => 'Conduite des Utilisateurs',
     'user_conduct_desc' => 'Les utilisateurs doivent respecter les règles de conduite lors de l\'utilisation de notre application. Toute violation de ces règles peut entraîner la suspension ou la suppression de votre compte.',
     'intellectual_property' => 'Propriété Intellectuelle',
     'intellectual_property_desc' => 'Tous les contenus présents sur l\'application, y compris les textes, images, logos et autres éléments graphiques, sont la propriété de BikeApp ou de ses partenaires et sont protégés par les lois sur la propriété intellectuelle. Toute utilisation non autorisée de ces contenus est strictement interdite.',
@@ -12,5 +12,5 @@ return [
     'limitation_of_liability' => 'Limitation de Responsabilité',
     'limitation_of_liability_desc' => 'En aucun cas, BikeApp ne pourra être tenu responsable des dommages, y compris les dommages directs, indirects, accessoires, spéciaux ou consécutifs, résultant de l\'utilisation ou de l\'impossibilité d\'utiliser notre application.',
     'governing_law' => 'Droit Applicable',
-    'governing_law_desc' => 'Cette politique de confidentialité est régie et interprétée conformément aux lois de la juridiction dans laquelle BikeApp opère, sans égard aux principes de conflits de lois.',
+    'governing_law_desc' => 'Ces conditions d\'utilisation sont régies par les lois en vigueur dans le pays où BikeApp est basé. Tout litige découlant de l\'utilisation de notre application sera soumis à la juridiction exclusive des tribunaux compétents de ce pays.',
 ];

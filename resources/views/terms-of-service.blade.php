@@ -17,15 +17,10 @@
 
 <body class="bg-bg-dark text-white overflow-x-hidden flex flex-col min-h-screen">
 
-    <!-- Gradient Mesh Background -->
-    <div class="fixed inset-0 gradient-mesh pointer-events-none z-0"></div>
-
-    <!-- Noise Overlay -->
-    <div class="fixed inset-0 noise-overlay pointer-events-none z-10"></div>
 
     @include('components.nav')
-    <main class="container mx-auto px-4 relative z-20 mb-auto flex-1" style="padding-top: 100px;">
-        <section class="mt-32" >
+    <main class="container mx-auto px-4 relative z-20 mb-auto flex-1 max-w-5xl">
+        <section class="mt-8">
             <h1 class="text-3xl font-bold mb-4">
                 {{ __("terms_of_service.title") }}
             </h1>

@@ -9,6 +9,7 @@ return [
         'Download' => 'Télécharger',
         'About' => 'À propos',
         'Support' => 'Support',
+        'OpenApp' => 'Ouvrir l\'application',
     ],
     'hero' => [
         'title' => 'Chaque trajet devient une',
@@ -16,19 +17,19 @@ return [
         'subtitle' => "L'application Android qui révolutionne vos déplacements à vélo. Suivez vos parcours, découvrez de nouveaux itinéraires.",
     ],
     'cards' => [
-        'gps' => [
-            'title' => 'Suivi GPS',
-            'description' => 'Tracez précisément tous vos parcours',
+        'multi-langue' => [
+            'title' => 'Multi langues',
+            'icon' => '🌐',
         ],
 
-        'routes' => [
-            'title' => 'Itinéraires',
-            'description' => 'Des milliers de routes à explorer',
+        'multi-plateforme' => [
+            'title' => 'Multi plateformes',
+            'icon' => '📱',
         ],
 
-        'maintenance' => [
-            'title' => 'Entretien Vélo',
-            'description' => 'Rappels pour garder votre vélo en parfait état',
+        'free' => [
+            'title' => 'Gratuit & sans store',
+            'icon' => '100%',
         ],
     ],
     'features' => ['title' => 'Pourquoi',
@@ -68,8 +69,16 @@ return [
     'download' => [
         'title' => 'Téléchargez',
         'subtitle' => 'dès aujourd\'hui',
-        'description' => 'Disponible sur le Google Play Store pour tous les cyclistes passionnés.',
-        'alt_text' => 'Télécharger sur Google Play',
+        'description' => 'PWA vélo est disponible sur Android/IOS. Installez l’application directement depuis votre navigateur et commencez à suivre vos aventures à vélo sans passer par un app store.',
+        'alt_text' => 'PWA vélo sur Android/IOS',
+        'note' => 'Scanner pour ouvrir',
+        'workflow' => [
+            'step' => [
+                '1' => '🌐 Ouvrez l\'URL dans Chrome ou  Safari',
+                '2' => '📤 Appuyez sur « Partager » ou le menu ⋮',
+                '3' => '➕ Sélectionnez « Ajouter à l\'écran d\'accueil »',
+            ],
+        ],
     ],
     'about' => [
         'title' => 'À propos de',
@@ -78,6 +87,8 @@ return [
 
     'contact' => [
         'title' => 'Nous contacter',
+        'location' => 'Basé en France',
+        'response_time' => 'Réponse sous 24–48h',
         'description' => 'Une question, un bug, une suggestion ? On vous répond rapidement.',
         'name' => 'Nom*',
         'name_placeholder' => 'Votre nom',
@@ -94,9 +105,14 @@ return [
         'send' => 'Envoyer le message',
     ],
     'footer' => [
-        'android' => 'Disponible sur Android.',
+        'legal' => 'Légal',
+        'download' => 'Application',
+        'contact' => 'Contact',
         'privacy_policy' => 'Politique de confidentialité',
         'terms_of_service' => 'Conditions d\'utilisation',
+        'tagline' => 'Suivez vos sorties vélo sans app store — directement depuis votre navigateur.',
+        'rights' => 'Tous droits réservés.',
+        'status' => 'Service opérationnel',
 
     ],
 ];
