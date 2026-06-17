@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\BikeComponentsRequest;
 use App\Http\Resources\Bikes\Components\ComponentsResource;
 use App\Models\Bikes\Components\Components;
+use App\Models\Bikes\Components\ComponentsBrand;
+use App\Models\Bikes\Components\ComponentsType;
 use App\Service\ComponentService;
 use DomainException;
 use Illuminate\Http\Request;
@@ -44,9 +46,7 @@ class ComponentsBikeController extends Controller
      */
     public function show(Components $component)
     {
-        return response()->json([
-            ComponentsResource::make($component->load(['type', 'brand'])),
-        ]);
+        return response()->json(ComponentsResource::make($component->load(['type', 'brand'])));
     }
 
     /**
@@ -83,5 +83,37 @@ class ComponentsBikeController extends Controller
             'message' => 'ComponentsBikeController destroy method - deleted successfully',
             'id' => $component->id,
         ]);
+    }
+
+    /**
+     * Display ComponentsBrand index.
+     */
+    public function getComponentsBrandIndex()
+    {
+        return response()->json(ComponentsBrand::all());
+    }
+
+    /**
+     * Display the specified ComponentsBrand.
+     */
+    public function getComponentsBrandShow($brand)
+    {
+        return response()->json(ComponentsBrand::findOrFail($brand));
+    }
+
+    /**
+     * Display ComponentsType index.
+     */
+    public function getComponentsTypeIndex()
+    {
+        return response()->json(ComponentsType::all());
+    }
+
+    /**
+     * Display the specified ComponentsType.
+     */
+    public function getComponentsTypeShow($type)
+    {
+        return response()->json(ComponentsType::findOrFail($type));
     }
 }

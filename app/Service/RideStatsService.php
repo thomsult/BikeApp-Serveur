@@ -2,11 +2,13 @@
 
 namespace App\Service;
 
+use App\Models\Stats\StatsItems;
+use App\Models\Stats\StatsUser;
 use App\Models\User;
 
 class RideStatsService
 {
-    public function getStats(User $user): array
+    public function getStats(User $user): StatsUser
     {
         $baseQuery = $user->rides()->whereNotNull('completed_at');
 
@@ -14,23 +16,23 @@ class RideStatsService
         $weekStart = now()->startOfWeek()->toDateString();
         $monthStart = now()->startOfMonth()->toDateString();
 
-        return [
-            'todayStats' => $this->buildStats(
+        return new StatsUser(
+            todayStats: $this->buildStats(
                 (clone $baseQuery)->whereDate('completed_at', $today),
                 withGoal: true,
                 goal: $user->daily_goal ?? 0,
             ),
-            'weeklyStats' => $this->buildStats(
+            weeklyStats: $this->buildStats(
                 (clone $baseQuery)->whereDate('completed_at', '>=', $weekStart)
             ),
-            'monthlyStats' => $this->buildStats(
+            monthlyStats: $this->buildStats(
                 (clone $baseQuery)->whereDate('completed_at', '>=', $monthStart)
             ),
-            'totalStats' => $this->buildStats($baseQuery),
-        ];
+            totalStats: $this->buildStats($baseQuery),
+        );
     }
 
-    private function buildStats($query, bool $withGoal = false, float $goal = 0): array
+    private function buildStats($query, bool $withGoal = false, float $goal = 0): StatsItems
     {
         $result = $query->selectRaw('
             COUNT(*) as rides_count,
@@ -38,11 +40,11 @@ class RideStatsService
             COALESCE(SUM(duration), 0) as total_duration
         ')->first();
 
-        return [
-            'distance' => round(($result->total_distance ?? 0) / 1000, 2), // mètres → km
-            'duration' => (int) ($result->total_duration ?? 0),             // secondes
-            'rides' => (int) ($result->rides_count ?? 0),
-            'goal' => $withGoal ? $goal : null,
-        ];
+        return new StatsItems(
+            distance: round(($result->total_distance ?? 0) / 1000, 2), // mètres → km
+            duration: (int) ($result->total_duration ?? 0),             // secondes
+            rides: (int) ($result->rides_count ?? 0),
+            goal: $withGoal ? $goal : null,
+        );
     }
 }

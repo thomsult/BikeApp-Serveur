@@ -1,11 +1,9 @@
-import type { Challenge } from "@/lib/api/challenge/challenge";
-import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Card } from "../ui/card";
 import { Progress } from "../ui/progress";
 import { Clock, RulerDimensionLine, SoapDispenserDroplet } from "lucide-react";
-import { ChallengeModal } from "./challenge/challenge-modal";
 import { Link, useRouter } from "@tanstack/react-router";
+import type { ChallengeResource } from "@/client";
 
 
 const getAccentColor = (pct: number) => {
@@ -20,22 +18,21 @@ const ChallengeIcon = ({ type, size }: { type?: string; size: number }) => {
   return <SoapDispenserDroplet size={size} />;
 };
 
-const DailyGoal: React.FC<{ dailyGoal: Challenge | undefined }> = ({ dailyGoal }) => {
-  const router = useRouter();
+const DailyGoal: React.FC<{ dailyGoal: ChallengeResource }> = ({ dailyGoal }) => {
   const { t } = useTranslation();
-  const percent = dailyGoal?.progress || 0;
+  const progress = Number(dailyGoal?.progress) || 0;
 
-  const accent = getAccentColor(percent);
+  const accent = getAccentColor(progress);
 
-  const isCompleted = percent >= 100;
-  const hasGoal = !!percent;
+  const isCompleted = progress >= 100;
+  const hasGoal = !!progress;
 
   const unit =
     dailyGoal?.challengeType === "distance" ? "km" :
       dailyGoal?.challengeType === "time" ? "min" : "km/h";
 
   const progressValue = dailyGoal?.challengeValue
-    ? `${(dailyGoal.challengeValue / 100) * (dailyGoal.progress || 0)}`
+    ? `${(dailyGoal.challengeValue / 100) * progress}`
     : null;
 
   const dailyGoalDisplay = progressValue
@@ -84,7 +81,7 @@ const DailyGoal: React.FC<{ dailyGoal: Challenge | undefined }> = ({ dailyGoal }
                 text-2xl font-black tabular-nums leading-none
                 ${accent.text}
               `}>
-                {percent}%
+                {progress}%
               </span>
             )}
           </div>
@@ -114,7 +111,7 @@ const DailyGoal: React.FC<{ dailyGoal: Challenge | undefined }> = ({ dailyGoal }
           {hasGoal && (
             <div className="space-y-1.5">
               <Progress
-                value={percent}
+                value={progress}
                 className={`h-1.5 bg-white/10 [&>div]:${accent.bg} [&>div]:transition-all [&>div]:duration-700`}
               />
             </div>

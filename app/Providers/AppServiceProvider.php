@@ -11,6 +11,9 @@ use App\Observers\BikeObserver;
 use App\Observers\ComponentsMultiBikeObserver;
 use App\Policies\OwnsResource;
 use App\Policies\SelfRessource;
+use Dedoc\Scramble\Scramble;
+use Dedoc\Scramble\Support\Generator\OpenApi;
+use Dedoc\Scramble\Support\Generator\SecurityScheme;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Session;
@@ -43,5 +46,12 @@ class AppServiceProvider extends ServiceProvider
         Gate::policy(User::class, SelfRessource::class);
         Components::observe(ComponentsMultiBikeObserver::class);
         Bike::observe(BikeObserver::class);
+
+        Scramble::configure()
+            ->withDocumentTransformers(function (OpenApi $openApi) {
+                $openApi->secure(
+                    SecurityScheme::http('bearer', 'JWT')
+                );
+            });
     }
 }

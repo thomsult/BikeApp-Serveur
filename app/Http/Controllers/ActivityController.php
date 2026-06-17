@@ -118,9 +118,7 @@ class ActivityController extends Controller
     {
         $activity->delete();
 
-        return response()->json([
-            'message' => "Activity deleted for id: {$activity->id}",
-        ]);
+        return response()->json(null, status: 204);
     }
 
     public function share(Request $request, Activity $activity)

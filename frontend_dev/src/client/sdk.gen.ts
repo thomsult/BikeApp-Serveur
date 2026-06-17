@@ -2,7 +2,7 @@
 
 import type { Client, ClientMeta, Options as Options2, RequestResult, TDataShape } from './client';
 import { client } from './client.gen';
-import type { ActivitiesDestroyData, ActivitiesDestroyErrors, ActivitiesDestroyResponses, ActivitiesIndexData, ActivitiesIndexErrors, ActivitiesIndexResponses, ActivitiesShowData, ActivitiesShowErrors, ActivitiesShowResponses, ActivitiesStoreData, ActivitiesStoreErrors, ActivitiesStoreResponses, ActivitiesUpdateData, ActivitiesUpdateErrors, ActivitiesUpdateResponses, ActivityOpenShareLinkData, ActivityOpenShareLinkErrors, ActivityOpenShareLinkResponses, ActivityShareData, ActivityShareErrors, ActivityShareResponses, BikesDestroyData, BikesDestroyErrors, BikesDestroyResponses, BikesIndexData, BikesIndexResponses, BikesShowData, BikesShowErrors, BikesShowResponses, BikesStoreData, BikesStoreErrors, BikesStoreResponses, BikesUpdateData, BikesUpdateErrors, BikesUpdateResponses, ChallengesDestroyData, ChallengesDestroyErrors, ChallengesDestroyResponses, ChallengesIndexData, ChallengesIndexResponses, ChallengesShowData, ChallengesShowErrors, ChallengesShowResponses, ChallengesStoreData, ChallengesStoreErrors, ChallengesStoreResponses, ChallengesUpdateData, ChallengesUpdateErrors, ChallengesUpdateResponses, ComponentsDestroyData, ComponentsDestroyErrors, ComponentsDestroyResponses, ComponentsIndexData, ComponentsIndexErrors, ComponentsIndexResponses, ComponentsShowData, ComponentsShowErrors, ComponentsShowResponses, ComponentsStoreData, ComponentsStoreErrors, ComponentsStoreResponses, ComponentsUpdateData, ComponentsUpdateErrors, ComponentsUpdateResponses, ConfigImageData, ConfigImageResponses, ConfigWelcomeData, ConfigWelcomeResponses, GetApiBikesComponentsBrandsByBrandData, GetApiBikesComponentsBrandsByBrandResponses, GetApiBikesComponentsBrandsData, GetApiBikesComponentsBrandsResponses, GetApiBikesComponentsTypesByTypeData, GetApiBikesComponentsTypesByTypeResponses, GetApiBikesComponentsTypesData, GetApiBikesComponentsTypesResponses, GetApiBikesTypesByTypeBikeData, GetApiBikesTypesByTypeBikeResponses, GetApiBikesTypesData, GetApiBikesTypesResponses, GetData, GetFirebaseTestData, GetFirebaseTestResponses, GetResponses, GetUpData, GetUpResponses, LangSwitchData, LangSwitchResponses, LoginData, LoginErrors, NotificationsDestroyData, NotificationsDestroyErrors, NotificationsDestroyResponses, NotificationsIndexData, NotificationsIndexResponses, NotificationsShowData, NotificationsShowErrors, NotificationsShowResponses, NotificationsUpdateData, NotificationsUpdateErrors, NotificationsUpdateResponses, PrivacyPolicyData, PrivacyPolicyResponses, ProfileIndexData, ProfileIndexResponses, ProfileShowData, ProfileShowErrors, ProfileShowResponses, ProfileUpdateData, ProfileUpdateErrors, ProfileUpdateResponses, RedirectAppData, RedirectAppResponses, StorageLocalData, StorageLocalResponses, StorageLocalUploadData, StorageLocalUploadResponses, SuccessMessageData, SuccessMessageErrors, SuccessMessageResponses, TermsOfServiceData, TermsOfServiceResponses, TypesDestroyData, TypesDestroyResponses, TypesIndexData, TypesIndexResponses, TypesShowData, TypesShowErrors, TypesShowResponses, TypesStoreData, TypesStoreErrors, TypesStoreResponses, TypesUpdateData, TypesUpdateErrors, TypesUpdateResponses, UploadDownloadData, UploadDownloadErrors, UploadDownloadResponses, UploadUploadData, UploadUploadErrors, UploadUploadResponses, UserForgetPasswordData, UserForgetPasswordErrors, UserForgetPasswordResponses, UserLoginData, UserLoginResponses, UserLogoutData, UserLogoutErrors, UserLogoutResponses } from './types.gen';
+import type { ActivitiesDestroyData, ActivitiesDestroyErrors, ActivitiesDestroyResponses, ActivitiesIndexData, ActivitiesIndexErrors, ActivitiesIndexResponses, ActivitiesShowData, ActivitiesShowErrors, ActivitiesShowResponses, ActivitiesStoreData, ActivitiesStoreErrors, ActivitiesStoreResponses, ActivitiesUpdateData, ActivitiesUpdateErrors, ActivitiesUpdateResponses, ActivityOpenShareLinkData, ActivityOpenShareLinkErrors, ActivityOpenShareLinkResponses, ActivityShareData, ActivityShareErrors, ActivityShareResponses, BikeGetTypeBikeIndexData, BikeGetTypeBikeIndexResponses, BikeGetTypeBikeShowData, BikeGetTypeBikeShowResponses, BikesDestroyData, BikesDestroyErrors, BikesDestroyResponses, BikesIndexData, BikesIndexResponses, BikesShowData, BikesShowErrors, BikesShowResponses, BikesStoreData, BikesStoreErrors, BikesStoreResponses, BikesUpdateData, BikesUpdateErrors, BikesUpdateResponses, ChallengesDestroyData, ChallengesDestroyErrors, ChallengesDestroyResponses, ChallengesIndexData, ChallengesIndexResponses, ChallengesShowData, ChallengesShowErrors, ChallengesShowResponses, ChallengesStoreData, ChallengesStoreErrors, ChallengesStoreResponses, ChallengesUpdateData, ChallengesUpdateErrors, ChallengesUpdateResponses, ComponentsBikeGetComponentsBrandIndexData, ComponentsBikeGetComponentsBrandIndexResponses, ComponentsBikeGetComponentsBrandShowData, ComponentsBikeGetComponentsBrandShowResponses, ComponentsBikeGetComponentsTypeIndexData, ComponentsBikeGetComponentsTypeIndexResponses, ComponentsBikeGetComponentsTypeShowData, ComponentsBikeGetComponentsTypeShowResponses, ComponentsDestroyData, ComponentsDestroyErrors, ComponentsDestroyResponses, ComponentsIndexData, ComponentsIndexErrors, ComponentsIndexResponses, ComponentsShowData, ComponentsShowErrors, ComponentsShowResponses, ComponentsStoreData, ComponentsStoreErrors, ComponentsStoreResponses, ComponentsUpdateData, ComponentsUpdateErrors, ComponentsUpdateResponses, ConfigImageData, ConfigImageResponses, ConfigWelcomeData, ConfigWelcomeResponses, GetData, GetFirebaseTestData, GetFirebaseTestResponses, GetResponses, GetUpData, GetUpResponses, LangSwitchData, LangSwitchResponses, LoginData, LoginErrors, NotificationsDestroyData, NotificationsDestroyErrors, NotificationsDestroyResponses, NotificationsIndexData, NotificationsIndexResponses, NotificationsShowData, NotificationsShowErrors, NotificationsShowResponses, NotificationsUpdateData, NotificationsUpdateErrors, NotificationsUpdateResponses, PrivacyPolicyData, PrivacyPolicyResponses, ProfileIndexData, ProfileIndexResponses, ProfileShowData, ProfileShowErrors, ProfileShowResponses, ProfileUpdateData, ProfileUpdateErrors, ProfileUpdateResponses, RedirectAppData, RedirectAppResponses, StorageLocalData, StorageLocalResponses, StorageLocalUploadData, StorageLocalUploadResponses, SuccessMessageData, SuccessMessageErrors, SuccessMessageResponses, TermsOfServiceData, TermsOfServiceResponses, TypesDestroyData, TypesDestroyErrors, TypesDestroyResponses, TypesIndexData, TypesIndexResponses, TypesShowData, TypesShowErrors, TypesShowResponses, TypesStoreData, TypesStoreErrors, TypesStoreResponses, TypesUpdateData, TypesUpdateErrors, TypesUpdateResponses, UploadDownloadData, UploadDownloadErrors, UploadDownloadResponses, UploadUploadData, UploadUploadErrors, UploadUploadResponses, UserForgetPasswordData, UserForgetPasswordErrors, UserForgetPasswordResponses, UserLoginData, UserLoginResponses, UserLogoutData, UserLogoutErrors, UserLogoutResponses } from './types.gen';
 
 export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends boolean = boolean, TResponse = unknown> = Options2<TData, ThrowOnError, TResponse> & {
     /**
@@ -18,56 +18,23 @@ export type Options<TData extends TDataShape = TDataShape, ThrowOnError extends 
     meta?: keyof ClientMeta extends never ? Record<string, unknown> : ClientMeta;
 };
 
-export const getApiBikesTypes = <ThrowOnError extends boolean = false>(options?: Options<GetApiBikesTypesData, ThrowOnError>): RequestResult<GetApiBikesTypesResponses, unknown, ThrowOnError> => (options?.client ?? client).get<GetApiBikesTypesResponses, unknown, ThrowOnError>({
-    responseType: 'json',
-    url: '/api/bikes/types',
-    ...options
-});
-
-export const getApiBikesTypesByTypeBike = <ThrowOnError extends boolean = false>(options: Options<GetApiBikesTypesByTypeBikeData, ThrowOnError>): RequestResult<GetApiBikesTypesByTypeBikeResponses, unknown, ThrowOnError> => (options.client ?? client).get<GetApiBikesTypesByTypeBikeResponses, unknown, ThrowOnError>({
-    responseType: 'json',
-    url: '/api/bikes/types/{typeBike}',
-    ...options
-});
-
-export const getApiBikesComponentsBrands = <ThrowOnError extends boolean = false>(options?: Options<GetApiBikesComponentsBrandsData, ThrowOnError>): RequestResult<GetApiBikesComponentsBrandsResponses, unknown, ThrowOnError> => (options?.client ?? client).get<GetApiBikesComponentsBrandsResponses, unknown, ThrowOnError>({
-    responseType: 'json',
-    url: '/api/bikes/components/brands',
-    ...options
-});
-
-export const getApiBikesComponentsBrandsByBrand = <ThrowOnError extends boolean = false>(options: Options<GetApiBikesComponentsBrandsByBrandData, ThrowOnError>): RequestResult<GetApiBikesComponentsBrandsByBrandResponses, unknown, ThrowOnError> => (options.client ?? client).get<GetApiBikesComponentsBrandsByBrandResponses, unknown, ThrowOnError>({
-    responseType: 'json',
-    url: '/api/bikes/components/brands/{brand}',
-    ...options
-});
-
-export const getApiBikesComponentsTypes = <ThrowOnError extends boolean = false>(options?: Options<GetApiBikesComponentsTypesData, ThrowOnError>): RequestResult<GetApiBikesComponentsTypesResponses, unknown, ThrowOnError> => (options?.client ?? client).get<GetApiBikesComponentsTypesResponses, unknown, ThrowOnError>({
-    responseType: 'json',
-    url: '/api/bikes/components/types',
-    ...options
-});
-
-export const getApiBikesComponentsTypesByType = <ThrowOnError extends boolean = false>(options: Options<GetApiBikesComponentsTypesByTypeData, ThrowOnError>): RequestResult<GetApiBikesComponentsTypesByTypeResponses, unknown, ThrowOnError> => (options.client ?? client).get<GetApiBikesComponentsTypesByTypeResponses, unknown, ThrowOnError>({
-    responseType: 'json',
-    url: '/api/bikes/components/types/{type}',
-    ...options
-});
-
 export const getUp = <ThrowOnError extends boolean = false>(options?: Options<GetUpData, ThrowOnError>): RequestResult<GetUpResponses, unknown, ThrowOnError> => (options?.client ?? client).get<GetUpResponses, unknown, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/up',
     ...options
 });
 
 export const get = <ThrowOnError extends boolean = false>(options?: Options<GetData, ThrowOnError>): RequestResult<GetResponses, unknown, ThrowOnError> => (options?.client ?? client).get<GetResponses, unknown, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '//',
     ...options
 });
 
 export const successMessage = <ThrowOnError extends boolean = false>(options: Options<SuccessMessageData, ThrowOnError>): RequestResult<SuccessMessageResponses, SuccessMessageErrors, ThrowOnError> => (options.client ?? client).post<SuccessMessageResponses, SuccessMessageErrors, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '//',
     ...options,
     headers: {
@@ -78,42 +45,49 @@ export const successMessage = <ThrowOnError extends boolean = false>(options: Op
 
 export const langSwitch = <ThrowOnError extends boolean = false>(options?: Options<LangSwitchData, ThrowOnError>): RequestResult<LangSwitchResponses, unknown, ThrowOnError> => (options?.client ?? client).post<LangSwitchResponses, unknown, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/lang-switch',
     ...options
 });
 
 export const privacyPolicy = <ThrowOnError extends boolean = false>(options?: Options<PrivacyPolicyData, ThrowOnError>): RequestResult<PrivacyPolicyResponses, unknown, ThrowOnError> => (options?.client ?? client).get<PrivacyPolicyResponses, unknown, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/privacy-policy',
     ...options
 });
 
 export const termsOfService = <ThrowOnError extends boolean = false>(options?: Options<TermsOfServiceData, ThrowOnError>): RequestResult<TermsOfServiceResponses, unknown, ThrowOnError> => (options?.client ?? client).get<TermsOfServiceResponses, unknown, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/terms-of-service',
     ...options
 });
 
 export const getFirebaseTest = <ThrowOnError extends boolean = false>(options?: Options<GetFirebaseTestData, ThrowOnError>): RequestResult<GetFirebaseTestResponses, unknown, ThrowOnError> => (options?.client ?? client).get<GetFirebaseTestResponses, unknown, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/firebase-test',
     ...options
 });
 
 export const redirectApp = <ThrowOnError extends boolean = false>(options?: Options<RedirectAppData, ThrowOnError>): RequestResult<RedirectAppResponses, unknown, ThrowOnError> => (options?.client ?? client).get<RedirectAppResponses, unknown, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/redirect-app',
     ...options
 });
 
 export const storageLocal = <ThrowOnError extends boolean = false>(options: Options<StorageLocalData, ThrowOnError>): RequestResult<StorageLocalResponses, unknown, ThrowOnError> => (options.client ?? client).get<StorageLocalResponses, unknown, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/storage/{path}',
     ...options
 });
 
 export const storageLocalUpload = <ThrowOnError extends boolean = false>(options: Options<StorageLocalUploadData, ThrowOnError>): RequestResult<StorageLocalUploadResponses, unknown, ThrowOnError> => (options.client ?? client).put<StorageLocalUploadResponses, unknown, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/storage/{path}',
     ...options
 });
@@ -123,6 +97,7 @@ export const storageLocalUpload = <ThrowOnError extends boolean = false>(options
  */
 export const activitiesIndex = <ThrowOnError extends boolean = false>(options?: Options<ActivitiesIndexData, ThrowOnError>): RequestResult<ActivitiesIndexResponses, ActivitiesIndexErrors, ThrowOnError> => (options?.client ?? client).get<ActivitiesIndexResponses, ActivitiesIndexErrors, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/activities',
     ...options
 });
@@ -132,6 +107,7 @@ export const activitiesIndex = <ThrowOnError extends boolean = false>(options?: 
  */
 export const activitiesStore = <ThrowOnError extends boolean = false>(options: Options<ActivitiesStoreData, ThrowOnError>): RequestResult<ActivitiesStoreResponses, ActivitiesStoreErrors, ThrowOnError> => (options.client ?? client).post<ActivitiesStoreResponses, ActivitiesStoreErrors, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/activities',
     ...options,
     headers: {
@@ -144,7 +120,7 @@ export const activitiesStore = <ThrowOnError extends boolean = false>(options: O
  * Remove the specified resource from storage
  */
 export const activitiesDestroy = <ThrowOnError extends boolean = false>(options: Options<ActivitiesDestroyData, ThrowOnError>): RequestResult<ActivitiesDestroyResponses, ActivitiesDestroyErrors, ThrowOnError> => (options.client ?? client).delete<ActivitiesDestroyResponses, ActivitiesDestroyErrors, ThrowOnError>({
-    responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/activities/{activity}',
     ...options
 });
@@ -154,6 +130,7 @@ export const activitiesDestroy = <ThrowOnError extends boolean = false>(options:
  */
 export const activitiesShow = <ThrowOnError extends boolean = false>(options: Options<ActivitiesShowData, ThrowOnError>): RequestResult<ActivitiesShowResponses, ActivitiesShowErrors, ThrowOnError> => (options.client ?? client).get<ActivitiesShowResponses, ActivitiesShowErrors, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/activities/{activity}',
     ...options
 });
@@ -163,6 +140,7 @@ export const activitiesShow = <ThrowOnError extends boolean = false>(options: Op
  */
 export const activitiesUpdate = <ThrowOnError extends boolean = false>(options: Options<ActivitiesUpdateData, ThrowOnError>): RequestResult<ActivitiesUpdateResponses, ActivitiesUpdateErrors, ThrowOnError> => (options.client ?? client).put<ActivitiesUpdateResponses, ActivitiesUpdateErrors, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/activities/{activity}',
     ...options,
     headers: {
@@ -173,12 +151,14 @@ export const activitiesUpdate = <ThrowOnError extends boolean = false>(options: 
 
 export const activityShare = <ThrowOnError extends boolean = false>(options: Options<ActivityShareData, ThrowOnError>): RequestResult<ActivityShareResponses, ActivityShareErrors, ThrowOnError> => (options.client ?? client).get<ActivityShareResponses, ActivityShareErrors, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/activities/{activity}/share',
     ...options
 });
 
 export const activityOpenShareLink = <ThrowOnError extends boolean = false>(options: Options<ActivityOpenShareLinkData, ThrowOnError>): RequestResult<ActivityOpenShareLinkResponses, ActivityOpenShareLinkErrors, ThrowOnError> => (options.client ?? client).get<ActivityOpenShareLinkResponses, ActivityOpenShareLinkErrors, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/activities/share/{token}',
     ...options
 });
@@ -188,6 +168,7 @@ export const activityOpenShareLink = <ThrowOnError extends boolean = false>(opti
  */
 export const typesIndex = <ThrowOnError extends boolean = false>(options?: Options<TypesIndexData, ThrowOnError>): RequestResult<TypesIndexResponses, unknown, ThrowOnError> => (options?.client ?? client).get<TypesIndexResponses, unknown, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/activities/types',
     ...options
 });
@@ -197,29 +178,8 @@ export const typesIndex = <ThrowOnError extends boolean = false>(options?: Optio
  */
 export const typesStore = <ThrowOnError extends boolean = false>(options: Options<TypesStoreData, ThrowOnError>): RequestResult<TypesStoreResponses, TypesStoreErrors, ThrowOnError> => (options.client ?? client).post<TypesStoreResponses, TypesStoreErrors, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/activities/types',
-    ...options,
-    headers: {
-        'Content-Type': 'application/json',
-        ...options.headers
-    }
-});
-
-/**
- * Display the specified resource
- */
-export const typesShow = <ThrowOnError extends boolean = false>(options: Options<TypesShowData, ThrowOnError>): RequestResult<TypesShowResponses, TypesShowErrors, ThrowOnError> => (options.client ?? client).get<TypesShowResponses, TypesShowErrors, ThrowOnError>({
-    responseType: 'json',
-    url: '/api/activities/types/{typeActivity}',
-    ...options
-});
-
-/**
- * Update the specified resource in storage
- */
-export const typesUpdate = <ThrowOnError extends boolean = false>(options: Options<TypesUpdateData, ThrowOnError>): RequestResult<TypesUpdateResponses, TypesUpdateErrors, ThrowOnError> => (options.client ?? client).put<TypesUpdateResponses, TypesUpdateErrors, ThrowOnError>({
-    responseType: 'json',
-    url: '/api/activities/types/{typeActivity}',
     ...options,
     headers: {
         'Content-Type': 'application/json',
@@ -230,9 +190,48 @@ export const typesUpdate = <ThrowOnError extends boolean = false>(options: Optio
 /**
  * Remove the specified resource from storage
  */
-export const typesDestroy = <ThrowOnError extends boolean = false>(options: Options<TypesDestroyData, ThrowOnError>): RequestResult<TypesDestroyResponses, unknown, ThrowOnError> => (options.client ?? client).delete<TypesDestroyResponses, unknown, ThrowOnError>({
+export const typesDestroy = <ThrowOnError extends boolean = false>(options: Options<TypesDestroyData, ThrowOnError>): RequestResult<TypesDestroyResponses, TypesDestroyErrors, ThrowOnError> => (options.client ?? client).delete<TypesDestroyResponses, TypesDestroyErrors, ThrowOnError>({
     responseType: 'json',
-    url: '/api/activities/types/{id}',
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/activities/types/{typeActivity}',
+    ...options
+});
+
+/**
+ * Display the specified resource
+ */
+export const typesShow = <ThrowOnError extends boolean = false>(options: Options<TypesShowData, ThrowOnError>): RequestResult<TypesShowResponses, TypesShowErrors, ThrowOnError> => (options.client ?? client).get<TypesShowResponses, TypesShowErrors, ThrowOnError>({
+    responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/activities/types/{typeActivity}',
+    ...options
+});
+
+/**
+ * Update the specified resource in storage
+ */
+export const typesUpdate = <ThrowOnError extends boolean = false>(options: Options<TypesUpdateData, ThrowOnError>): RequestResult<TypesUpdateResponses, TypesUpdateErrors, ThrowOnError> => (options.client ?? client).put<TypesUpdateResponses, TypesUpdateErrors, ThrowOnError>({
+    responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/activities/types/{typeActivity}',
+    ...options,
+    headers: {
+        'Content-Type': 'application/json',
+        ...options.headers
+    }
+});
+
+export const bikeGetTypeBikeIndex = <ThrowOnError extends boolean = false>(options?: Options<BikeGetTypeBikeIndexData, ThrowOnError>): RequestResult<BikeGetTypeBikeIndexResponses, unknown, ThrowOnError> => (options?.client ?? client).get<BikeGetTypeBikeIndexResponses, unknown, ThrowOnError>({
+    responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/bikes/types',
+    ...options
+});
+
+export const bikeGetTypeBikeShow = <ThrowOnError extends boolean = false>(options: Options<BikeGetTypeBikeShowData, ThrowOnError>): RequestResult<BikeGetTypeBikeShowResponses, unknown, ThrowOnError> => (options.client ?? client).get<BikeGetTypeBikeShowResponses, unknown, ThrowOnError>({
+    responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/bikes/types/{typeBike}',
     ...options
 });
 
@@ -241,6 +240,7 @@ export const typesDestroy = <ThrowOnError extends boolean = false>(options: Opti
  */
 export const bikesIndex = <ThrowOnError extends boolean = false>(options?: Options<BikesIndexData, ThrowOnError>): RequestResult<BikesIndexResponses, unknown, ThrowOnError> => (options?.client ?? client).get<BikesIndexResponses, unknown, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/bikes',
     ...options
 });
@@ -250,6 +250,7 @@ export const bikesIndex = <ThrowOnError extends boolean = false>(options?: Optio
  */
 export const bikesStore = <ThrowOnError extends boolean = false>(options: Options<BikesStoreData, ThrowOnError>): RequestResult<BikesStoreResponses, BikesStoreErrors, ThrowOnError> => (options.client ?? client).post<BikesStoreResponses, BikesStoreErrors, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/bikes',
     ...options,
     headers: {
@@ -263,6 +264,7 @@ export const bikesStore = <ThrowOnError extends boolean = false>(options: Option
  */
 export const bikesDestroy = <ThrowOnError extends boolean = false>(options: Options<BikesDestroyData, ThrowOnError>): RequestResult<BikesDestroyResponses, BikesDestroyErrors, ThrowOnError> => (options.client ?? client).delete<BikesDestroyResponses, BikesDestroyErrors, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/bikes/{bike}',
     ...options
 });
@@ -272,6 +274,7 @@ export const bikesDestroy = <ThrowOnError extends boolean = false>(options: Opti
  */
 export const bikesShow = <ThrowOnError extends boolean = false>(options: Options<BikesShowData, ThrowOnError>): RequestResult<BikesShowResponses, BikesShowErrors, ThrowOnError> => (options.client ?? client).get<BikesShowResponses, BikesShowErrors, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/bikes/{bike}',
     ...options
 });
@@ -281,6 +284,7 @@ export const bikesShow = <ThrowOnError extends boolean = false>(options: Options
  */
 export const bikesUpdate = <ThrowOnError extends boolean = false>(options: Options<BikesUpdateData, ThrowOnError>): RequestResult<BikesUpdateResponses, BikesUpdateErrors, ThrowOnError> => (options.client ?? client).put<BikesUpdateResponses, BikesUpdateErrors, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/bikes/{bike}',
     ...options,
     headers: {
@@ -294,6 +298,7 @@ export const bikesUpdate = <ThrowOnError extends boolean = false>(options: Optio
  */
 export const challengesIndex = <ThrowOnError extends boolean = false>(options?: Options<ChallengesIndexData, ThrowOnError>): RequestResult<ChallengesIndexResponses, unknown, ThrowOnError> => (options?.client ?? client).get<ChallengesIndexResponses, unknown, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/challenges',
     ...options
 });
@@ -303,6 +308,7 @@ export const challengesIndex = <ThrowOnError extends boolean = false>(options?: 
  */
 export const challengesStore = <ThrowOnError extends boolean = false>(options: Options<ChallengesStoreData, ThrowOnError>): RequestResult<ChallengesStoreResponses, ChallengesStoreErrors, ThrowOnError> => (options.client ?? client).post<ChallengesStoreResponses, ChallengesStoreErrors, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/challenges',
     ...options,
     headers: {
@@ -314,13 +320,18 @@ export const challengesStore = <ThrowOnError extends boolean = false>(options: O
 /**
  * Remove the specified resource from storage
  */
-export const challengesDestroy = <ThrowOnError extends boolean = false>(options: Options<ChallengesDestroyData, ThrowOnError>): RequestResult<ChallengesDestroyResponses, ChallengesDestroyErrors, ThrowOnError> => (options.client ?? client).delete<ChallengesDestroyResponses, ChallengesDestroyErrors, ThrowOnError>({ url: '/api/challenges/{challenge}', ...options });
+export const challengesDestroy = <ThrowOnError extends boolean = false>(options: Options<ChallengesDestroyData, ThrowOnError>): RequestResult<ChallengesDestroyResponses, ChallengesDestroyErrors, ThrowOnError> => (options.client ?? client).delete<ChallengesDestroyResponses, ChallengesDestroyErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/challenges/{challenge}',
+    ...options
+});
 
 /**
  * Display the specified resource
  */
 export const challengesShow = <ThrowOnError extends boolean = false>(options: Options<ChallengesShowData, ThrowOnError>): RequestResult<ChallengesShowResponses, ChallengesShowErrors, ThrowOnError> => (options.client ?? client).get<ChallengesShowResponses, ChallengesShowErrors, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/challenges/{challenge}',
     ...options
 });
@@ -330,6 +341,7 @@ export const challengesShow = <ThrowOnError extends boolean = false>(options: Op
  */
 export const challengesUpdate = <ThrowOnError extends boolean = false>(options: Options<ChallengesUpdateData, ThrowOnError>): RequestResult<ChallengesUpdateResponses, ChallengesUpdateErrors, ThrowOnError> => (options.client ?? client).put<ChallengesUpdateResponses, ChallengesUpdateErrors, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/challenges/{challenge}',
     ...options,
     headers: {
@@ -339,10 +351,51 @@ export const challengesUpdate = <ThrowOnError extends boolean = false>(options: 
 });
 
 /**
+ * Display ComponentsBrand index
+ */
+export const componentsBikeGetComponentsBrandIndex = <ThrowOnError extends boolean = false>(options?: Options<ComponentsBikeGetComponentsBrandIndexData, ThrowOnError>): RequestResult<ComponentsBikeGetComponentsBrandIndexResponses, unknown, ThrowOnError> => (options?.client ?? client).get<ComponentsBikeGetComponentsBrandIndexResponses, unknown, ThrowOnError>({
+    responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/bikes/components/brands',
+    ...options
+});
+
+/**
+ * Display the specified ComponentsBrand
+ */
+export const componentsBikeGetComponentsBrandShow = <ThrowOnError extends boolean = false>(options: Options<ComponentsBikeGetComponentsBrandShowData, ThrowOnError>): RequestResult<ComponentsBikeGetComponentsBrandShowResponses, unknown, ThrowOnError> => (options.client ?? client).get<ComponentsBikeGetComponentsBrandShowResponses, unknown, ThrowOnError>({
+    responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/bikes/components/brands/{brand}',
+    ...options
+});
+
+/**
+ * Display ComponentsType index
+ */
+export const componentsBikeGetComponentsTypeIndex = <ThrowOnError extends boolean = false>(options?: Options<ComponentsBikeGetComponentsTypeIndexData, ThrowOnError>): RequestResult<ComponentsBikeGetComponentsTypeIndexResponses, unknown, ThrowOnError> => (options?.client ?? client).get<ComponentsBikeGetComponentsTypeIndexResponses, unknown, ThrowOnError>({
+    responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/bikes/components/types',
+    ...options
+});
+
+/**
+ * Display the specified ComponentsType
+ */
+export const componentsBikeGetComponentsTypeShow = <ThrowOnError extends boolean = false>(options: Options<ComponentsBikeGetComponentsTypeShowData, ThrowOnError>): RequestResult<ComponentsBikeGetComponentsTypeShowResponses, unknown, ThrowOnError> => (options.client ?? client).get<ComponentsBikeGetComponentsTypeShowResponses, unknown, ThrowOnError>({
+    responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/bikes/components/types/{type}',
+    ...options
+});
+
+/**
  * Display a listing of the resource
  */
 export const componentsIndex = <ThrowOnError extends boolean = false>(options?: Options<ComponentsIndexData, ThrowOnError>): RequestResult<ComponentsIndexResponses, ComponentsIndexErrors, ThrowOnError> => (options?.client ?? client).get<ComponentsIndexResponses, ComponentsIndexErrors, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/bikes/components',
     ...options
 });
@@ -352,6 +405,7 @@ export const componentsIndex = <ThrowOnError extends boolean = false>(options?: 
  */
 export const componentsStore = <ThrowOnError extends boolean = false>(options: Options<ComponentsStoreData, ThrowOnError>): RequestResult<ComponentsStoreResponses, ComponentsStoreErrors, ThrowOnError> => (options.client ?? client).post<ComponentsStoreResponses, ComponentsStoreErrors, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/bikes/components',
     ...options,
     headers: {
@@ -365,6 +419,7 @@ export const componentsStore = <ThrowOnError extends boolean = false>(options: O
  */
 export const componentsDestroy = <ThrowOnError extends boolean = false>(options: Options<ComponentsDestroyData, ThrowOnError>): RequestResult<ComponentsDestroyResponses, ComponentsDestroyErrors, ThrowOnError> => (options.client ?? client).delete<ComponentsDestroyResponses, ComponentsDestroyErrors, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/bikes/components/{component}',
     ...options
 });
@@ -374,6 +429,7 @@ export const componentsDestroy = <ThrowOnError extends boolean = false>(options:
  */
 export const componentsShow = <ThrowOnError extends boolean = false>(options: Options<ComponentsShowData, ThrowOnError>): RequestResult<ComponentsShowResponses, ComponentsShowErrors, ThrowOnError> => (options.client ?? client).get<ComponentsShowResponses, ComponentsShowErrors, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/bikes/components/{component}',
     ...options
 });
@@ -383,6 +439,7 @@ export const componentsShow = <ThrowOnError extends boolean = false>(options: Op
  */
 export const componentsUpdate = <ThrowOnError extends boolean = false>(options: Options<ComponentsUpdateData, ThrowOnError>): RequestResult<ComponentsUpdateResponses, ComponentsUpdateErrors, ThrowOnError> => (options.client ?? client).put<ComponentsUpdateResponses, ComponentsUpdateErrors, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/bikes/components/{component}',
     ...options,
     headers: {
@@ -393,12 +450,14 @@ export const componentsUpdate = <ThrowOnError extends boolean = false>(options: 
 
 export const configWelcome = <ThrowOnError extends boolean = false>(options?: Options<ConfigWelcomeData, ThrowOnError>): RequestResult<ConfigWelcomeResponses, unknown, ThrowOnError> => (options?.client ?? client).get<ConfigWelcomeResponses, unknown, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/assets/images/welcome-bg',
     ...options
 });
 
 export const configImage = <ThrowOnError extends boolean = false>(options: Options<ConfigImageData, ThrowOnError>): RequestResult<ConfigImageResponses, unknown, ThrowOnError> => (options.client ?? client).get<ConfigImageResponses, unknown, ThrowOnError>({
     responseType: 'blob',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/assets/images/onboarding/{filename}',
     ...options
 });
@@ -408,6 +467,7 @@ export const configImage = <ThrowOnError extends boolean = false>(options: Optio
  */
 export const notificationsIndex = <ThrowOnError extends boolean = false>(options?: Options<NotificationsIndexData, ThrowOnError>): RequestResult<NotificationsIndexResponses, unknown, ThrowOnError> => (options?.client ?? client).get<NotificationsIndexResponses, unknown, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/notifications',
     ...options
 });
@@ -415,13 +475,18 @@ export const notificationsIndex = <ThrowOnError extends boolean = false>(options
 /**
  * Remove the specified resource from storage
  */
-export const notificationsDestroy = <ThrowOnError extends boolean = false>(options: Options<NotificationsDestroyData, ThrowOnError>): RequestResult<NotificationsDestroyResponses, NotificationsDestroyErrors, ThrowOnError> => (options.client ?? client).delete<NotificationsDestroyResponses, NotificationsDestroyErrors, ThrowOnError>({ url: '/api/notifications/{notification}', ...options });
+export const notificationsDestroy = <ThrowOnError extends boolean = false>(options: Options<NotificationsDestroyData, ThrowOnError>): RequestResult<NotificationsDestroyResponses, NotificationsDestroyErrors, ThrowOnError> => (options.client ?? client).delete<NotificationsDestroyResponses, NotificationsDestroyErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/api/notifications/{notification}',
+    ...options
+});
 
 /**
  * Display the specified resource
  */
 export const notificationsShow = <ThrowOnError extends boolean = false>(options: Options<NotificationsShowData, ThrowOnError>): RequestResult<NotificationsShowResponses, NotificationsShowErrors, ThrowOnError> => (options.client ?? client).get<NotificationsShowResponses, NotificationsShowErrors, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/notifications/{notification}',
     ...options
 });
@@ -431,12 +496,14 @@ export const notificationsShow = <ThrowOnError extends boolean = false>(options:
  */
 export const notificationsUpdate = <ThrowOnError extends boolean = false>(options: Options<NotificationsUpdateData, ThrowOnError>): RequestResult<NotificationsUpdateResponses, NotificationsUpdateErrors, ThrowOnError> => (options.client ?? client).put<NotificationsUpdateResponses, NotificationsUpdateErrors, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/notifications/{notification}',
     ...options
 });
 
 export const uploadUpload = <ThrowOnError extends boolean = false>(options: Options<UploadUploadData, ThrowOnError>): RequestResult<UploadUploadResponses, UploadUploadErrors, ThrowOnError> => (options.client ?? client).post<UploadUploadResponses, UploadUploadErrors, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/upload',
     ...options,
     headers: {
@@ -447,18 +514,21 @@ export const uploadUpload = <ThrowOnError extends boolean = false>(options: Opti
 
 export const uploadDownload = <ThrowOnError extends boolean = false>(options: Options<UploadDownloadData, ThrowOnError>): RequestResult<UploadDownloadResponses, UploadDownloadErrors, ThrowOnError> => (options.client ?? client).get<UploadDownloadResponses, UploadDownloadErrors, ThrowOnError>({
     responseType: 'blob',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/upload/{user}/{path}/{filename}',
     ...options
 });
 
 export const profileIndex = <ThrowOnError extends boolean = false>(options?: Options<ProfileIndexData, ThrowOnError>): RequestResult<ProfileIndexResponses, unknown, ThrowOnError> => (options?.client ?? client).get<ProfileIndexResponses, unknown, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/profile',
     ...options
 });
 
 export const profileShow = <ThrowOnError extends boolean = false>(options: Options<ProfileShowData, ThrowOnError>): RequestResult<ProfileShowResponses, ProfileShowErrors, ThrowOnError> => (options.client ?? client).get<ProfileShowResponses, ProfileShowErrors, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/profile/{user}',
     ...options
 });
@@ -468,6 +538,7 @@ export const profileShow = <ThrowOnError extends boolean = false>(options: Optio
  */
 export const profileUpdate = <ThrowOnError extends boolean = false>(options: Options<ProfileUpdateData, ThrowOnError>): RequestResult<ProfileUpdateResponses, ProfileUpdateErrors, ThrowOnError> => (options.client ?? client).put<ProfileUpdateResponses, ProfileUpdateErrors, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/api/profile/{user}',
     ...options,
     headers: {
@@ -478,6 +549,7 @@ export const profileUpdate = <ThrowOnError extends boolean = false>(options: Opt
 
 export const userForgetPassword = <ThrowOnError extends boolean = false>(options: Options<UserForgetPasswordData, ThrowOnError>): RequestResult<UserForgetPasswordResponses, UserForgetPasswordErrors, ThrowOnError> => (options.client ?? client).post<UserForgetPasswordResponses, UserForgetPasswordErrors, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/auth/forget-password',
     ...options,
     headers: {
@@ -486,16 +558,22 @@ export const userForgetPassword = <ThrowOnError extends boolean = false>(options
     }
 });
 
-export const login = <ThrowOnError extends boolean = false>(options?: Options<LoginData, ThrowOnError>): RequestResult<unknown, LoginErrors, ThrowOnError> => (options?.client ?? client).get<unknown, LoginErrors, ThrowOnError>({ url: '/auth/login', ...options });
+export const login = <ThrowOnError extends boolean = false>(options?: Options<LoginData, ThrowOnError>): RequestResult<unknown, LoginErrors, ThrowOnError> => (options?.client ?? client).get<unknown, LoginErrors, ThrowOnError>({
+    security: [{ scheme: 'bearer', type: 'http' }],
+    url: '/auth/login',
+    ...options
+});
 
 export const userLogin = <ThrowOnError extends boolean = false>(options?: Options<UserLoginData, ThrowOnError>): RequestResult<UserLoginResponses, unknown, ThrowOnError> => (options?.client ?? client).post<UserLoginResponses, unknown, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/auth/login',
     ...options
 });
 
 export const userLogout = <ThrowOnError extends boolean = false>(options?: Options<UserLogoutData, ThrowOnError>): RequestResult<UserLogoutResponses, UserLogoutErrors, ThrowOnError> => (options?.client ?? client).post<UserLogoutResponses, UserLogoutErrors, ThrowOnError>({
     responseType: 'json',
+    security: [{ scheme: 'bearer', type: 'http' }],
     url: '/auth/logout',
     ...options,
     headers: {

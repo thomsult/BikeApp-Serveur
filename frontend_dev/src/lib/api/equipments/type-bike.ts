@@ -1,15 +1,17 @@
-import { GenericCrud } from "../common/generic-crud";
-import type { BikeType } from "./bike";
+import { useQuery } from "@tanstack/react-query";
+import { bikeGetTypeBikeIndexOptions, bikeGetTypeBikeShowOptions } from "@/client/@tanstack/react-query.gen";
 
-const TypeBike = new GenericCrud<BikeType & { id?: string | undefined; }>({
-  resourceName: "bikes/types",
-  storagePrefix: "bikes-types:",
-  allowRequests: true,
-  resourceTitle(item) {
-    return item.label ? item.label : item.id;
-  },
-});
 
-// Export des hooks
-export const useTypeBike = TypeBike.useItem;
-export const useAllTypeBikes = TypeBike.useAll;
+
+// // Export des hooks
+export const useTypeBike = (id: string) => {
+  return useQuery({
+    ...bikeGetTypeBikeShowOptions({ path: { typeBike: id } }),
+  })
+}
+export const useAllTypeBikes = () => {
+  return useQuery({
+    ...bikeGetTypeBikeIndexOptions(),
+    select: (data) => data,
+  })
+}

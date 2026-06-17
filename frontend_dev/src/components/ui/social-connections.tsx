@@ -26,7 +26,7 @@ export default function SocialConnections() {
       if (!res.user) {
         throw new Error("No user found in sign-in result");
       }
-      await signIn(res.user as any);
+      await signIn(res.user);
       router.navigate({ to: "/" });
     },
     onError: error => {

@@ -1,20 +1,18 @@
 import { ModalLayout, useModalLayout } from "@/components/layout/modal-layout";
 import { Card } from "@/components/ui/card";
-import { FieldGroup } from "@/components/ui/field";
 import { FormField } from "@/components/ui/form-field";
 import { ControlledInput } from "@/components/ui/input";
 import { InputCheckbox } from "@/components/ui/input-checkbox";
 import { ControlledInputRange } from "@/components/ui/input-range";
-import { ControlledSelectInput } from "@/components/ui/select-input";
 import { useAllBikes, useCreateComponentBike, useDeleteComponentBike, useUpdateBike, useUpdateComponentBike } from "@/lib/api/equipments";
 import type { Bike, ComponentBike } from "@/lib/api/equipments/bike";
 import { useAllComponentBikeBrands } from "@/lib/api/equipments/component/components-brands";
 import { useAllComponentBikeTypes } from "@/lib/api/equipments/component/components-type";
-import type { ID } from "@/lib/api/types";
 import { useForm, useStore } from "@tanstack/react-form";
-import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useAccessoriesBikeValidator } from "./validator";
+import { ControlledSelectInput } from "@/components/ui/select-input";
+import type { BikeAccessoriesContextType } from "../../bike-accessories-context";
 
 
 export const AccessoriesBikeModal = ({
@@ -22,7 +20,7 @@ export const AccessoriesBikeModal = ({
   showModal,
   hideModalWithAction,
 }: {
-  bike?: Partial<Bike>;
+  bike?: BikeAccessoriesContextType["bike"];
   showModal: ComponentBike & { refer?: string } | null;
   hideModalWithAction: (
     action:
@@ -70,41 +68,41 @@ export const AccessoriesBikeModal = ({
 
   const handleSave = async (value: Partial<ComponentBike & { refer?: string }>) => {
 
-    if (!value || !value.id) {
-      reset();
-      hideModalWithAction(
-        "createComponentBike",
-        await createComponentBike(value as ComponentBike),
-      );
-      return;
-    } else {
-      const updatedComponents = {
-        ...value,
-        updatedAt: new Date().toISOString(),
-      };
-      try {
-        reset(updatedComponents as ComponentBike & { refer?: string }, {
-          keepDefaultValues: true,
-        }); // Mettre à jour le formulaire avec les nouvelles valeurs
-        const savedComponent = await saveComponentBike(updatedComponents as ComponentBike);
-        hideModalWithAction("updateComponentBike", savedComponent);
-      } catch (error) {
-        console.warn(
-          "Erreur lors de la sauvegarde du composant :",
-          error.response.data.errors,
-        );
-        reset(); // Revenir à l'état initial en cas d'erreur
-      }
+    // if (!value || !value.id) {
+    //   reset();
+    //   hideModalWithAction(
+    //     "createComponentBike",
+    //     await createComponentBike(value as ComponentBike),
+    //   );
+    //   return;
+    // } else {
+    //   const updatedComponents = {
+    //     ...value,
+    //     updatedAt: new Date().toISOString(),
+    //   };
+    //   try {
+    //     reset(updatedComponents as ComponentBike & { refer?: string }, {
+    //       keepDefaultValues: true,
+    //     }); // Mettre à jour le formulaire avec les nouvelles valeurs
+    //     const savedComponent = await saveComponentBike(updatedComponents as ComponentBike);
+    //     hideModalWithAction("updateComponentBike", savedComponent);
+    //   } catch (error) {
+    //     console.warn(
+    //       "Erreur lors de la sauvegarde du composant :",
+    //       error.response.data.errors,
+    //     );
+    //     reset(); // Revenir à l'état initial en cas d'erreur
+    //   }
 
-      return;
-    }
+    //   return;
+    // }
   };
 
   const handleDeleteComponent = async () => {
     const res = await handleDelete();
     if (!res) return;
-    await deleteComponentBike(formState as ComponentBike);
-    hideModalWithAction("deleteComponentBike", formState as ComponentBike);
+    // await deleteComponentBike(formState);
+    // hideModalWithAction("deleteComponentBike", formState);
   };
   const isNewComponent = formState && (!formState.id || formState.id === "");
 
@@ -147,7 +145,7 @@ export const AccessoriesBikeModal = ({
             options={componentBikeType.map(({ id, label }) => ({
               label: label,
               value: String(id),
-              id: id as ID,
+              id: id,
             }))}
             placeholder={t("common.placeholders.componentType")}
           />
@@ -161,7 +159,7 @@ export const AccessoriesBikeModal = ({
             options={componentBikeBrands.map(({ id, label }) => ({
               label: label,
               value: String(id),
-              id: id as ID,
+              id: id,
             }))}
             placeholder={t("common.placeholders.brand")}
           />

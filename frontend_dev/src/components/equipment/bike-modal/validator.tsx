@@ -125,4 +125,3 @@ export const useBikeValidator = () => {
   });
 
 }
-type BikeFormValues = z.infer<ReturnType<typeof useBikeValidator>>;

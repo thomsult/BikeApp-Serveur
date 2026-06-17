@@ -1,11 +1,11 @@
 import { useFormContext } from "./sub-components/form/context";
-import { useStore } from "@tanstack/react-form";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import type { Profil } from "@/lib/api/profil/profil";
+import { useSelector } from "@tanstack/react-store";
 
 export const SettingHeaderProfil = () => {
   const form = useFormContext();
-  const formState = useStore(form.store, (state) => state.values) as Partial<Profil>;
+  const formState = useSelector(form.store, (state) => state.values) as Partial<Profil>;
 
   return (
     <div className="flex flex-col items-center gap-3  ">

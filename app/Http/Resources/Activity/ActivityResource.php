@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Activity;
 
+use App\Enums\TypeActivityFamily;
 use App\Http\Resources\Bikes\BikeResource;
 use App\Http\Resources\Bikes\Components\ComponentsResource;
 use App\Http\Resources\TypeActivityResource;
@@ -18,9 +19,36 @@ class ActivityResource extends JsonResource
     public static $wrap = null;
 
     /**
-     * Transform the resource into an array.
-     *
-     * @return array<string, mixed>
+     * @return array{
+     *   id: int,
+     *   title: string,
+     *   description: string,
+     *   type: TypeActivityResource,
+     *   typeFamily: TypeActivityFamily,
+     *   dt_start: string,
+     *   dt_end: string,
+     *   notes: string,
+     *   completedAt: string|null,
+     *   createdAt: string|null,
+     *   updatedAt: string|null,
+     *   recurrence: array{frequency: string|null, interval: int|null},
+     *   shareUrl: string,
+     *    // For ActivityRide
+     *    distance?: float|null,
+     *    duration?: int|null,
+     *    avgSpeed?: float|null,
+     *    maxSpeed?: float|null,
+     *   waypoints?: array|null,
+     *   startedAt?: string|null,
+     *  stoppedAt?: string|null,
+     *    // For ActivityTraining
+     *    trainingType?: 'interval'|'endurance'|'tempo'|'recovery'|null,
+     *    // For ActivityMaintenance
+     *    maintenanceType?: string|null,
+     *   // For ActivityEvent
+     *    bike?: BikeResource|null,
+     *    component?: ComponentsResource|null,
+     * }
      */
     public function toArray(Request $request): array
     {

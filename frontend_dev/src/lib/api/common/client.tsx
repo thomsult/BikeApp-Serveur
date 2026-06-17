@@ -3,31 +3,31 @@ import axios, { type AxiosInstance } from "axios";
 import { getStorageToken, setStorageToken } from "@/lib/auth/utils";
 import { auth } from "@/lib/firebase/config";
 import { logout } from "@/lib/auth/use-auth";
-import type { ClientOptions, Config, CreateClientConfig } from "@/client/client";
+import { client } from '@/client/client.gen';
+import { getExtLocalLanguage } from "@/lib/i18n/utils";
 
-const client = axios.create({
-  baseURL: `${import.meta.env.VITE_PUBLIC_BASE_URL}/api/`,
+
+const clientAxios = axios.create({
+  baseURL: `${import.meta.env.VITE_PUBLIC_BASE_URL}`,
   headers: {
     "Content-Type": "application/json",
     withCredentials: true,
   },
 }) as AxiosClientWithUpload;
 
-export const createClientConfig: CreateClientConfig = (override) => {
-  const baseConfig: Config<ClientOptions> = {
-    baseURL: `${import.meta.env.VITE_PUBLIC_BASE_URL}/api/`,
-    headers: {
-      "Content-Type": "application/json",
-      withCredentials: true,
-    },
-  };
-  return { ...baseConfig, ...override };
-};
+export const createClientConfig = (_: unknown) => ({
+  axios: clientAxios,
+});
+
 
 // --- Interceptor de requêtes : injecte toujours le token si présent ---
-client.interceptors.request.use(
+clientAxios.interceptors.request.use(
   async (config) => {
     const token = getStorageToken();
+    const language = getExtLocalLanguage();
+    if (language) {
+      config.headers["Accept-Language"] = language;
+    }
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -61,7 +61,7 @@ const processQueue = (error: any, token: string | null = null) => {
   failedQueue = [];
 };
 
-client.interceptors.response.use(
+clientAxios.interceptors.response.use(
   (response) => response,
   async (error) => {
     const originalRequest = error.config;
@@ -75,7 +75,7 @@ client.interceptors.response.use(
             if (token) {
               originalRequest.headers.Authorization = `Bearer ${token}`;
             }
-            return client(originalRequest);
+            return clientAxios(originalRequest);
           })
           .catch((err) => UnauthenticatedRequest(originalRequest, err));
       }
@@ -90,11 +90,11 @@ client.interceptors.response.use(
         const response = await user.getIdToken(true);
         setStorageToken(response);
 
-        client.defaults.headers.common.Authorization = `Bearer ${response}`;
+        clientAxios.defaults.headers.common.Authorization = `Bearer ${response}`;
 
         processQueue(null, response);
 
-        return client(originalRequest);
+        return clientAxios(originalRequest);
       } catch (err) {
         return UnauthenticatedRequest(originalRequest, err);
       } finally {
@@ -106,7 +106,7 @@ client.interceptors.response.use(
   },
 );
 
-client.uploadFile = async (
+export const uploadFile = async (
   file: {
     assets?: {
       base64?: string;

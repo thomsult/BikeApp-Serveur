@@ -10,25 +10,6 @@ class UserResource extends JsonResource
 {
     public static $wrap = null;
 
-    private function notificationPreference()
-    {
-        $preferences = $this->notificationPreferences()->first();
-
-        if (! $preferences) {
-            return [
-                'notifications' => false,
-                'emailNotifications' => false,
-                'pushNotifications' => false,
-            ];
-        }
-
-        return [
-            'notifications' => boolval(($preferences->in_app_enabled)),
-            'emailNotifications' => boolval(($preferences->email_enabled)),
-            'pushNotifications' => boolval(($preferences->push_enabled)),
-        ];
-    }
-
     /**
      * Transform the resource into an array.
      *
@@ -57,12 +38,10 @@ class UserResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-
+        $preferences = $this->notificationPreferences()->first();
         return [
             'id' => $this->id,
             'username' => $this->username ?? 'BikeAppUser:'.$this->id,
-            // "address" => $this->address ?? "",
-            // "location" => $this->location ?? "",
             'birthday' => $this->birthday ? $this->birthday->toDateString() : null,
             'firstConnected' => $this->first_connected ?? null,
             'name' => $this->name ?? '',
@@ -75,10 +54,12 @@ class UserResource extends JsonResource
             'website' => $this->website ?? '',
             'language' => $this->language ?? App::getLocale(),
             'offlineMode' => $this->offline_mode ?? '',
-            'stats' => $this->stats,
+            'stats' => new StatsResource($this->stats ?? []),
             'createdAt' => $this->created_at ?? null,
             'updatedAt' => $this->updated_at ?? null,
-            ...$this->notificationPreference(),
+            'notifications' => boolval(($preferences?->in_app_enabled)) ?? false,
+            'emailNotifications' => boolval(($preferences?->email_enabled)) ?? false,
+            'pushNotifications' => boolval(($preferences?->push_enabled)) ?? false,
         ];
     }
 }

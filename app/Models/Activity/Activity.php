@@ -98,7 +98,17 @@ class Activity extends Model
 
     public function typeActivity()
     {
-        return $this->hasOne(TypeActivity::class, 'id', 'type_id');
+        return $this->belongsTo(TypeActivity::class, 'type_id')
+            ->withDefault([
+                'id' => 0,
+                'label' => 'Unknown',
+                'family' => 'other',
+                'color' => '#000000',
+                'user_id' => $this->user_id,
+                'is_default' => true,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
     }
 
     public function user()

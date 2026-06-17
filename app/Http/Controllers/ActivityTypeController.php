@@ -69,9 +69,9 @@ class ActivityTypeController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id, Request $request)
+    public function destroy(Request $request, TypeActivity $typeActivity)
     {
-        $activityType = TypeActivity::findOrFail($id);
+        $activityType = TypeActivity::findOrFail($typeActivity->id);
         if ($activityType->is_default) {
             throw new UnauthorizedException(__('validation.cannot_delete_default_activity_type'), 403);
         }

@@ -8,12 +8,13 @@ import { ControlledInput } from "../../ui/input";
 import { ControlledTextarea } from "../../ui/textarea";
 import { ControlledSelectInput } from "../../ui/select-input";
 import { alertsConfirmation } from "@/components/alerts";
+import type { ChallengeResource } from "@/client";
 
 export const ChallengeModal = ({
   showModal,
   hideModal,
 }: {
-  showModal: Challenge | null;
+  showModal: ChallengeResource | null;
   hideModal: () => void;
 }) => {
   const { t } = useTranslation();
@@ -34,9 +35,9 @@ export const ChallengeModal = ({
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
         progress: 0,
-      } as Challenge),
+      } as ChallengeResource),
     onSubmit: async ({ value }) => {
-      let formValue: Challenge = {} as Challenge;
+      let formValue: ChallengeResource = {} as ChallengeResource;
       if (value.id && value.id !== "new" && !isSuggestion) {
         if (value.progress !== undefined) {
           const confirme = await alertsConfirmation({

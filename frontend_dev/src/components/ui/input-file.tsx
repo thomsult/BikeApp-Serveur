@@ -4,8 +4,8 @@ import { Button } from "./button";
 import { X } from "lucide-react";
 import { Input } from "./input";
 import type { useForm, AnyFieldApi, } from "@tanstack/react-form";
-import { fileToBase64, getUploadedFileUrl } from "@/lib/api/common";
 import type { FileUpload } from "@/lib/api/equipments/bike";
+import { fileToBase64, getUploadedFileUrl } from "@/lib/api/common/client";
 
 
 // ─── InputFile ───────────────────────────────────────────────────────────────

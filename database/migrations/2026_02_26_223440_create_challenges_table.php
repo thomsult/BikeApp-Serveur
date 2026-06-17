@@ -18,6 +18,7 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->string('challenge_type')->default('distance');
             $table->integer('challenge_value')->default(0);
+            $table->integer('progress')->default(0);
             $table->integer('duration_challenge')->default(7);
             $table->boolean('is_daily_goal')->default(false);
             $table->boolean('is_suggestion')->default(false);

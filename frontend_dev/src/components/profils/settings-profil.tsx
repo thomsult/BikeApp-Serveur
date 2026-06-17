@@ -1,11 +1,11 @@
-import { useStore } from "@tanstack/react-form";
 import settingsConfig from "./settings-config";
 import SettingItem from "./settings-item";
 import { useFormContext } from "./sub-components/form/context";
+import { useSelector } from "@tanstack/react-store";
 
 export const SettingsProfil = () => {
   const form = useFormContext();
-  const formState = useStore(form.store, (state) => state);
+  const formState = useSelector(form.store, (state) => state);
   return <div className="flex flex-col gap-6">
     {Object.entries(settingsConfig).map(([key, section]) => (
       <div key={key} className="mb-8 mx-auto max-w-3xl">

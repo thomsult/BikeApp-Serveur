@@ -1,11 +1,15 @@
 import { createContext } from "react";
 import type { Bike, ComponentBike } from "@/lib/api/equipments/bike";
+import type { BikeModalDefaultValues } from "./bike-modal";
 
-const BikeAccessoriesContext = createContext<{
-  bike?: Partial<Bike>;
-  bikes: Partial<Bike>[];
+
+export interface BikeAccessoriesContextType {
+  bike?: BikeModalDefaultValues;
+  bikes: Bike[];
   equipments?: ComponentBike[];
-}>({
+}
+
+const BikeAccessoriesContext = createContext<BikeAccessoriesContextType>({
   bike: undefined,
   bikes: [],
 });

@@ -1,5 +1,5 @@
 import LabelBadge from "@/components/ui/label-badge";
-import { client, getUploadedFileUrl } from "@/lib/api/common";
+import { getUploadedFileUrl } from "@/lib/api/common/client";
 import type { Bike, ComponentBike } from "@/lib/api/equipments/bike";
 import { StarFilledIcon } from "@radix-ui/react-icons";
 import { useEffect, useMemo, useState } from "react";

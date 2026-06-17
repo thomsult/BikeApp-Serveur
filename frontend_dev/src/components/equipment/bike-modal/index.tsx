@@ -1,4 +1,4 @@
-import { useForm, useStore } from "@tanstack/react-form";
+import { useForm } from "@tanstack/react-form";
 import { useTranslation } from "react-i18next";
 import {
   useAllBikes,
@@ -6,61 +6,106 @@ import {
   useDeleteBike,
   useUpdateBike,
 } from "@/lib/api/equipments";
-import type { Bike } from "@/lib/api/equipments/bike";
 import { useAllTypeBikes } from "@/lib/api/equipments/type-bike";
 import { Toast } from "@/lib/notification/toast-context";
 import { ModalLayout, useModalLayout } from "@/components/layout/modal-layout";
 import { FormField } from "@/components/ui/form-field";
 import { ControlledInput } from "@/components/ui/input";
 import { ControlledSelectInput } from "@/components/ui/select-input";
-import { Card, CardDescription, CardHeader } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { ControlledInputCheckbox } from "@/components/ui/input-checkbox";
 import { ControlledInputRange } from "@/components/ui/input-range";
 import { MaintenanceBikeModal } from "./maintenance-bike-modal";
 import { ControlledInputFile } from "@/components/ui/input-file";
 import { StatsBikeModal } from "./stats-bike-modal";
 import BikeModalAccessories from "../bike-accessories";
-import { useBikeValidator } from "./validator";
-import { client, fileToBase64 } from "@/lib/api/common";
-import { useEffect, useState } from "react";
+// import { useBikeValidator } from "./validator";
+import { useSelector } from "@tanstack/react-store";
+import type { BikeResource, CreateBikeRequest } from "@/client";
+import { zCreateBikeRequest } from "@/client/zod.gen";
+import z from "zod";
+import { useEffect } from "react";
+
+export type BikeModalDefaultValues = Partial<z.infer<typeof zCreateBikeRequest>> & { id?: string, refer?: string }
+
+const convertBikeResourceToDefaultValues = (bike: BikeResource): BikeModalDefaultValues => {
+  return {
+    name: bike.name || "Untitled",
+    type_bike_id: Number(bike.type?.id),
+    preferred: bike.preferred ?? false,
+    status: bike.status ?? 100,
+    image_url: bike.image,
+    components: bike.components?.map((c) => c.id) || [],
+    stats: {
+      distance: Number(bike.stats?.distance || 0),
+      rides: Number(bike.stats?.rides || 0),
+      last_service_date: bike.stats?.lastService || null,
+      service: {
+        method: bike.stats?.service?.method as CreateBikeRequest['stats']['service']['method'] || "none",
+        interval_distance: Number(bike.stats?.service?.intervalDistance || 0),
+        interval_time: Number(bike.stats?.service?.intervalTime || 0),
+        interval_rides: Number(bike.stats?.service?.intervalRides || 0),
+        manual_note: bike.stats?.service?.manualNote || null,
+      },
+    },
+  };
+}
+const convertDefaultValuesToBikeResource = (values: BikeModalDefaultValues): CreateBikeRequest => {
+  return {
+    name: values.name || "Untitled",
+    type_bike_id: Number(values.type_bike_id || 0),
+    preferred: values.preferred || false,
+    status: values.status || 100,
+    image_url: values.image_url,
+    components: values.components || [],
+    stats: {
+      distance: Number(values.stats?.distance || 0),
+      rides: Number(values.stats?.rides || 0),
+      last_service_date: values.stats?.last_service_date || null,
+      service: {
+        method: values.stats?.service?.method as CreateBikeRequest['stats']['service']['method'] || "none",
+        interval_distance: Number(values.stats?.service?.interval_distance || 0),
+        interval_time: Number(values.stats?.service?.interval_time || 0),
+        interval_rides: Number(values.stats?.service?.interval_rides || 0),
+        manual_note: values.stats?.service?.manual_note || null,
+      },
+    },
+  };
+}
+
+
 export const BikeModal = ({
   showModal,
   hideModal,
 }: {
-  showModal: (Partial<Bike> & { refer?: string }) | null;
+  showModal: (Partial<BikeResource> & { refer?: string }) | null;
   hideModal: (refer?: string) => void;
 }) => {
   const { t } = useTranslation();
   const { data: bikes } = useAllBikes();
-  const validator = useBikeValidator();
+  // const validator = useBikeValidator();
   const { mutateAsync: createBike } = useCreateBike();
   const { mutateAsync: updateBike } = useUpdateBike();
   const { mutateAsync: deleteBike } = useDeleteBike();
   const { data: bikeType } = useAllTypeBikes(); // Récupère les types de vélos pour le select
-  const defaultValues = {
-    // id: Math.random().toString(36).substring(2, 9), // Génération d'un ID temporaire pour les nouveaux vélos
-    name: "",
-    type: bikeType ? bikeType[0] : undefined,
-    refer: showModal?.refer, // Conserve la référence pour le retour après fermeture
-    preferred: false,
-    status: 0,
-    image: null,
-    components: [],
-    stats: {
-      distance: 0,
-      rides: 0,
-      lastService: null,
-      service: {
-        method: "manual",
-        manualNote: "",
-      },
-    },
-  } as Partial<Bike> & { refer?: string };
-  // useForm de @tanstack/react-form
+
+
+  const defaultValues: BikeModalDefaultValues = {
+    id: showModal?.id,
+    refer: showModal?.refer,
+    ...convertBikeResourceToDefaultValues(showModal as BikeResource),
+  };
+
+  useEffect(() => {
+    if (showModal) {
+      reset(defaultValues);
+    }
+  }, [showModal]);
+
   const form = useForm({
-    defaultValues: showModal?.id ? showModal : defaultValues,
+    defaultValues: defaultValues,
     validators: {
-      onChange: validator
+      onChange: zCreateBikeRequest,
     },
     onSubmitInvalid() {
       Toast.error({
@@ -72,20 +117,21 @@ export const BikeModal = ({
     },
     onSubmit: async ({ value }) => {
       try {
-        if (value.image && typeof value.image === "object") {
-          const response = await client.uploadFile(
-            { assets: value.image ? [{ base64: value.image.base64, fileName: `bike_${value.name}.jpg` }] : [] },
-            "bike")
-          if (response?.fileUrl) {
-            value.image = response.fileUrl;
-          } else {
-            throw new Error("File upload failed");
-          }
-        }
+        // if (value.image && typeof value.image === "object") {
+        //   const response = await uploadFile(
+        //     { assets: value.image ? [{ base64: value.image.base64, fileName: `bike_${value.name}.jpg` }] : [] },
+        //     "bike")
+        //   if (response?.fileUrl) {
+        //     value.image = response.fileUrl;
+        //   } else {
+        //     throw new Error("File upload failed");
+        //   }
+        // }
+        const bikeData = convertDefaultValuesToBikeResource(value);
         if (!value?.id) {
-          await createBike(value);
+          await createBike({ body: bikeData });
         } else {
-          await updateBike(value);
+          await updateBike({ path: { bike: Number(value.id) }, body: bikeData });
         }
 
         reset();
@@ -102,21 +148,22 @@ export const BikeModal = ({
     },
   });
   const { Field, store, reset, handleSubmit } = form;
-  const formState = useStore(store, (s) => s.values);
-  const isDirty = useStore(store, (s) => s.isDirty);
-  const isValid = useStore(store, (s) => s.isValid);
-  const error = useStore(store, (s) => s.errors);
+  const formState = useSelector(store, (s) => s.values);
+  const isDirty = useSelector(store, (s) => s.isDirty);
+  const isValid = useSelector(store, (s) => s.isValid);
+  const error = useSelector(store, (s) => s.errors);
 
   const { handleCancel, handleClose, handleDelete } = useModalLayout();
   const handleDeleteBike = async () => {
     const res = await handleDelete();
-    if (!res) return;
-    await deleteBike(formState as Bike);
+    if (!res || !formState.id) return;
+    await deleteBike({ path: { bike: Number(formState.id) } });
     hideModal(formState.refer);
   };
   const hasAlreadyPreferredBike = bikes?.some(
     (bike) => bike.preferred && bike.id !== showModal?.id,
   );
+  const bikeTypeLabel = bikeType?.find((type) => Number(type.id) === Number(formState.type_bike_id))?.label || t("common.untitled");
 
 
   return (
@@ -127,7 +174,7 @@ export const BikeModal = ({
         " :  " +
         (formState.name || t("common.untitled")) +
         " (" +
-        formState.type?.label +
+        bikeTypeLabel +
         ")"}
       // description={""}
       hideModal={isDirty ? handleCancel : handleClose}
@@ -172,7 +219,7 @@ export const BikeModal = ({
                 }))
                 : []
             }
-            defaultValue={formState?.type?.id}
+            defaultValue={formState?.type_bike_id}
 
           />
         </FormField>
@@ -241,7 +288,7 @@ export const BikeModal = ({
           <Field name="components" >
             {({ handleChange }) => (
               <BikeModalAccessories
-                bike={formState as Bike}
+                bike={formState}
                 onChange={(components) => {
                   handleChange(components);
                 }}
@@ -266,9 +313,9 @@ export const BikeModal = ({
           <div className="text-red-500 text-sm">
             {t("common.errors.validationError")} :
             {error.map((err, index: number) => (
-              <div key={index}>{Object.keys(err).map((key) => {
+              <div key={index}>{Object.keys(err as Record<string, unknown>).map((key) => {
                 return (<p key={key}>
-                  {`- ${err[key].map((e) => e.message + "." + ` (${e.path})`).join(", ")}`}
+                  {`- ${(err as Record<string, any>)[key].map((e: any) => e.message + "." + ` (${e.path})`).join(", ")}`}
                 </p>);
               })}</div>
             ))}

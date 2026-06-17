@@ -1,3 +1,4 @@
+import type { UpdateUserRequest } from "@/client";
 import { Button } from "@/components/ui/button";
 import { DatePickerInput } from "@/components/ui/date-picker";
 import { InputGroup, InputGroupAddon, InputGroupInput } from "@/components/ui/input-group";
@@ -7,39 +8,37 @@ import type { Profil } from "@/lib/api/profil/profil";
 import { getExtLocalLanguage } from "@/lib/i18n/utils";
 import { useTheme } from "@/lib/theme/use-theme";
 import { createFormHook, createFormHookContexts, useStore, type useForm } from "@tanstack/react-form";
-import { formatDate } from "date-fns";
 import { Link, Mail, Phone } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 
 const formOptions = {
   defaultValues: {
-    id: "current",
-    firstName: "Thomas",
-    lastName: "Sultan",
-    name: "Thomas Sultan",
-    username: "Thomas Sultan",
-    email: "thomsult@gmail.com",
-    phone: "+1234567890",
-    avatarURL:
-      "https://gravatar.com/avatar/43a24a1b3afdd74704c2cfb5b5c95c83a24fa7ca096f64faa1eff021e59badeb",
+    id: "currentUserId",
+    firstName: "",
+    lastName: "",
+    name: "",
+    username: "",
+    email: "",
+    phone: "",
+    avatarURL: "",
     birthday: new Date().toISOString(),
     firstConnected: new Date().toISOString(),
-    bio: "Passionné de cyclisme et d'aventures en plein air.",
-    website: "https://thomsult.dev",
+    bio: "",
+    website: "",
     language: getExtLocalLanguage(),
     offlineMode: true,
     notifications: false,
     emailNotifications: false,
     pushNotifications: false,
     stats: {
-      todayStats: { distance: 0, duration: 0, rides: 0, goal: 0 },
+      todayStats: { distance: 0, duration: 0, goal: 0 },
       monthlyStats: { distance: 0, duration: 0, rides: 0 },
       weeklyStats: { distance: 0, duration: 0, rides: 0 },
       totalStats: { distance: 0, duration: 0, rides: 0 },
     },
   },
-};
+} satisfies { defaultValues: Profil };
 export type formContextType = {
   values: typeof formOptions.defaultValues;
 } & ReturnType<typeof useForm>;
@@ -163,17 +162,20 @@ const FormProvider = ({ children }: { children: React.ReactNode }) => {
       const darkMode = value.darkMode ?? false;
       setColorScheme(darkMode ? "dark" : "light");
 
-      const { data } = await updateProfil({
-        ...value,
-        birthday: value.birthday ? formatDate(new Date(value.birthday), "yyyy-MM-dd") : undefined,
-        name: `${value.firstName} ${value.lastName}`,
+      const data = await updateProfil({
+        path: { user: Number(value.id) },
+        body: {
+          ...value,
+          language: value.language == "fr" ? "fr" : "en",
+        } satisfies UpdateUserRequest,
       });
 
-      // reset avec les bonnes valeurs
+
       reset({
         ...data,
         darkMode: value.darkMode ?? false,
       }, { keepDefaultValues: true });
+
     },
   });
   const formState = useStore(store, (state) => state);

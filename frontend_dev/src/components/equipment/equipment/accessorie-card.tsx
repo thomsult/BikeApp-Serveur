@@ -1,11 +1,12 @@
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { useAllBikes } from "@/lib/api/equipments";
+import { useAllBikes, useComponentBike } from "@/lib/api/equipments";
 import type { Bike, ComponentBike } from "@/lib/api/equipments/bike";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import LabelBadge from "@/components/ui/label-badge";
 import { Progress } from "@/components/ui/progress";
 import { Calendar, WrenchIcon } from "lucide-react";
+import type { BikeAccessoriesContextType } from "../bike-accessories-context";
 
 const useAssignedCountBike = (componentId: string, enabled: boolean) => {
   const { data: bikes } = useAllBikes({ enabled });
@@ -22,9 +23,9 @@ const useAssignedCountBike = (componentId: string, enabled: boolean) => {
 };
 
 interface AccessoriesCardProps {
-  bike?: Partial<Bike>;
+  bike?: BikeAccessoriesContextType["bike"];
   onClick?: () => void;
-  item: ComponentBike;
+  item: ComponentBike['id'];
 }
 
 export const AccessoriesCard = ({
@@ -33,8 +34,9 @@ export const AccessoriesCard = ({
   bike,
 }: AccessoriesCardProps) => {
   const { t } = useTranslation();
-  const assignedCount = useAssignedCountBike(item.id, bike === undefined);
-
+  const assignedCount = useAssignedCountBike(item, bike === undefined);
+  const { data: component } = useComponentBike(item, { enabled: !!item });
+  console.log(component);
   return (
     <button
       className="w-full text-left"
@@ -57,15 +59,15 @@ export const AccessoriesCard = ({
             <p
               className="text-base"
             >
-              {item?.brand?.label || t("common.untitled")}
+              {component?.brand?.label || t("common.untitled")}
               <span className="text-sm font-light text-muted-foreground">
-                {" - "}{item?.model || "Modèle inconnu"}
+                {" - "}{component?.model || "Modèle inconnu"}
               </span>
             </p>
           </CardTitle>
 
           <LabelBadge
-            text={item?.type?.label || t("common.unknown_type")}
+            text={component?.type?.label || t("common.unknown_type")}
             size="small"
             type="info"
             className="mb-auto mt-1 self-start max-w-xs"
@@ -92,19 +94,19 @@ export const AccessoriesCard = ({
                   État
                 </p>
                 <p className="text-xs font-bold text-primary">
-                  {item.status}%
+                  {component?.status}%
                 </p>
               </div>
-              <Progress value={item.status} />
+              <Progress value={component?.status} />
             </div>
           )}
         </CardContent>
 
-        {item.createdAt && <CardFooter className="flex flex-row items-center gap-1 ">
+        {component?.createdAt && <CardFooter className="flex flex-row items-center gap-1 ">
 
           <Calendar size={10} />
           <p className="text-xs ">
-            {item.createdAt ? new Date(item.createdAt).toLocaleDateString() : ""}
+            {component?.createdAt ? new Date(component.createdAt).toLocaleDateString() : ""}
           </p>
         </CardFooter>}
       </Card>

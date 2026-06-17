@@ -7,6 +7,8 @@ import { useAllTypeActivities } from "@/lib/api/type-activity";
 import type { StatsCardProps } from "../ui/stats-card";
 import { useTheme } from "@/lib/theme/use-theme";
 import { BikeIcon, CalendarIcon, ChartBarIcon, ClockIcon, MapIcon, WrenchIcon, type Map } from "lucide-react";
+import type { TypeActivityResource } from "@/client";
+import { useMemo } from "react";
 
 interface UseStatsConfigProps {
   weekStats: StatsCardProps[];
@@ -22,30 +24,44 @@ export const useStatsConfig = (): UseStatsConfigProps => {
   const challenges = dataChallenges
     .filter((challenge) => !challenge.isDailyGoal)
     .sort((a, b) => {
-      const dateA = new Date(a.createdAt).getTime();
-      const dateB = new Date(b.createdAt).getTime();
+      const dateA = new Date(a.createdAt || "").getTime();
+      const dateB = new Date(b.createdAt || "").getTime();
       return dateB - dateA;
     });
-  const { data: bikes = [] } = useAllBikes();
-  const { data: equipments = [] } = useAllComponentBikes();
+  // const { data: bikes = [] } = useAllBikes();
+  // const { data: equipments = [] } = useAllComponentBikes();
   const { data: activities = [] } = useAllActivities();
   const { data: activitiesTypes = [] } = useAllTypeActivities();
-  const info = {
-    totalBikes: bikes.length,
-    totalAccessories: equipments.length,
-    nextMaintenance: activities
+  const info = useMemo(() => {
+
+    if (!activities || !activitiesTypes) {
+      return {
+        totalBikes: 0,
+        totalAccessories: 0,
+        nextMaintenance: [],
+      };
+    }
+
+    const nextMaintenance = activities
       .filter(
-        (a) =>
-          activitiesTypes.find((type) => type.id === a.type)?.family ===
-          "maintenance",
+        (a) => {
+          console.log("Activity:", a);
+        }
       )
       .map((a) => {
         const daysLeft = Math.ceil(
           (new Date(a.dt_start).getTime() - Date.now()) / (1000 * 60 * 60 * 24),
         );
         return daysLeft > 0 ? daysLeft : 0;
-      }),
-  };
+      });
+
+    return {
+      totalBikes: 0,
+      totalAccessories: 0,
+      nextMaintenance: nextMaintenance.sort((a, b) => a - b),
+    };
+  }, [activities, activitiesTypes]);
+
 
   const weekStats: StatsCardProps[] = [
     {

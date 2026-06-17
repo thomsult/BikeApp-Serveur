@@ -6,7 +6,7 @@ import { useRouter, useSearch } from "@tanstack/react-router";
 
 
 
-const useHandleDeepLink = <T extends { id?: string }>({
+const useHandleDeepLink = <T extends { id?: string | number }>({
   path,
   show,
   hide,
@@ -118,7 +118,7 @@ const useHandleDeepLink = <T extends { id?: string }>({
   }, [originalPath, params, path, router]); // ✅ show retiré des deps
 
   const navigate = useCallback(
-    (navParams?: T): void => {
+    (navParams?: { id: string }): void => {
       if (!router) return;
       const navigationParams: Record<string, string> = {
         [path]: navParams?.id || "new",

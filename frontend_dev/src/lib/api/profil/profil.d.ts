@@ -1,6 +1,7 @@
+import type { UserResource } from "@/client";
 import type { DateTimeString, UUIDString } from "../types";
 
-export interface Profil {
+export interface Profil extends UserResource {
   id: UUIDString;
   firstName: string;
   lastName: string;

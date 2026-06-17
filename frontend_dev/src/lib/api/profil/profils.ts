@@ -1,8 +1,12 @@
 import { getExtLocalLanguage } from "@/lib/i18n/utils";
 import type { Profil } from "./profil";
+import type { UserResource } from "@/client";
 
 export class UserProfil implements Profil {
-  constructor(data: Profil) {
+  constructor(data?: UserResource) {
+    if (data === undefined) {
+      return;
+    };
     Object.assign(this, data);
   }
   id!: string;

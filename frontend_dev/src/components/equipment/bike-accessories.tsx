@@ -1,39 +1,37 @@
 import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useAllBikes, useAllComponentBikes } from "@/lib/api/equipments";
-import type {
-  Bike,
-  ComponentBike,
-  ComponentBikeType,
-} from "@/lib/api/equipments/bike";
 import { Toast } from "@/lib/notification/toast-context";
 import BikeAccessoriesContext from "./bike-accessories-context";
 import { AccessoriesBikeList } from "./equipment/accessorie-bike-list";
 import { SearchAccessoriesInput } from "../ui/search-accessories-input";
 import { PlusIcon } from "lucide-react";
 import { Button } from "../ui/button";
+import type { BikeResource, ComponentsResource } from "@/client";
+import type { ComponentBikeType } from "@/lib/api/equipments/bike";
+import type { BikeModalDefaultValues } from "./bike-modal";
 
 const BikeModalAccessories = ({
   bike,
   onChange,
 }: {
-  bike?: Bike;
-  onChange?: (components: ComponentBike[]) => void;
+  bike?: BikeModalDefaultValues;
+  onChange?: (components: string[]) => void;
 }) => {
   const { t } = useTranslation();
   const [category, setCategory] = useState<ComponentBikeType["label"] | "all">(
     "all",
   );
-  const [selectedItem, setSelectedItem] = useState<ComponentBike | null>(null);
+  const [selectedItem, setSelectedItem] = useState<ComponentsResource | null>(null);
   const global = bike === undefined;
   const { data: equipments = [] } = useAllComponentBikes();
   const { data: bikes = [] } = useAllBikes();
   const bikeIsSelected = !!bike;
-  const equipmentsMap: ComponentBike[] = useMemo(() => {
+  const equipmentsMap: ComponentsResource[] = useMemo(() => {
     return [
       ...equipments
         .filter((component) =>
-          category === "all" ? true : component.type.label === category,
+          category === "all" ? true : component?.type?.label === category,
         )
         .filter((component) => {
           if (!bikeIsSelected) return true; // If no bike is selected, show all components
@@ -50,16 +48,16 @@ const BikeModalAccessories = ({
         .filter((component) => {
           if (!bikeIsSelected) return true; // If no bike is selected, show all components
           if (bike?.components?.length) {
-            return !bike.components.some((c) => c.id === component.id);
+            return !bike.components.some((c) => c === component.id);
           }
           return true;
         }),
     ];
   }, [equipments, category, bikeIsSelected, bikes, bike]);
 
-  const addBikeComponent = (component: ComponentBike | null) => {
+  const addBikeComponent = (component: ComponentsResource | null) => {
     if (!component || !bike) return;
-    if (bike.components?.find((c) => c.id === component.id)) {
+    if (bike.components?.find((c) => c === component.id)) {
       return Toast.error({
         title: t("components.accessories.existing"),
         message: t("components.accessories.existingDescription"),
@@ -74,18 +72,18 @@ const BikeModalAccessories = ({
       });
     }
 
-    onChange?.([...(bike.components || []), component]);
+    onChange?.([...(bike.components || []), component.id]);
   };
   const removeBikeComponent = (componentId: string) => {
     if (!bike || !bike.components) return;
 
-    onChange?.([...bike.components].filter((c) => c.id !== componentId));
+    onChange?.([...bike.components].filter((c) => c !== componentId));
   };
-  const updateBikeComponent = (component: ComponentBike) => {
+  const updateBikeComponent = (component: ComponentsResource) => {
     if (!bike || !bike.components) return;
 
     onChange?.(
-      bike.components.map((c) => (c.id === component.id ? component : c)),
+      bike.components.map((c) => (c === component.id ? component.id : c)),
     );
   };
 
@@ -104,6 +102,7 @@ const BikeModalAccessories = ({
 
           onSelect={(component) => {
             console.log("Selected component:", component);
+            if (!component || !component.type) return;
             setCategory(component.type.label);
             setSelectedItem(component);
           }}

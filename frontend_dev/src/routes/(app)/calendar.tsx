@@ -6,10 +6,9 @@ import { Legend } from '@/components/calendar/legend';
 import { ImageCard } from '@/components/home/image-card';
 import { useStatsConfig } from '@/components/profils/stats-config';
 import { StatsList } from '@/components/stats';
-import TitlesSection from '@/components/ui/titles-section';
 import { useAllActivities } from '@/lib/api/activity';
 import { useAllTypeActivities } from '@/lib/api/type-activity';
-import { createFileRoute, useRouter } from '@tanstack/react-router'
+import { createFileRoute } from '@tanstack/react-router'
 import { isSameDay } from 'date-fns';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';

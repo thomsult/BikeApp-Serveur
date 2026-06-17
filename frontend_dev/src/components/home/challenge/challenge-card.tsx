@@ -5,9 +5,10 @@ import { Card, CardAction, CardDescription, CardTitle } from "@/components/ui/ca
 import { Button } from "@/components/ui/button";
 import LabelBadge from "@/components/ui/label-badge";
 import { Progress } from "@/components/ui/progress";
+import type { ChallengeResource } from "@/client";
 
 interface ChallengeCardProps {
-  challenge: Challenge;
+  challenge: ChallengeResource;
   onPress?: () => void;
 }
 const ChallengeCard = ({ challenge, onPress }: ChallengeCardProps) => {

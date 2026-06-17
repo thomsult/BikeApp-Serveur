@@ -8,9 +8,6 @@ use App\Http\Controllers\ComponentsBikeController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\UploadController;
 use App\Http\Controllers\UserController;
-use App\Models\Bikes\Components\ComponentsBrand;
-use App\Models\Bikes\Components\ComponentsType;
-use App\Models\Bikes\TypeBike;
 use Illuminate\Support\Facades\Route;
 
 Route::apiResource('profile', UserController::class)->parameters(['profile' => 'user']);
@@ -21,26 +18,12 @@ Route::apiResource('activities/types', ActivityTypeController::class)
 Route::apiResource('activities', ActivityController::class)
     ->parameters(['activities' => 'activity']);
 
-Route::get('bikes/types', function () {
-    return response()->json(TypeBike::all());
-});
-Route::get('bikes/types/{typeBike}', function ($typeBike) {
-    return response()->json(TypeBike::findOrFail($typeBike));
-});
-
-Route::get('bikes/components/brands', function () {
-    return response()->json(ComponentsBrand::all());
-});
-Route::get('bikes/components/brands/{brand}', function ($brand) {
-    return response()->json(ComponentsBrand::findOrFail($brand));
-});
-
-Route::get('bikes/components/types', function () {
-    return response()->json(ComponentsType::all());
-});
-Route::get('bikes/components/types/{type}', function ($type) {
-    return response()->json(ComponentsType::findOrFail($type));
-});
+Route::get('bikes/types', [BikeController::class, 'getTypeBikeIndex']);
+Route::get('bikes/types/{typeBike}', [BikeController::class, 'getTypeBikeShow']);
+Route::get('bikes/components/brands', [ComponentsBikeController::class, 'getComponentsBrandIndex']);
+Route::get('bikes/components/brands/{brand}', [ComponentsBikeController::class, 'getComponentsBrandShow']);
+Route::get('bikes/components/types', [ComponentsBikeController::class, 'getComponentsTypeIndex']);
+Route::get('bikes/components/types/{type}', [ComponentsBikeController::class, 'getComponentsTypeShow']);
 
 Route::apiResource('bikes/components', ComponentsBikeController::class)
     ->parameters(['components' => 'component']);

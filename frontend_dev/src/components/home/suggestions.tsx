@@ -4,6 +4,7 @@ import { useAllSuggestions, useDeleteSuggestion, useUpdateSuggestion } from "@/l
 import type { AllSuggestions } from "@/lib/api/suggestions/suggestion";
 import TitlesSection from "../ui/titles-section";
 import SuggestionCard from "./suggestions/suggestion-card";
+import type { NotificationResource } from "@/client";
 
 const Suggestions = () => {
   const { t } = useTranslation();
@@ -17,9 +18,9 @@ const Suggestions = () => {
 
   useEffect(() => {
     setLocalSuggestions(suggestions.filter((s) => s.title)); // Filtrer les suggestions sans titre
-  }, [suggestions]);
+  }, []);
 
-  const handleDelete = useCallback((suggestion: AllSuggestions) => {
+  const handleDelete = useCallback((suggestion: NotificationResource) => {
     setLocalSuggestions((prev) => prev.filter((s) => s.id !== suggestion.id));
     deleteSuggestion({
       ...suggestion,
@@ -29,7 +30,7 @@ const Suggestions = () => {
     });
   }, [deleteSuggestion]);
 
-  const handleRead = useCallback((item: AllSuggestions) => updateSuggestion({
+  const handleRead = useCallback((item: NotificationResource) => updateSuggestion({
     ...item,
     readAt: new Date().toISOString(),
     option: { toast: false },
@@ -40,7 +41,7 @@ const Suggestions = () => {
     const bIsUnread = !b.readAt;
     if (aIsUnread && !bIsUnread) return -1;
     if (!aIsUnread && bIsUnread) return 1;
-    return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+    return new Date(b.createdAt || "").getTime() - new Date(a.createdAt || "").getTime();
   });
 
   const displayedSuggestions = showAll

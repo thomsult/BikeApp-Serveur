@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Enums\TypeActivityFamily;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -9,24 +10,21 @@ class TypeActivityResource extends JsonResource
 {
     public static $wrap = null;
 
-    /**
-     * @return array{
-     *   id: int,
-     *   label: string,
-     *   family: string,
-     *   color: string,
-     *   userId: int,
-     *   isDefault: bool,
-     *   createdAt: string|null,
-     *   updatedAt: string|null
-     * }
-     */
     public function toArray(Request $request): array
     {
+        $family = match ($this->family) {
+            'ride' => TypeActivityFamily::Ride,
+            'maintenance' => TypeActivityFamily::Maintenance,
+            'event' => TypeActivityFamily::Event,
+            'challenge' => TypeActivityFamily::Challenge,
+            'training' => TypeActivityFamily::Training,
+            default => TypeActivityFamily::Other,
+        };
+
         return [
             'id' => $this->id,
             'label' => $this->label,
-            'family' => $this->family,
+            'family' => $family,
             'color' => $this->color,
             'userId' => $this->user_id,
             'isDefault' => boolval($this->is_default),

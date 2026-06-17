@@ -2,12 +2,8 @@
 
 import { AxiosError } from "axios";
 import { t } from "i18next";
-import { createMutation, createQuery } from "react-query-kit";
-import { getExtLocalLanguage } from "@/lib/i18n/utils";
-// import { Toast } from "@/lib/notification/toast-context";
-// import { storage, zustandStorage } from "@/lib/storage";
 import type { UUIDString } from "../types";
-import { client, type Error, queryClient } from "./";
+import { type Error, queryClient } from "./";
 import { Toast } from "@/lib/notification/toast-context";
 
 interface CrudConfig<T> {
@@ -22,14 +18,26 @@ interface OptionalCrud {
   [key: string]: any; // Permet d'ajouter d'autres options si nécessaire
 }
 
-export class GenericCrud<T extends { id?: UUIDString }> {
+type CrudAction<T, V = OptionalCrud> = {
+  onError: (error: Error, variables: V) => void;
+  onSuccess: (
+    data: T,
+    variables: V,
+    onMutateResult?: any,
+    context?: any,
+  ) => void;
+};
+
+
+
+export class GenericCrud<Store extends { id?: UUIDString }, Update extends { id?: UUIDString }, Create, Delete> {
   private resourceName: string;
   private resourceRelatedName?: string[];
   private storagePrefix: string;
   private allowRequests = false; // Permet de désactiver les requêtes API si besoin
-  private resourceTitle?: (item: T) => string;
+  private resourceTitle?: (item: Store) => string;
 
-  constructor(config: CrudConfig<T>) {
+  constructor(config: CrudConfig<Store>) {
     this.resourceName = config.resourceName;
     this.resourceRelatedName = config.resourceRelatedName;
     this.storagePrefix = config.storagePrefix;
@@ -43,7 +51,7 @@ export class GenericCrud<T extends { id?: UUIDString }> {
   ) => {
     if (error instanceof AxiosError && error.response?.status === 422) {
       const message = (error.response?.data?.errors as Record<
-        keyof T,
+        keyof Store,
         string[]
       >) || {
         error: [error.message],
@@ -64,7 +72,7 @@ export class GenericCrud<T extends { id?: UUIDString }> {
     }
   };
 
-  private SuccessToast(action: "update" | "create" | "delete", item: T) {
+  private SuccessToast(action: "update" | "create" | "delete", item: any) {
     const title = this.resourceTitle
       ? this.resourceTitle(item)
       : `${this.resourceName} ${item.id}`;
@@ -93,163 +101,65 @@ export class GenericCrud<T extends { id?: UUIDString }> {
       }),
     });
   }
-
-  // GET single item
-  get useItem() {
-    return createMutation<T, { id: string }, Error>({
-      mutationKey: [`get${this.resourceName}`],
-      mutationFn: async ({ id }) => {
-        if (!id) throw new Error("ID is required");
-        try {
-          if (this.allowRequests) {
-            const response = await client.get(`${this.resourceName}/${id}`);
-            const apiItem = response.data as T;
-            return apiItem;
-          }
-          return null as any; // Ou une valeur par défaut si les requêtes sont désactivées
-        } catch (e) {
-          throw e;
-        }
-      },
-    });
-  }
-
-  // GET all items
-  get useAll() {
-    return createQuery<T[], void, Error>({
-      queryKey: [this.resourceName, "all"],
-      fetcher: async () => {
-        try {
-          if (this.allowRequests) {
-            const response = await client.get(`${this.resourceName}/`, {
-              headers: {
-                "Accept-Language": getExtLocalLanguage(),
-              },
-            });
-            const apiItems = response.data as T[];
-            return apiItems;
-          }
-          return null as any; // Ou une valeur par défaut si les requêtes sont désactivées
-        } catch (e) {
-          throw e;
-        }
-      },
-    });
-  }
-
-  // UPDATE item
-  get useUpdate() {
-    return createMutation<T, T & { option?: OptionalCrud }, Error>({
-      mutationKey: [`update${this.resourceName}`],
-
-      mutationFn: async (item) => {
-        if (this.allowRequests) {
-          const response = await client.put(
-            `${this.resourceName}/${item.id}`,
-            item,
-          );
-          const apiItem = response.data as T;
-          return apiItem;
-        }
-        return item;
-      },
-      onSuccess: (data, variables) => {
-        queryClient.invalidateQueries({
-          queryKey: [this.resourceName, "all"],
-        });
-        queryClient.setQueryData<T>(
-          [this.resourceName, "item", { id: data.id }],
-          data,
-        );
-        if (this.resourceRelatedName) {
-          this.resourceRelatedName.forEach((related) => {
-            queryClient.invalidateQueries({
-              queryKey: [related, "all"],
-            });
+  Update: CrudAction<Update> = {
+    onError: (error, variables) => this.showError(error, variables, "update"),
+    onSuccess: (data, variables) => {
+      queryClient.invalidateQueries({
+        queryKey: [this.resourceName, "all"],
+      });
+      queryClient.setQueryData<Update>(
+        [this.resourceName, "item", { id: data.id }],
+        data,
+      );
+      if (this.resourceRelatedName) {
+        this.resourceRelatedName.forEach((related) => {
+          queryClient.invalidateQueries({
+            queryKey: [related, "all"],
           });
-        }
-        if (variables?.option?.toast !== false) {
-          this.SuccessToast("update", data);
-        }
-      },
-      onError: (error, variables) => this.showError(error, variables, "update"),
-    });
+        });
+      }
+      if (variables?.option?.toast !== false) {
+        this.SuccessToast("update", data);
+      }
+    },
+  }
+  Create: CrudAction<Create> = {
+    onError: (error, variables) => this.showError(error, variables, "create"),
+    onSuccess: (data, variables) => {
+      queryClient.invalidateQueries({
+        queryKey: [this.resourceName, "all"],
+      });
+
+      if (this.resourceRelatedName) {
+        this.resourceRelatedName.forEach((related) => {
+          queryClient.invalidateQueries({
+            queryKey: [related, "all"],
+          });
+        });
+      }
+      if (variables?.option?.toast !== false) {
+        this.SuccessToast("create", data);
+      }
+    },
   }
 
-  // CREATE item
-  get useCreate() {
-    return createMutation<T, T & { option?: OptionalCrud }, Error>({
-      mutationKey: [`create${this.resourceName}`],
-      mutationFn: async (item) => {
-        if (this.allowRequests) {
-          const response = await client.post(`${this.resourceName}/`, item);
-          const apiItem = response.data as T;
-          return apiItem;
-        }
-        return item;
-      },
-      onSuccess: (data, variables) => {
-        // ✅ Mise à jour optimiste du cache
-        queryClient.setQueryData<T[]>([this.resourceName, "all"], (old) =>
-          old ? [data, ...old] : [data],
-        );
-        queryClient.setQueryData<T>(
-          [this.resourceName, "item", { id: data.id }],
-          data,
-        );
-        // ✅ Puis invalidation pour refetch si nécessaire
-        queryClient.invalidateQueries({
-          queryKey: [this.resourceName, "all"],
-        });
-        if (this.resourceRelatedName) {
-          this.resourceRelatedName.forEach((related) => {
-            queryClient.invalidateQueries({
-              queryKey: [related, "all"],
-            });
+  Delete: CrudAction<Delete> = {
+    onError: (error, variables) => this.showError(error, variables, "delete"),
+    onSuccess: (data, variables, onMutateResult, context) => {
+      queryClient.removeQueries({
+        queryKey: [this.resourceName, "item", { id: variables.id }],
+      });
+      if (this.resourceRelatedName) {
+        this.resourceRelatedName.forEach((related) => {
+          queryClient.invalidateQueries({
+            queryKey: [related, "all"],
           });
-        }
-        if (variables?.option?.toast !== false) {
-          this.SuccessToast("create", data);
-        }
-      },
-      onError: (error, variables) => this.showError(error, variables, "create"),
-    });
-  }
-
-  // DELETE item
-  get useDelete() {
-    return createMutation<T, T & { option?: OptionalCrud }, Error>({
-      mutationKey: [`delete${this.resourceName}`],
-      mutationFn: async (item) => {
-        if (this.allowRequests) {
-          await client.delete(`${this.resourceName}/${item.id}`);
-        }
-        return item;
-      },
-      onSuccess: (item, variables) => {
-        // ✅ Mise à jour optimiste
-        queryClient.setQueryData<T[]>([this.resourceName, "all"], (old) =>
-          old ? old.filter((i) => i.id !== item.id) : old,
-        );
-        queryClient.removeQueries({
-          queryKey: [this.resourceName, "item", item],
         });
-        // ✅ Puis invalidation
-        queryClient.invalidateQueries({
-          queryKey: [this.resourceName, "all"],
-        });
-        if (this.resourceRelatedName) {
-          this.resourceRelatedName.forEach((related) => {
-            queryClient.invalidateQueries({
-              queryKey: [related, "all"],
-            });
-          });
-        }
-        if (variables?.option?.toast !== false) {
-          this.SuccessToast("delete", item);
-        }
-      },
-      onError: (error, variables) => this.showError(error, variables, "delete"),
-    });
+      }
+      console.log("Delete success", data, variables, onMutateResult, context);
+      if (variables?.option?.toast !== false) {
+        this.SuccessToast("delete", variables);
+      }
+    },
   }
 }

@@ -17,6 +17,7 @@ import { Card } from "@/components/ui/card";
 import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { alertsConfirmation } from "@/components/alerts";
+import type { NotificationResource } from "@/client";
 
 const SUGGESTION_ICONS = {
   challenge: TrophyIcon,
@@ -57,8 +58,8 @@ const SuggestionCard = ({
   onDelete,
   onRead,
 }: {
-  suggestion: AllSuggestions;
-  onDelete: (suggestion: AllSuggestions) => void;
+  suggestion: NotificationResource;
+  onDelete: (suggestion: NotificationResource) => void;
   onRead: () => void;
 }) => {
   const { t } = useTranslation();
@@ -99,7 +100,7 @@ const SuggestionCard = ({
             {suggestion.title}
           </p>
           <div className="max-w-[80%] text-sm text-muted-foreground">
-            <MarkdownText content={suggestion.subtitle} />
+            <MarkdownText content={suggestion.subtitle || ""} />
           </div>
         </div>
 

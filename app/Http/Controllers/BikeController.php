@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CreateBikeRequest;
 use App\Http\Resources\Bikes\BikeResource;
+use App\Http\Resources\Bikes\BikeTypeResource;
 use App\Models\Bikes\Bike;
+use App\Models\Bikes\TypeBike;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\UnauthorizedException;
@@ -31,7 +33,7 @@ class BikeController extends Controller
     public function store(CreateBikeRequest $request)
     {
         $user = $request->user();
-        
+
         return DB::transaction(function () use ($request, $user) {
             $data = $request->validated();
             $bike = $user->bikes()->create($data);
@@ -109,5 +111,19 @@ class BikeController extends Controller
             'message' => 'Bike deleted successfully',
             'id' => $bike->id,
         ]);
+    }
+
+    public function getTypeBikeIndex()
+    {
+        $types = TypeBike::all();
+
+        return response()->json(BikeTypeResource::collection($types));
+    }
+
+    public function getTypeBikeShow($typeBike)
+    {
+        $type = TypeBike::findOrFail($typeBike);
+
+        return response()->json(BikeTypeResource::make($type));
     }
 }

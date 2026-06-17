@@ -15,6 +15,7 @@ class Challenge extends Model
         'description',
         'challenge_type',
         'challenge_value',
+        'progress',
         'duration_challenge',
         'is_daily_goal',
         'is_suggestion',
@@ -24,6 +25,7 @@ class Challenge extends Model
     protected $casts = [
         'is_daily_goal' => 'boolean',
         'is_suggestion' => 'boolean',
+        'progress' => 'integer',
         'completed_at' => 'datetime',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
@@ -52,6 +54,7 @@ class Challenge extends Model
                 'description' => '',
                 'challenge_type' => 'distance',
                 'challenge_value' => 5,
+                'progress' => 0,
                 'duration_challenge' => 1,
                 'is_daily_goal' => true,
                 'is_suggestion' => false,

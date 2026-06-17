@@ -1,23 +1,27 @@
 import { t } from "i18next";
-import { createMutation, createQuery } from "react-query-kit";
-import { changeLanguage, useSelectedLanguage } from "@/lib/i18n/language-context";
-import { client, queryClient } from "../common";
+import { changeLanguage } from "@/lib/i18n/language-context";
+import { queryClient } from "../common";
 import type { Profil } from "./profil";
 import { UserProfil } from "./profils";
-import { auth } from "@/lib/firebase/config";
 import { Toast } from "@/lib/notification/toast-context";
-import { setExtLocalLanguage } from "@/lib/i18n/utils";
-import i18n from "@/lib/i18n";
+import { type ProfileUpdateData, type ProfileUpdateError } from "@/client";
+import { profileIndexOptions, profileIndexQueryKey, profileUpdateMutation } from "@/client/@tanstack/react-query.gen";
+import { useQuery, useMutation, type UseQueryResult } from "@tanstack/react-query";
+import type { AxiosError } from "axios";
+import type { Options } from "@/client/client";
 
 const SuccessToast = (
   action: "update" | "create" | "delete",
   changedFields: string[],
 ) => {
   const title = "Votre profil";
-
-  const field = changedFields
-    .filter((f) => f !== "updatedAt" && f !== "createdAt")
-    .filter((f) => f !== "stats" && f !== "darkMode") // Exclude stats, darkMode, and language from the field list
+  const excludedFields = ["updatedAt", "createdAt", "stats", "language", "darkMode", "offlineMode", "name"];
+  const filteredFields = changedFields.filter(
+    (field) => !excludedFields.includes(field),
+  );
+  const uniqueFields = Array.from(new Set(filteredFields));
+  const fieldCount = uniqueFields.length;
+  const field = uniqueFields
     .map((field) =>
       t(`app.profil.fields.${field}`, {
         defaultValue: t(`common.fields.${field}`, {
@@ -25,7 +29,6 @@ const SuccessToast = (
         }),
       }),
     );
-  const fieldCount = field.length;
   Toast.success({
     title: t("toast.successTitle", {
       resource: title,
@@ -78,72 +81,56 @@ const getChangedFields = <T extends object>(
   );
 };
 
-// Export des hooks
-export const useMyProfil = createQuery<Profil, Error>({
-  queryKey: ["profile", "item"],
-  staleTime: 0,
-  fetcher: async () => {
-    const id = auth.currentUser?.uid;
-    if (!id) {
-      throw new Error("User not authenticated");
+export const useMyProfil = (): UseQueryResult<UserProfil, Error> => {
+  return useQuery({
+    ...profileIndexOptions(),
+    select: (data) => {
+      if (!data) {
+        throw new Error("No profile data returned from server");
+      }
+      return new UserProfil(data);
     }
-    try {
-      const response = await client.get(`profile`);
-      const apiItem = new UserProfil({
-        ...response.data,
-      } as Profil);
-      i18n.changeLanguage(apiItem.language, (err) => {
-        if (err) {
-          console.error("Error changing language:", err);
-        }
-      });
-      return apiItem;
-    } catch (e) {
-      throw e;
-    }
-  },
-});
+  });
+};
 
-export const useUpdateMyProfil = createMutation<
-  { data: Profil; changedFields: string[] },
-  Partial<Profil>,
-  Error
->({
-  mutationFn: async (item) => {
-    if (!item.id) {
-      throw new Error("Profil id is required for update");
-    }
-    const oldData = queryClient.getQueryData<Profil>(["profile", "item"]);
-    if (item.language) {
-      changeLanguage(item.language);
-    }
+export const useUpdateMyProfil = () => {
+  const { mutationFn } = profileUpdateMutation();
 
-    try {
-      const response = await client.put(`profile/${item.id}`, item);
-      const apiItem = new UserProfil(response.data as Profil);
+  return useMutation<
+    UserProfil,
+    AxiosError<ProfileUpdateError>,
+    Options<ProfileUpdateData>
+  >({
+    mutationFn: async (variables, context) => {
+      const response = await mutationFn!(variables, context);
+      return new UserProfil(response);
+    },
 
-      const changedFields = getChangedFields(oldData as Profil, item).filter(
+    onSuccess: (apiItem, variable) => {
+
+      if (apiItem.language) {
+        changeLanguage(apiItem.language);
+      }
+
+      const oldData = queryClient.getQueryData<Profil>(profileIndexQueryKey());
+      if (!oldData || !variable.body) {
+        console.warn("No old profile data found in cache. Cannot determine changed fields.");
+        return;
+      }
+      const changedFields = getChangedFields(oldData, variable.body as Partial<Profil>).filter(
         (field) => field !== "updatedAt" && field !== "createdAt" && field !== "stats" && field !== "language" && field !== "darkMode" && field !== "offlineMode" && field !== "name", // Exclude stats, updatedAt, createdAt, language, darkMode, and offlineMode from the changed fields list
       );
-      console.log("Changed fields:", changedFields);
 
-      return { data: apiItem, changedFields: changedFields };
-    } catch {
-      throw new Error("Failed to update profile and no local profile found");
-    }
-  },
-  onSuccess: ({ data, changedFields }) => {
-    queryClient.invalidateQueries({
-      queryKey: ["profile", "all"],
-    });
-    queryClient.setQueryData<Profil>(
-      ["profile", "item", { id: data.id }],
-      data,
-    );
-    SuccessToast("update", changedFields);
-  },
-  onError: (error) => {
-    ErrorToast("update", error);
-  },
-  mutationKey: ["profile", "update"],
-});
+      queryClient.setQueryData<Profil>(
+        ["profile", "item", { id: apiItem.id }],
+        apiItem,
+      );
+      console.log("Updated profile data in cache:", changedFields);
+      SuccessToast("update", changedFields);
+
+    },
+    onError: (error) => {
+      ErrorToast("update", error);
+    },
+  });
+};

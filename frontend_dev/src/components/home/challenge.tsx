@@ -6,14 +6,15 @@ import TitlesSection from "../ui/titles-section";
 import { ChallengeCard, CreateChallengeCard, EmptyState } from "./challenge/challenge-card";
 import { ChallengeModal } from "./challenge/challenge-modal";
 import useHandleDeepLink from "@/lib/hooks/use-handle-deep-link";
+import type { ChallengeResource } from "@/client";
 
 
 const MAX_CHALLENGES = 3;
 
-const Challenges: React.FC<{ challenges: Challenge[] }> = ({ challenges }) => {
+const Challenges: React.FC<{ challenges: ChallengeResource[] }> = ({ challenges }) => {
   const { t } = useTranslation();
-  const [showModal, setShowModal] = useState<Challenge | null>(null);
-  const { navigate, resetNavigate } = useHandleDeepLink<Challenge>({
+  const [showModal, setShowModal] = useState<ChallengeResource | null>(null);
+  const { navigate, resetNavigate } = useHandleDeepLink<ChallengeResource>({
     originalPath: "",
     path: "challenge-modal",
     show: (showParams) => {
@@ -21,7 +22,7 @@ const Challenges: React.FC<{ challenges: Challenge[] }> = ({ challenges }) => {
         showParams["challenge-modal"] = undefined;
         setShowModal({
           ...showParams,
-        } as Challenge);
+        } as ChallengeResource);
       } else {
         setShowModal(
           (challenges?.find(
@@ -43,8 +44,8 @@ const Challenges: React.FC<{ challenges: Challenge[] }> = ({ challenges }) => {
   const filteredChallenges = challenges
     .filter((challenge) => !challenge.isDailyGoal)
     .sort((a, b) => {
-      const dateA = new Date(a.createdAt).getTime();
-      const dateB = new Date(b.createdAt).getTime();
+      const dateA = new Date(a.createdAt || "").getTime();
+      const dateB = new Date(b.createdAt || "").getTime();
       return dateB - dateA;
     });
   const displayedChallenges = showAll
@@ -68,16 +69,15 @@ const Challenges: React.FC<{ challenges: Challenge[] }> = ({ challenges }) => {
       {
         filteredChallenges.length === 0 && (
           <EmptyState onPress={() => {
-            setShowModal({ id: "new" } as Challenge);
+            setShowModal({} as ChallengeResource);
           }} />
         )
       }
-      <div className="flex flex-col gap-2  overflow-x-scroll scroll-auto px-1">
+      {displayedChallenges.length > 0 && <div className="flex flex-col gap-2  overflow-x-scroll scroll-auto px-1">
         <div className="flex w-fit gap-4 py-1 "
 
         >
           {displayedChallenges.map((challenge) => (
-
             <ChallengeCard
               key={challenge.id}
               challenge={challenge}
@@ -86,15 +86,14 @@ const Challenges: React.FC<{ challenges: Challenge[] }> = ({ challenges }) => {
               }}
             />
           ))}
-
           {filteredChallenges.length > 0 && <CreateChallengeCard
             onPress={() => {
-              navigate({ id: "new" } as Challenge);
+              setShowModal({} as ChallengeResource);
             }}
           />}
-
         </div>
-      </div>
+      </div>}
+
     </div>
     {showModal && <ChallengeModal
       showModal={showModal}

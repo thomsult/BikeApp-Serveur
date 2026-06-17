@@ -7,7 +7,35 @@ export type ClientOptions = {
 /**
  * ActivityResource
  */
-export type ActivityResource = Array<unknown>;
+export type ActivityResource = {
+    id: number;
+    title: string;
+    description: string;
+    type: TypeActivityResource;
+    typeFamily: TypeActivityFamily;
+    dt_start: string;
+    dt_end: string;
+    notes: string;
+    completedAt: string | null;
+    createdAt: string | null;
+    updatedAt: string | null;
+    recurrence: {
+        frequency: string | null;
+        interval: number | null;
+    };
+    shareUrl: string;
+    distance?: number | null;
+    duration?: number | null;
+    avgSpeed?: number | null;
+    maxSpeed?: number | null;
+    waypoints?: Array<unknown> | null;
+    startedAt?: string | null;
+    stoppedAt?: string | null;
+    trainingType?: 'interval' | 'endurance' | 'tempo' | 'recovery' | null;
+    maintenanceType?: string | null;
+    bike?: BikeResource | null;
+    component?: ComponentsResource | null;
+};
 
 /**
  * BikeComponentsRequest
@@ -27,36 +55,51 @@ export type BikeComponentsRequest = {
 export type BikeResource = {
     id: string;
     name: string;
-    preferred: string;
-    status: string;
+    preferred: boolean;
+    status: number;
     image: string;
-    type: {
-        id: number;
-        label: string;
-        createdAt: string | null;
-        updatedAt: string | null;
-    } | Array<string> | null;
-    stats: {
-        id: number;
-        distance: number;
-        rides: number;
-        lastService: string | null;
-        service: {
-            id: number;
-            method: string;
-            intervalDistance: number | null;
-            intervalTime: number | null;
-            intervalRides: number | null;
-            manualNote: string | null;
-            createdAt: string | null;
-            updatedAt: string | null;
-        } | Array<string>;
-        createdAt: string | null;
-        updatedAt: string | null;
-    } | Array<string> | null;
+    type: BikeTypeResource | null;
+    stats: BikeStatsResource | null;
     components: Array<ComponentsResource> | null;
     createdAt: string | null;
     updatedAt: string | null;
+};
+
+/**
+ * BikeServiceResource
+ */
+export type BikeServiceResource = {
+    id: string;
+    method: string;
+    intervalDistance: string;
+    intervalTime: string;
+    intervalRides: string;
+    manualNote: string;
+    createdAt: string;
+    updatedAt: string;
+};
+
+/**
+ * BikeStatsResource
+ */
+export type BikeStatsResource = {
+    id: string;
+    distance: string;
+    rides: string;
+    lastService: string;
+    service: BikeServiceResource | null;
+    createdAt: string;
+    updatedAt: string;
+};
+
+/**
+ * BikeTypeResource
+ */
+export type BikeTypeResource = {
+    id: string;
+    label: string;
+    createdAt: string;
+    updatedAt: string;
 };
 
 /**
@@ -83,6 +126,7 @@ export type ChallengeResource = {
     description: string | null;
     challengeType: string;
     challengeValue: number;
+    progress: number;
     durationChallenge: number;
     isDailyGoal: boolean;
     isSuggestion: boolean;
@@ -181,27 +225,42 @@ export type NotificationResource = {
 };
 
 /**
+ * StatsItemResource
+ */
+export type StatsItemResource = {
+    distance: string | number;
+    duration: string | 0;
+    rides: string | 0;
+    goal: string | null;
+};
+
+/**
+ * StatsResource
+ */
+export type StatsResource = {
+    todayStats: StatsItemResource;
+    weeklyStats: StatsItemResource;
+    monthlyStats: StatsItemResource;
+    totalStats: StatsItemResource;
+};
+
+/**
+ * TypeActivityFamily
+ */
+export type TypeActivityFamily = 'ride' | 'maintenance' | 'event' | 'challenge' | 'training' | 'other';
+
+/**
  * TypeActivityResource
  */
 export type TypeActivityResource = {
     id: string;
     label: string;
-    family: string;
+    family: TypeActivityFamily;
     color: string;
     userId: string;
     isDefault: boolean;
     createdAt: string | null;
     updatedAt: string | null;
-};
-
-/**
- * TypeBike
- */
-export type TypeBike = {
-    id: number;
-    label: string;
-    created_at: string | null;
-    updated_at: string | null;
 };
 
 /**
@@ -249,10 +308,6 @@ export type UpdateUserRequest = {
 export type UserResource = {
     id: number;
     username: string;
-    /**
-     * "address" => $this->address ?? "",
-     * "location" => $this->location ?? "",
-     */
     birthday: string | null;
     firstConnected: string | null;
     name: string | '';
@@ -265,99 +320,13 @@ export type UserResource = {
     website: string;
     language: string;
     offlineMode: boolean | '';
-    stats: string;
+    stats: StatsResource;
     createdAt: string | null;
     updatedAt: string | null;
-    ''?: {
-        notifications: boolean;
-        emailNotifications: boolean;
-        pushNotifications: boolean;
-    };
+    notifications: boolean;
+    emailNotifications: boolean;
+    pushNotifications: boolean;
 };
-
-export type GetApiBikesTypesData = {
-    body?: never;
-    path?: never;
-    query?: never;
-    url: '/api/bikes/types';
-};
-
-export type GetApiBikesTypesResponses = {
-    200: Array<TypeBike>;
-};
-
-export type GetApiBikesTypesResponse = GetApiBikesTypesResponses[keyof GetApiBikesTypesResponses];
-
-export type GetApiBikesTypesByTypeBikeData = {
-    body?: never;
-    path: {
-        typeBike: string;
-    };
-    query?: never;
-    url: '/api/bikes/types/{typeBike}';
-};
-
-export type GetApiBikesTypesByTypeBikeResponses = {
-    200: string;
-};
-
-export type GetApiBikesTypesByTypeBikeResponse = GetApiBikesTypesByTypeBikeResponses[keyof GetApiBikesTypesByTypeBikeResponses];
-
-export type GetApiBikesComponentsBrandsData = {
-    body?: never;
-    path?: never;
-    query?: never;
-    url: '/api/bikes/components/brands';
-};
-
-export type GetApiBikesComponentsBrandsResponses = {
-    200: Array<ComponentsBrand>;
-};
-
-export type GetApiBikesComponentsBrandsResponse = GetApiBikesComponentsBrandsResponses[keyof GetApiBikesComponentsBrandsResponses];
-
-export type GetApiBikesComponentsBrandsByBrandData = {
-    body?: never;
-    path: {
-        brand: string;
-    };
-    query?: never;
-    url: '/api/bikes/components/brands/{brand}';
-};
-
-export type GetApiBikesComponentsBrandsByBrandResponses = {
-    200: string;
-};
-
-export type GetApiBikesComponentsBrandsByBrandResponse = GetApiBikesComponentsBrandsByBrandResponses[keyof GetApiBikesComponentsBrandsByBrandResponses];
-
-export type GetApiBikesComponentsTypesData = {
-    body?: never;
-    path?: never;
-    query?: never;
-    url: '/api/bikes/components/types';
-};
-
-export type GetApiBikesComponentsTypesResponses = {
-    200: Array<ComponentsType>;
-};
-
-export type GetApiBikesComponentsTypesResponse = GetApiBikesComponentsTypesResponses[keyof GetApiBikesComponentsTypesResponses];
-
-export type GetApiBikesComponentsTypesByTypeData = {
-    body?: never;
-    path: {
-        type: string;
-    };
-    query?: never;
-    url: '/api/bikes/components/types/{type}';
-};
-
-export type GetApiBikesComponentsTypesByTypeResponses = {
-    200: string;
-};
-
-export type GetApiBikesComponentsTypesByTypeResponse = GetApiBikesComponentsTypesByTypeResponses[keyof GetApiBikesComponentsTypesByTypeResponses];
 
 export type GetUpData = {
     body?: never;
@@ -637,9 +606,10 @@ export type ActivitiesDestroyErrors = {
 export type ActivitiesDestroyError = ActivitiesDestroyErrors[keyof ActivitiesDestroyErrors];
 
 export type ActivitiesDestroyResponses = {
-    200: {
-        message: string;
-    };
+    /**
+     * No content
+     */
+    204: void;
 };
 
 export type ActivitiesDestroyResponse = ActivitiesDestroyResponses[keyof ActivitiesDestroyResponses];
@@ -872,6 +842,40 @@ export type TypesStoreResponses = {
 
 export type TypesStoreResponse = TypesStoreResponses[keyof TypesStoreResponses];
 
+export type TypesDestroyData = {
+    body?: never;
+    path: {
+        /**
+         * The type activity ID
+         */
+        typeActivity: number;
+    };
+    query?: never;
+    url: '/api/activities/types/{typeActivity}';
+};
+
+export type TypesDestroyErrors = {
+    /**
+     * Not found
+     */
+    404: {
+        /**
+         * Error overview.
+         */
+        message: string;
+    };
+};
+
+export type TypesDestroyError = TypesDestroyErrors[keyof TypesDestroyErrors];
+
+export type TypesDestroyResponses = {
+    200: {
+        message: 'Activity type deleted';
+    };
+};
+
+export type TypesDestroyResponse = TypesDestroyResponses[keyof TypesDestroyResponses];
+
 export type TypesShowData = {
     body?: never;
     path: {
@@ -961,22 +965,39 @@ export type TypesUpdateResponses = {
 
 export type TypesUpdateResponse = TypesUpdateResponses[keyof TypesUpdateResponses];
 
-export type TypesDestroyData = {
+export type BikeGetTypeBikeIndexData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/api/bikes/types';
+};
+
+export type BikeGetTypeBikeIndexResponses = {
+    /**
+     * Array of `BikeTypeResource`
+     */
+    200: Array<BikeTypeResource>;
+};
+
+export type BikeGetTypeBikeIndexResponse = BikeGetTypeBikeIndexResponses[keyof BikeGetTypeBikeIndexResponses];
+
+export type BikeGetTypeBikeShowData = {
     body?: never;
     path: {
-        id: string;
+        typeBike: string;
     };
     query?: never;
-    url: '/api/activities/types/{id}';
+    url: '/api/bikes/types/{typeBike}';
 };
 
-export type TypesDestroyResponses = {
-    200: {
-        message: 'Activity type deleted';
-    };
+export type BikeGetTypeBikeShowResponses = {
+    /**
+     * `BikeTypeResource`
+     */
+    200: BikeTypeResource;
 };
 
-export type TypesDestroyResponse = TypesDestroyResponses[keyof TypesDestroyResponses];
+export type BikeGetTypeBikeShowResponse = BikeGetTypeBikeShowResponses[keyof BikeGetTypeBikeShowResponses];
 
 export type BikesIndexData = {
     body?: never;
@@ -1322,6 +1343,62 @@ export type ChallengesUpdateResponses = {
 
 export type ChallengesUpdateResponse = ChallengesUpdateResponses[keyof ChallengesUpdateResponses];
 
+export type ComponentsBikeGetComponentsBrandIndexData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/api/bikes/components/brands';
+};
+
+export type ComponentsBikeGetComponentsBrandIndexResponses = {
+    200: Array<ComponentsBrand>;
+};
+
+export type ComponentsBikeGetComponentsBrandIndexResponse = ComponentsBikeGetComponentsBrandIndexResponses[keyof ComponentsBikeGetComponentsBrandIndexResponses];
+
+export type ComponentsBikeGetComponentsBrandShowData = {
+    body?: never;
+    path: {
+        brand: string;
+    };
+    query?: never;
+    url: '/api/bikes/components/brands/{brand}';
+};
+
+export type ComponentsBikeGetComponentsBrandShowResponses = {
+    200: string;
+};
+
+export type ComponentsBikeGetComponentsBrandShowResponse = ComponentsBikeGetComponentsBrandShowResponses[keyof ComponentsBikeGetComponentsBrandShowResponses];
+
+export type ComponentsBikeGetComponentsTypeIndexData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/api/bikes/components/types';
+};
+
+export type ComponentsBikeGetComponentsTypeIndexResponses = {
+    200: Array<ComponentsType>;
+};
+
+export type ComponentsBikeGetComponentsTypeIndexResponse = ComponentsBikeGetComponentsTypeIndexResponses[keyof ComponentsBikeGetComponentsTypeIndexResponses];
+
+export type ComponentsBikeGetComponentsTypeShowData = {
+    body?: never;
+    path: {
+        type: string;
+    };
+    query?: never;
+    url: '/api/bikes/components/types/{type}';
+};
+
+export type ComponentsBikeGetComponentsTypeShowResponses = {
+    200: string;
+};
+
+export type ComponentsBikeGetComponentsTypeShowResponse = ComponentsBikeGetComponentsTypeShowResponses[keyof ComponentsBikeGetComponentsTypeShowResponses];
+
 export type ComponentsIndexData = {
     body?: never;
     path?: never;
@@ -1452,9 +1529,10 @@ export type ComponentsShowErrors = {
 export type ComponentsShowError = ComponentsShowErrors[keyof ComponentsShowErrors];
 
 export type ComponentsShowResponses = {
-    200: [
-        ComponentsResource
-    ];
+    /**
+     * `ComponentsResource`
+     */
+    200: ComponentsResource;
 };
 
 export type ComponentsShowResponse = ComponentsShowResponses[keyof ComponentsShowResponses];

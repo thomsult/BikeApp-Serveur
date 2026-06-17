@@ -6,6 +6,7 @@ import { CheckCircle2, CheckIcon, Circle } from "lucide-react";
 import { format } from "date-fns";
 import type { Bike } from "@/lib/api/equipments/bike";
 import { useCallback } from "react";
+import { useSelector } from "@tanstack/react-store";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 const ServiceMethodValues = {
@@ -195,8 +196,8 @@ export const StatsBikeModal = ({
 }) => {
   const { t } = useTranslation();
   const { setFieldValue, Field } = form;
-  const formState = useStore(form.store, (state) => state.values) as Partial<Bike> & { stats: BikeStats };
-  const error = useStore(form.store, (state) => state.errors);
+  const formState = useSelector(form.store, (state) => state.values) as Partial<Bike> & { stats: BikeStats };
+  const error = useSelector(form.store, (state) => state.errors);
   const serviceMethod = formState.stats?.service?.method ?? ServiceMethodValues.manual;
 
   const updateStats = useCallback((updates: Partial<BikeStats>) => {
